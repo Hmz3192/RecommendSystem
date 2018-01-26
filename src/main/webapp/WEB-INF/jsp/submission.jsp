@@ -398,8 +398,8 @@
 <div class="placeholder"></div>
 
 <%--编辑器--%>
-<div class="container" id="index" style="width: 1670px!important;margin-left: 300px;">
-    <div class="wrap-left pull-left">
+<div class="container" id="index" style="width: 95%!important;margin: 0px auto">
+    <div class="wrap-left pull-left" style="margin-left: 13%;width: 55%;">
         <div class="row-fluid">
             <div class="block">
                 <div class="navbar navbar-inner block-header">
@@ -490,7 +490,7 @@
             </div>
         </div>
     </div>
-    <div class="wrap-right pull-right" style="width: 510px;float: left!important;margin-left: 20px;">
+    <div class="wrap-right pull-right" style="width: 20%;float: left!important;margin-left:1%;">
         <div class="right-ad-box"></div>
         <link rel="stylesheet" type="text/css" href="https://static.huxiucdn.com/www/css/moment.css">
         <div id="moment"></div>
@@ -521,11 +521,6 @@
 
 <%--页脚--%>
 <%@include file="footer.jsp" %>
-<link rel="stylesheet" href="${path}/resource/css/tinyImgUpload.css">
-<script type="text/javascript" src="${path}/resource/js/tinyImgUpload.js"></script>
-<script type="text/javascript" src="${path}/resource/js/mouse.js"></script>
-<script type="text/javascript" src="${path}/resource/js/bootstrap-tagsinput.js"></script>
-<script language="javascript" type="text/javascript" src="${path}/resource/webUpload/easyUpload.js"></script>
 <%--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>--%>
 <script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
 <script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>
@@ -534,6 +529,15 @@
 <script charset="utf-8" src="${path}/resource/kindEditor/lang/zh-CN.js"></script>
 <script charset="utf-8" src="${path}/resource/kindEditor/plugins/code/prettify.js"></script>
 <script type="text/javascript" src="${path}/resource/kindEditor/plugins/jwplayer/jwplayer.js"></script>
+<%--自定义的选择图片--%>
+<link rel="stylesheet" href="${path}/resource/css/tinyImgUpload.css">
+<script type="text/javascript" src="${path}/resource/js/tinyImgUpload.js"></script>
+<%--鼠标滑动--%>
+<script type="text/javascript" src="${path}/resource/js/mouse.js"></script>
+<%--tag标签--%>
+<script type="text/javascript" src="${path}/resource/js/bootstrap-tagsinput.js"></script>
+<script language="javascript" type="text/javascript" src="${path}/resource/webUpload/easyUpload.js"></script>
+
 <script>
     $('#easyContainer').easyUpload({
         allowFileTypes: '*.jpg;*.doc;*.pdf',//允许上传文件类型，格式';*.doc;*.pdf'
