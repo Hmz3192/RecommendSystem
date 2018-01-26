@@ -28,29 +28,23 @@
     <link href="${path}/resource/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
     <link href="${path}/resource/css/styles.css" rel="stylesheet" media="screen">
 
-
     <link rel="stylesheet" type="text/css" href="${path}/resource/css/build.css">
     <link rel="stylesheet" type="text/css" href="${path}/resource/css/activity.css">
 
     <link href="${path}/resource/css/login.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/zzsc.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/dlzc.css" rel="stylesheet" type="text/css"/>
+    <%--webUpload--%>
+    <link rel="stylesheet" href="${path}/resource/webUpload/easy-upload.css">
 
-
-    <%--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>--%>
-    <script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
-    <script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>
+<%--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>--%>
     <link rel="stylesheet" type="text/css" href="${path}/resource/css/nanoscroller.css">
     <%--kindEditor--%>
     <link rel="stylesheet" href="${path}/resource/kindEditor/themes/default/default.css"/>
     <link rel="stylesheet" href="${path}/resource/kindEditor/plugins/code/prettify.css"/>
-    <script charset="utf-8" src="${path}/resource/kindEditor/kindeditor-all.js"></script>
-    <script charset="utf-8" src="${path}/resource/kindEditor/lang/zh-CN.js"></script>
-    <script charset="utf-8" src="${path}/resource/kindEditor/plugins/code/prettify.js"></script>
-    <script type="text/javascript" src="${path}/resource/kindEditor/plugins/jwplayer/jwplayer.js"></script>
+
+
     <script type="text/javascript" src="${path}/resource/js/jquery.js"></script>
-
-
     <style>
         .row-fluid {
             width: 100%;
@@ -208,12 +202,16 @@
             position:relative;
             top:1px;
         }
-
+        #picker {
+            display: inline-block;
+            line-height: 1.428571429;
+            vertical-align: middle;
+            margin: 0 12px 0 0;
+        }
 
 
     </style>
     <script>
-
         $(function () {
             var editor1;
             $('input[data-role="tagsinput"]').tagsinput({
@@ -388,9 +386,8 @@
                         }
                     })
                 }
-
-
             });
+
         })
 
     </script>
@@ -398,11 +395,11 @@
 
 <body>
 <%@include file="header.jsp" %>
+<div class="placeholder"></div>
 
 <%--编辑器--%>
-<div class="container" id="index">
+<div class="container" id="index" style="width: 1670px!important;margin-left: 300px;">
     <div class="wrap-left pull-left">
-
         <div class="row-fluid">
             <div class="block">
                 <div class="navbar navbar-inner block-header">
@@ -483,7 +480,7 @@
                             <%--<input type="submit" name="button" value="提交内容"/> (提交快捷键: Ctrl + Enter)--%>
                             <br>
                             <fieldset>
-                            <input type="submit"  class="myButton"  value="发布" />
+                            <%--<input type="submit"  class="myButton"  value="发布" />--%>
                             <input type="button"  class="myButton" value="保存" name="getHtml"/>
                             </fieldset>
                         </form>
@@ -493,8 +490,23 @@
             </div>
         </div>
     </div>
-
-
+    <div class="wrap-right pull-right" style="width: 510px;float: left!important;margin-left: 20px;">
+        <div class="right-ad-box"></div>
+        <link rel="stylesheet" type="text/css" href="https://static.huxiucdn.com/www/css/moment.css">
+        <div id="moment"></div>
+        <div class="box-moder moder-story-list">
+            <h3>上传附件</h3>
+            <span class="span-mark"></span>
+            <div class="story-box-warp hour-box-warp">
+                <div class="nano">
+                    <div class="overthrow nano-content description" tabindex="0">
+                        <div id="easyContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="placeholder"></div>
+    </div>
     <%!
         private String htmlspecialchars(String str) {
             str = str.replaceAll("&", "&amp;");
@@ -504,131 +516,51 @@
             return str;
         }
     %>
-    <div class="wrap-right pull-right">
-        <div class="right-ad-box"></div>
-        <link rel="stylesheet" type="text/css" href="https://static.huxiucdn.com/www/css/moment.css">
-        <div id="moment"></div>
-        <div class="box-moder moder-story-list">
-            <h3>24小时</h3>
-            <span class="pull-right project-more story-more"><a href="#"
-                                                                class="transition index-24-right js-index-24-right"
-                                                                target="_blank">查看全部</a></span>
-            <span class="span-mark"></span>
-            <div class="story-box-warp hour-box-warp">
-                <div class="nano">
-                    <div class="overthrow nano-content description" tabindex="0">
-                        <ul class="box-list mt-box-list">
-                            <!--公共24小时列表部分-->
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。<a
-                                                    href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。
-                                                <a href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp] </a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。
-                                                <a href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="nano-pane">
-                        <div class="nano-slider" style="height: 179px; transform: translate(0px, 0px);"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="js-more-moment" data-cur_page="0"></div>
-        </div>
-        <div class="placeholder"></div>
-        <!--24小时部分结束1-->
-        <div class="ad-wrap">
-            <div class="ad-title">广告</div>
-        </div>
-        <div class="placeholder"></div>
-
-    </div>
-
 </div>
 <div class="placeholder"></div>
+
 <%--页脚--%>
 <%@include file="footer.jsp" %>
 <link rel="stylesheet" href="${path}/resource/css/tinyImgUpload.css">
 <script type="text/javascript" src="${path}/resource/js/tinyImgUpload.js"></script>
 <script type="text/javascript" src="${path}/resource/js/mouse.js"></script>
 <script type="text/javascript" src="${path}/resource/js/bootstrap-tagsinput.js"></script>
+<script language="javascript" type="text/javascript" src="${path}/resource/webUpload/easyUpload.js"></script>
+<%--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>--%>
+<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
+<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>
+<%--kindEditor--%>
+<script charset="utf-8" src="${path}/resource/kindEditor/kindeditor-all.js"></script>
+<script charset="utf-8" src="${path}/resource/kindEditor/lang/zh-CN.js"></script>
+<script charset="utf-8" src="${path}/resource/kindEditor/plugins/code/prettify.js"></script>
+<script type="text/javascript" src="${path}/resource/kindEditor/plugins/jwplayer/jwplayer.js"></script>
+<script>
+    $('#easyContainer').easyUpload({
+        allowFileTypes: '*.jpg;*.doc;*.pdf',//允许上传文件类型，格式';*.doc;*.pdf'
+        allowFileSize: 100000,//允许上传文件大小(KB)
+        selectText: '选择文件',//选择文件按钮文案
+        multi: true,//是否允许多文件上传
+        multiNum: 5,//多文件上传时允许的文件数
+        showNote: true,//是否展示文件上传说明
+        note: '提示：最多上传5个文件，支持格式为doc、pdf、jpg',//文件上传说明
+        showPreview: true,//是否显示文件预览
+        url: '/api/file/upload',//上传文件地址
+        fileName: 'file',//文件filename配置参数
+        formParam: {
+        },//文件filename以外的配置参数，格式：{key1:value1,key2:value2}
+        timeout: 30000,//请求超时时间
+        okCode: 200,//与后端返回数据code值一致时执行成功回调，不配置默认200
+        successFunc: function(res) {
+            console.log('成功回调', res);
+        },//上传成功回调函数
+        errorFunc: function(res) {
+            console.log('失败回调', res);
+        },//上传失败回调函数
+        deleteFunc: function(res) {
+            console.log('删除回调', res);
+        }//删除文件回调函数
+    });
+</script>
 <script type='text/javascript'>
     //非视频，不加载播放器
     if (document.getElementById('player') != null) {
@@ -638,7 +570,7 @@
         });
         //jwplayer('player').play(); //自动播放？
     }
-
+    /*uploadPic*/
     document.documentElement.style.fontSize = document.documentElement.clientWidth*0.1+'px';
 
     var options = {
@@ -652,6 +584,10 @@
     }
 
     var upload = tinyImgUpload('#upload', options);
+
+
+
 </script>
+
 </body>
 </html>
