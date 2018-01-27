@@ -47,12 +47,21 @@ public class ArticleKindImpl implements ArticleKindService {
     }
 
     @Override
-    public List<ArticleKind> getPCKind(Integer Pid, Integer Cid) {
-        ArticleKind articleKind = articleKindMapper.selectByPrimaryKey(Pid);
-        ArticleKind articleKind1 = articleKindMapper.selectByPrimaryKey(Cid);
+    public List<ArticleKind> getPCKind(String pKindName,String cKindName) {
+        ArticleKindExample example1 = new ArticleKindExample();
+        ArticleKindExample.Criteria criteria1 = example1.createCriteria();
+        criteria1.andKindNameEqualTo(pKindName);
+        List<ArticleKind> articlePKind = articleKindMapper.selectByExample(example1);
+
+
+        ArticleKindExample example2 = new ArticleKindExample();
+        ArticleKindExample.Criteria criteria2 = example2.createCriteria();
+        criteria2.andKindNameEqualTo(cKindName);
+        List<ArticleKind> articleCKind = articleKindMapper.selectByExample(example2);
+
         List<ArticleKind> articleKinds = new ArrayList<ArticleKind>();
-        articleKinds.add(articleKind);
-        articleKinds.add(articleKind1);
+        articleKinds.add(articlePKind.get(0));
+        articleKinds.add(articleCKind.get(0));
         return articleKinds;
     }
 

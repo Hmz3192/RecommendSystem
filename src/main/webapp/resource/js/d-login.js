@@ -12,7 +12,6 @@ var sm=document.getElementById('sm');
 
 
 //实现登录方式的切换
-
 saoma.onclick=function(){
 	rc.style.display="none";
 	sm.style.display="block";

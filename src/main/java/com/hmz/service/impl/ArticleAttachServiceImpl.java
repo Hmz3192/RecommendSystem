@@ -35,7 +35,7 @@ public class ArticleAttachServiceImpl implements ArticleAttachService {
         List<ArticleAttach> articleAttaches = articleAttachMapper.selectByExample(example);
         articleAttachPojo.setArticleAttach(articleAttaches.get(0));
         articleAttachPojo.setTags(StringUtil.ConvertStringToList(articleAttaches.get(0).getTags()));
-        articleAttachPojo.setPics(StringUtil.ConvertStringToList(articleAttaches.get(0).getPics()));
+//        articleAttachPojo.setPics(StringUtil.ConvertStringToList(articleAttaches.get(0).getPics()));
         return articleAttachPojo;
     }
 

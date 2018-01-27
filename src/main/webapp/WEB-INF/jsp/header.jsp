@@ -18,8 +18,6 @@
     <link href="${path}/resource/css/login.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/zzsc.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/dlzc.css" rel="stylesheet" type="text/css"/>
-    <script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
-    <script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="${path}/resource/css/nanoscroller.css">
 
@@ -80,7 +78,7 @@
 
 
 
-    <div class="container">
+    <div class="container" style="width: 80%!important;">
         <div class="navbar-header transition">
             <a href="${path}/" title="首页"><img src="${path}/resource/images/logo.jpg" alt="虎嗅网" title="首页" /></a>
         </div>
@@ -127,7 +125,7 @@
             <li class="search-li js-show-search-box"><a><i class="icon icon-search "></i></a><span>搜索</span></li>
             <li class="login-link-box"><a class="cd-signin">登录</a></li>
             <li ><a class="cd-signup" >注册</a></li>
-            <li><a class="cd-tougao" href="${path}/tosub">投稿</a></li>
+            <li><a class="cd-tougao"  id="tougao" href="${path}/tosub">投稿</a></li>
         </ul>
     </div>
     <div class="cd-user-modal">
@@ -140,7 +138,7 @@
                         <div class="login-form username-box " style="margin-top:52px;">
                             <%--  <a class="js-open-sms-login sms-text">短信快捷登录</a>--%>
                             <form action="${path}/login" method="post">
-                                <input type="hidden"name="Token"value="${Token}" />
+                                <input type="hidden" name="Token" value="${Token}" />
                                 <label class="login-label transition" >
                                     <input id="login_username"  name="userName" class="login-input" placeholder="手机号／邮箱／虎嗅账号">
                                 </label>
@@ -209,6 +207,18 @@
     </div>
 
     <script src="${path}/resource/js/d-login.js"></script>
+    <script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
+    <script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>
+    <script type="text/javascript">
+        var tougao = document.getElementById('tougao');
+        tougao.onclick = function(){
+            <c:if test="${sessionScope.user } == null">
+            alert("请先登录");
+            return false;
+            </c:if>
+        }
+
+    </script>
 </header>
 </body>
 </html>

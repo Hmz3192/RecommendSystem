@@ -21,7 +21,13 @@
         (2)允许使用"/"做整体映射-->
     <mvc:default-servlet-handler />
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -57,12 +63,12 @@
     </bean>
 
     <!-- 文件上传配置 这里不用上传文件解析，因为kindeditor的文件解析和这个重复了 -->
-   <!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        &lt;!&ndash; 默认编码 &ndash;&gt;
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 默认编码 -->
         <property name="defaultEncoding" value="UTF-8"/>
-        &lt;!&ndash; 上传文件大小限制为31M，31*1024*1024 &ndash;&gt;
+        <!-- 上传文件大小限制为31M，31*1024*1024 -->
         <property name="maxUploadSize" value="32505856"/>
-        &lt;!&ndash; 内存中的最大值 &ndash;&gt;
+        <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="409600"/>
-    </bean>-->
+    </bean>
 </beans>

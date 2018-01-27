@@ -33,16 +33,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean loginUser(User user) {
+    public User loginUser(User user) {
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andUserNameEqualTo(user.getUserName());
         criteria.andPasswordEqualTo(user.getPassword());
         List<User> users = userMapper.selectByExample(userExample);
         if (users.size() > 0) {
-            return true;
+            return users.get(0);
         }
-        return false;
+        return null;
     }
+
 
 }

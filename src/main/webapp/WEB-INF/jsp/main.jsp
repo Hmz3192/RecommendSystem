@@ -27,10 +27,10 @@
     <link href="${path}/resource/css/zzsc.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/dlzc.css" rel="stylesheet" type="text/css"/>
     <%--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>--%>
-    <script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
-    <script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>
+
     <link rel="stylesheet" type="text/css" href="${path}/resource/css/nanoscroller.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/jquery.js"></script>
+
     <script type="text/javascript">
         $(function () {
             //请求数据接口
@@ -237,7 +237,7 @@
         </div>
 
         <%--动态加载--%>
-        <div class="mod-info-flow">
+        <div class="mod-info-flow" style="width: 100%;">
                 <ul id="list"></ul>
             <div class="get-mod-more js-get-mod-more-list transition" id="loading" style="cursor: pointer;">
                 点击加载更多
@@ -570,7 +570,8 @@
 <%@include file="footer.jsp" %>
 
 <script type="text/javascript" src="${path}/resource/js/mouse.js"></script>
-
+<%--<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
+<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>--%>
 </body>
 
 </html>

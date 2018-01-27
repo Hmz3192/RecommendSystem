@@ -12,5 +12,6 @@ public interface UserService {
 
     List<User> selectAll();
 
-    Boolean loginUser(User user);
+    User loginUser(User user);
+
 }

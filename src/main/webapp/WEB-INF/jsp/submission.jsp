@@ -43,7 +43,6 @@
     <link rel="stylesheet" href="${path}/resource/kindEditor/themes/default/default.css"/>
     <link rel="stylesheet" href="${path}/resource/kindEditor/plugins/code/prettify.css"/>
 
-
     <script type="text/javascript" src="${path}/resource/js/jquery.js"></script>
     <style>
         .row-fluid {
@@ -202,13 +201,6 @@
             position:relative;
             top:1px;
         }
-        #picker {
-            display: inline-block;
-            line-height: 1.428571429;
-            vertical-align: middle;
-            margin: 0 12px 0 0;
-        }
-
 
     </style>
     <script>
@@ -235,29 +227,56 @@
                             self.sync();
                             document.forms['example'].submit();
                         });
+
                         // 保存
                         K('input[name=getHtml]').click(function (e) {
+                            var eleList = document.querySelectorAll('#upload');
+                            var ele =eleList[0].querySelector('#img-container');
+                            f=ele.files[0];
+                            console.log('10',f)
+                            var form = new FormData();
                             var saveUrl = "${path}/saveBlog",
                                 articleId = $("#articleId").val(),
                                 title = $("#title").val(),
                                 summary = $("#summary").val(),
-                                content = editor1.html(),
+                                content1 = editor1.html(),
                                 pKind = $("#pKind").val(),
                                 cKind = $("#cKind").val(),
-                                tags = $('input[data-role="tagsinput"]').val(),
-                                param = {
-                                    "articleId": articleId,
-                                    "content": content,
-                                    "title": title,
-                                    "sumary": summary,
-                                    "tags": tags,
-                                    "pKind": pKind,
-                                    "cKind": cKind
-                                };
-                            $.post(saveUrl, param, function (data) {
-                                alert(data.message);
-                            })
+                                tags = $('input[data-role="tagsinput"]').val();
+
+                            form.append("articleId",articleId);
+                            form.append("content1",content1);
+                            form.append("title",title);
+                            form.append("summary",summary);
+                            form.append("tags",tags);
+                            form.append("pKind",pKind);
+                            form.append("cKind",cKind);
+                            form.append('files', f);
+
+                            $.ajax({
+                                url:saveUrl,
+                                type:"post",
+                                data:form,
+                                processData:false,
+                                contentType:false,
+                                success:function(data){
+                                    alert(data.message);
+                                }
+                            });
                         });
+
+
+                        var finishForm = document.getElementById('finishForm');
+                        var finish = document.getElementById('finish');
+                        finish.onclick = function(){
+                            var  content1 = editor1.html(),
+                                tags = $('input[data-role="tagsinput"]').val();
+                            document.getElementById("content1").value=content1;
+                            document.getElementById("tags").value=tags;
+                                    //验证通过，提交表单数据
+                                    finishForm.submit();
+                            }
+
                     }
                 });
                 var html = '${articlePO.article.articleContent}';
@@ -277,6 +296,11 @@
                 loadPCKind();
                 </c:if>
 
+                $(document).keydown(function(event){
+                    if(event.keyCode==13){
+                        $("#tags").click();
+                    }
+                });
             }
 
             function loadTag() {
@@ -325,7 +349,7 @@
                     kindChildName = "${articlePO.article.kindChildName}",
                     kindParentName = "${articlePO.article.kindParentName}";
                 if (kindParentName != null || kindChildName != null) {
-                    var param = {"pKindId": kindParentName, "cKindId": kindChildName};
+                    var param = {"pKindName": kindParentName, "cKindName": kindChildName};
                 }
                 $.get(loadPUrl, param, function (data) {
                     if (data.length == 0) {
@@ -407,21 +431,21 @@
                 </div>
                 <div class="block-content collapse in">
                     <div class="span12">
-                        <form name="example" class="form-horizontal" method="post" action="${path}/todemo">
-                            <input type="hidden" id="articleId" value="${articlePO.article.articleId}">
+                        <form name="form"  id="finishForm" class="form-horizontal" method="post" action="${path}/finishBlog" enctype="multipart/form-data">
+                            <input type="hidden" id="articleId" name="articleId" value="${articlePO.article.articleId}">
                             <fieldset>
                                 <legend>标题</legend>
                                 <div class="controls">
                                     <select class="span2 m-wrap"
                                             style="border-radius:5px;border: 1px solid #000; outline:none;" id="pKind"
-                                            name="category">
+                                            name="pKind">
                                         <c:if test="${articlePO.article.kindParentName == null}">
                                             <option value="">请选择...</option>
                                         </c:if>
                                     </select>
                                     <select class="span2 m-wrap" id="cKind"
                                             style="display: none;border-radius:5px;border: 1px solid #000; outline:none;"
-                                            name="category">
+                                            name="cKind">
                                         <c:if test="${articlePO.article.kindChildName == null}">
                                             <option value="">请选择...</option>
                                         </c:if>
@@ -429,6 +453,7 @@
                                     <c:if test="${articlePO.article.articleTitle != null}">
                                         <input type="text"
                                                id="title"
+                                               name="title"
                                                style="margin-left: 30px;border-radius:5px;border: 1px solid #000; outline:none;"
                                                maxlength="30" class="span6"
                                                value="${articlePO.article.articleTitle}"
@@ -437,6 +462,7 @@
                                     <c:if test="${articlePO.article.articleTitle == null}">
                                         <input type="text"
                                                id="title"
+                                               name="title"
                                                style="margin-left: 30px;border-radius:5px;border: 1px solid #000; outline:none;"
                                                maxlength="30" class="span6"
                                                placeholder="请输入标题，1-30个字">
@@ -448,12 +474,12 @@
                                 <legend>简介</legend>
                                 <div class="controls">
                                     <c:if test="${articlePO.article.articleSummary != null}">
-                                       <textarea class="span8" id="summary" cols="10" rows="4"
+                                       <textarea class="span8" id="summary" name="summary" cols="10" rows="4"
                                                  style="resize:none;width:100%;height:50px;border-radius:5px;border: 1px solid #000; outline:none;"
                                                  placeholder="请输入简介，1-60个字">${articlePO.article.articleSummary}</textarea>
                                     </c:if>
                                     <c:if test="${articlePO.article.articleSummary == null}">
-                                       <textarea class="span8" id="summary" cols="10" rows="4"
+                                       <textarea class="span8" id="summary" name="summary" cols="10" rows="4"
                                                  style="resize:none;width:100%;height:50px;border-radius:5px;border: 1px solid #000; outline:none;"
                                                  placeholder="请输入简介，1-60个字"></textarea>
                                     </c:if>
@@ -468,20 +494,22 @@
                             <%--<%=htmlData%>--%>
                             <fieldset>
                                 <legend>内容</legend>
-                                <textarea name="content1" cols="200" rows="8"
+                                <textarea name="content1" id ="content1" cols="200" rows="8"
                                           style="resize:none;width:100%;height:700px;"><%=htmlspecialchars(htmlData)%></textarea>
                             </fieldset>
                             <br>
                             <fieldset>
                                 <legend>标签</legend>
-                                <input type="text" class="form-control" style="width: 100px;" id="tags"
+                                <input type="text" class="form-control" style="width: 100px;" name="tags" id="tags"
                                        data-role="tagsinput" placeholder="请输入标签"/>
                             </fieldset>
                             <%--<input type="submit" name="button" value="提交内容"/> (提交快捷键: Ctrl + Enter)--%>
                             <br>
                             <fieldset>
-                            <%--<input type="submit"  class="myButton"  value="发布" />--%>
-                            <input type="button"  class="myButton" value="保存" name="getHtml"/>
+                            <input type="button"  id="finish" class="myButton" name="finish" value="发布"  />
+                            <input type="button"  id="save" class="myButton" value="保存" name="getHtml"/>
+                                <%--<input type="button"  id="saveCover" class="myButton" value="保存封面" />--%>
+
                             </fieldset>
                         </form>
                     </div>
@@ -522,22 +550,21 @@
 <%--页脚--%>
 <%@include file="footer.jsp" %>
 <%--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>--%>
-<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
-<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>
+<%--<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
+<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>--%>
 <%--kindEditor--%>
 <script charset="utf-8" src="${path}/resource/kindEditor/kindeditor-all.js"></script>
 <script charset="utf-8" src="${path}/resource/kindEditor/lang/zh-CN.js"></script>
 <script charset="utf-8" src="${path}/resource/kindEditor/plugins/code/prettify.js"></script>
-<script type="text/javascript" src="${path}/resource/kindEditor/plugins/jwplayer/jwplayer.js"></script>
+<script type="text/javascript"  charset="utf-8" src="${path}/resource/kindEditor/plugins/jwplayer/jwplayer.js"></script>
 <%--自定义的选择图片--%>
-<link rel="stylesheet" href="${path}/resource/css/tinyImgUpload.css">
+<link rel="stylesheet" charset="utf-8" href="${path}/resource/css/tinyImgUpload.css">
 <script type="text/javascript" src="${path}/resource/js/tinyImgUpload.js"></script>
 <%--鼠标滑动--%>
 <script type="text/javascript" src="${path}/resource/js/mouse.js"></script>
 <%--tag标签--%>
 <script type="text/javascript" src="${path}/resource/js/bootstrap-tagsinput.js"></script>
 <script language="javascript" type="text/javascript" src="${path}/resource/webUpload/easyUpload.js"></script>
-
 <script>
     $('#easyContainer').easyUpload({
         allowFileTypes: '*.jpg;*.doc;*.pdf',//允许上传文件类型，格式';*.doc;*.pdf'
@@ -545,7 +572,7 @@
         selectText: '选择文件',//选择文件按钮文案
         multi: true,//是否允许多文件上传
         multiNum: 5,//多文件上传时允许的文件数
-        showNote: true,//是否展示文件上传说明
+        showNote: false,//是否展示文件上传说明
         note: '提示：最多上传5个文件，支持格式为doc、pdf、jpg',//文件上传说明
         showPreview: true,//是否显示文件预览
         url: '/api/file/upload',//上传文件地址
@@ -564,6 +591,7 @@
             console.log('删除回调', res);
         }//删除文件回调函数
     });
+
 </script>
 <script type='text/javascript'>
     //非视频，不加载播放器
@@ -577,8 +605,18 @@
     /*uploadPic*/
     document.documentElement.style.fontSize = document.documentElement.clientWidth*0.1+'px';
 
-    var options = {
-        path: '/',
+  /*  var options = {
+        path: '/saveBlogAvatar',
+        onSuccess: function (res) {
+            console.log(res);
+        },
+        onFailure: function (res) {
+            console.log(res);
+        }
+    }*/
+
+    var options2 = {
+        path: '${path}/finishBlog',
         onSuccess: function (res) {
             console.log(res);
         },
@@ -587,9 +625,18 @@
         }
     }
 
-    var upload = tinyImgUpload('#upload', options);
+//    var uploadSave = tinyImgUpload('#upload', options);
+    var uploadFin = tinyImgUpload('#upload', options2);
 
+    //保存封面
+    /*document.getElementById('save').onclick = function (e) {
+        uploadSave();
+    }*/
 
+    //完成封面
+    document.getElementById('finish').onclick = function (e) {
+        uploadFin();
+    }
 
 </script>
 

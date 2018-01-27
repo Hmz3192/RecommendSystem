@@ -1,23 +1,23 @@
 /**
  * tinyImgUpload
- * @param ele [string] [Éú³É×é¼şµÄÔªËØµÄÑ¡ÔñÆ÷]
- * @param options [Object] [¶Ô×é¼şÉèÖÃµÄ»ù±¾²ÎÊı]
- * options¾ßÌå²ÎÊıÈçÏÂ
- * path Í¼Æ¬ÉÏ´«µÄµØÖ·Â·¾¶ ±ØĞè
- * onSuccess(res) ÎÄ¼şÉÏ´«³É¹¦ºóµÄ»Øµ÷ ²ÎÊıÎª·µ»ØµÄÎÄ±¾ ±ØĞè
- * onFailure(res) ÎÄ¼şÉÏ´«Ê§°ÜºóµÄ»Øµ÷ ²ÎÊıÎª·µ»ØµÄÎÄ±¾ ±ØĞè
- * @return [function] [Ö´ĞĞÍ¼Æ¬ÉÏ´«µÄº¯Êı]
- * µ÷ÓÃ·½·¨
+ * @param ele [string] [ç”Ÿæˆç»„ä»¶çš„å…ƒç´ çš„é€‰æ‹©å™¨]
+ * @param options [Object] [å¯¹ç»„ä»¶è®¾ç½®çš„åŸºæœ¬å‚æ•°]
+ * optionså…·ä½“å‚æ•°å¦‚ä¸‹
+ * path å›¾ç‰‡ä¸Šä¼ çš„åœ°å€è·¯å¾„ å¿…éœ€
+ * onSuccess(res) æ–‡ä»¶ä¸Šä¼ æˆåŠŸåçš„å›è°ƒ å‚æ•°ä¸ºè¿”å›çš„æ–‡æœ¬ å¿…éœ€
+ * onFailure(res) æ–‡ä»¶ä¸Šä¼ å¤±è´¥åçš„å›è°ƒ å‚æ•°ä¸ºè¿”å›çš„æ–‡æœ¬ å¿…éœ€
+ * @return [function] [æ‰§è¡Œå›¾ç‰‡ä¸Šä¼ çš„å‡½æ•°]
+ * è°ƒç”¨æ–¹æ³•
  * tinyImgUpload('div', options)
  */
 function tinyImgUpload(ele, options) {
-    // ÅĞ¶ÏÈİÆ÷ÔªËØºÏÀíĞÔ²¢ÇÒÌí¼Ó»ù´¡ÔªËØ
+    // åˆ¤æ–­å®¹å™¨å…ƒç´ åˆç†æ€§å¹¶ä¸”æ·»åŠ åŸºç¡€å…ƒç´ 
     var eleList = document.querySelectorAll(ele);
     if(eleList.length == 0){
-        console.log('°ó¶¨µÄÔªËØ²»´æÔÚ');
+        console.log('ç»‘å®šçš„å…ƒç´ ä¸å­˜åœ¨');
         return;
     }else if(eleList.length>1){
-        console.log('Çë°ó¶¨Î¨Ò»ÔªËØ');
+        console.log('è¯·ç»‘å®šå”¯ä¸€å…ƒç´ ');
         return;
     }else {
         eleList[0].innerHTML ='<div id="img-container" >'+
@@ -25,10 +25,10 @@ function tinyImgUpload(ele, options) {
             '<input type="file" name="files" id="img-file-input" multiple>'+
             '</div>';
         var ele = eleList[0].querySelector('#img-container');
-        ele.files = [];   // µ±Ç°ÉÏ´«µÄÎÄ¼şÊı×é
+        ele.files = [];   // å½“å‰ä¸Šä¼ çš„æ–‡ä»¶æ•°ç»„
     }
 
-    // ÎªÌí¼Ó°´Å¥°ó¶¨µã»÷ÊÂ¼ş£¬ÉèÖÃÑ¡ÔñÍ¼Æ¬µÄ¹¦ÄÜ
+    // ä¸ºæ·»åŠ æŒ‰é’®ç»‘å®šç‚¹å‡»äº‹ä»¶ï¼Œè®¾ç½®é€‰æ‹©å›¾ç‰‡çš„åŠŸèƒ½
     var addBtn = document.querySelector('.img-up-add');
     addBtn.addEventListener('click',function () {
         document.querySelector('#img-file-input').value = null;
@@ -36,17 +36,17 @@ function tinyImgUpload(ele, options) {
         return false;
     },false)
 
-    // Ô¤ÀÀÍ¼Æ¬
-    //´¦ÀíinputÑ¡ÔñµÄÍ¼Æ¬
+    // é¢„è§ˆå›¾ç‰‡
+    //å¤„ç†inputé€‰æ‹©çš„å›¾ç‰‡
     function handleFileSelect(evt) {
         var files = evt.target.files;
 
         for(var i=0, f; f=files[i];i++){
-            // ¹ıÂËµô·ÇÍ¼Æ¬ÀàĞÍÎÄ¼ş
+            // è¿‡æ»¤æ‰éå›¾ç‰‡ç±»å‹æ–‡ä»¶
             if(!f.type.match('image.*')){
                 continue;
             }
-            // ¹ıÂËµôÖØ¸´ÉÏ´«µÄÍ¼Æ¬
+            // è¿‡æ»¤æ‰é‡å¤ä¸Šä¼ çš„å›¾ç‰‡
             var tip = false;
             for(var j=0; j<(ele.files).length; j++){
                 if((ele.files)[j].name == f.name){
@@ -55,7 +55,7 @@ function tinyImgUpload(ele, options) {
                 }
             }
             if(!tip){
-                // Í¼Æ¬ÎÄ¼ş°ó¶¨µ½ÈİÆ÷ÔªËØÉÏ
+                // å›¾ç‰‡æ–‡ä»¶ç»‘å®šåˆ°å®¹å™¨å…ƒç´ ä¸Š
                 ele.files.push(f);
 
                 var reader = new FileReader();
@@ -63,7 +63,7 @@ function tinyImgUpload(ele, options) {
                     return function (e) {
                         var oDiv = document.createElement('div');
                         oDiv.className = 'img-thumb img-item';
-                        // ÏòÍ¼Æ¬ÈİÆ÷ÀïÌí¼ÓÔªËØ
+                        // å‘å›¾ç‰‡å®¹å™¨é‡Œæ·»åŠ å…ƒç´ 
                         oDiv.innerHTML = '<img class="thumb-icon" src="'+e.target.result+'" />'+
                             '<a href="javscript:;" class="img-remove">x</a>'
 
@@ -77,11 +77,11 @@ function tinyImgUpload(ele, options) {
     }
     document.querySelector('#img-file-input').addEventListener('change', handleFileSelect, false);
 
-    // É¾³ıÍ¼Æ¬
+    // åˆ é™¤å›¾ç‰‡
     function removeImg(evt) {
         if(evt.target.className.match(/img-remove/)){
             console.log('3',ele.files);
-            // »ñÈ¡É¾³ıµÄ½ÚµãµÄË÷Òı
+            // è·å–åˆ é™¤çš„èŠ‚ç‚¹çš„ç´¢å¼•
             function getIndex(ele){
 
                 if(ele && ele.nodeType && ele.nodeType == 1) {
@@ -95,7 +95,7 @@ function tinyImgUpload(ele, options) {
                     return -1;
                 }
             }
-            // ¸ù¾İË÷ÒıÉ¾³ıÖ¸¶¨µÄÎÄ¼ş¶ÔÏó
+            // æ ¹æ®ç´¢å¼•åˆ é™¤æŒ‡å®šçš„æ–‡ä»¶å¯¹è±¡
             var index = getIndex(evt.target.parentNode);
             ele.removeChild(evt.target.parentNode);
             if(index < 0){
@@ -108,7 +108,7 @@ function tinyImgUpload(ele, options) {
     }
     ele.addEventListener('click', removeImg, false);
 
-    // ÉÏ´«Í¼Æ¬
+    // ä¸Šä¼ å›¾ç‰‡
     function uploadImg() {
         console.log(ele.files);
 
@@ -138,4 +138,3 @@ function tinyImgUpload(ele, options) {
     }
     return uploadImg;
 }
-

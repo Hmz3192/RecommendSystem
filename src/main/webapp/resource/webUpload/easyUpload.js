@@ -1,9 +1,9 @@
 /*
- easyUpload.js
- funnyque@163.com
- https://github.com/funnyque
- */
-;(function ($) {
+easyUpload.js
+funnyque@163.com
+https://github.com/funnyque
+*/
+; (function ($) {
     $.fn.easyUpload = function (opts) {
         var defaults = {
             allowFileTypes: '*.pdf;*.doc;*.docx;*.jpg',//允许上传文件类型，格式'*.pdf;*.doc;'
@@ -77,7 +77,7 @@
                     // $html += option.multi ? '<span class="easy_upload_head_btn1 noselect">上传</span>' : '';
                     // $html += option.multi ? '<span class="easy_upload_head_btn2 noselect">删除</span>' : '';
                     // $html += option.multi ? '<i class="easyUploadIcon noselect head_check" data-checked="no">&#xe693;</i>' : '';
-                    // $html += option.showNote ? '<br><span class="easy_upload_note">' + option.note + '</span>' : '';
+                    // $html += option.showNote ? '<span class="easy_upload_note">' + option.note + '</span>' : '';
                     $html += '</div>';
                     $html += '<ul class="easy_upload_queue"></ul>';
                     $html += '</div>';
@@ -108,7 +108,7 @@
                         $(this).parent().find('.head_check').html('&#xe693;').attr('data-checked', 'no');
                     });
                     $('.head_check').off('click').click(function () {
-                        var opt = {type: 'all', target: this};
+                        var opt = { type:'all', target:this };
                         var flag = $(this).attr('data-checked');
                         if (flag == 'no') {
                             opt.check = 'yes';
@@ -117,25 +117,25 @@
                         }
                         _this._handleCheck(opt);
                     });
-                    $('.easy_upload_head_btn1').off('click').click(function () {
+                    $('.easy_upload_head_btn1').off('click').click(function(){
                         var queueUl = $(this).parent().parent().find('.easy_upload_queue');
                         var arr = _this._findItems(1, queueUl);
-                        if (arr.length > 0) {
+                        if (arr.length>0) {
                             allowFiles = allowFiles.concat(arr);
                             upFiniehed = true;
                             _this._uploadFile(queueUl);
                         }
                     });
-                    $('.easy_upload_head_btn2').off('click').click(function () {
+                    $('.easy_upload_head_btn2').off('click').click(function(){
                         var queueUl = $(this).parent().parent().find('.easy_upload_queue');
                         var arr = _this._findItems(2, queueUl);
-                        if (arr.length > 0) _this._deleFiles(arr, queueUl);
+                        if (arr.length>0) _this._deleFiles(arr,queueUl);
                     });
                 },
                 bindQueue: function () {
                     var _this = this;
                     $('.queue_check').off('click').click(function () {
-                        var opt = {type: 'notall', target: this};
+                        var opt = { type:'notall', target:this };
                         var flag = $(this).attr('data-checked');
                         if (flag == 'no') {
                             opt.check = 'yes';
@@ -152,16 +152,16 @@
                             $(hItem).html('&#xe693;').attr('data-checked', 'no');
                         }
                     });
-                    $('.easy_upload_upbtn').off('click').click(function () {
+                    $('.easy_upload_upbtn').off('click').click(function(){
                         var index = $(this).parent().parent().attr('data-index');
                         allowFiles.push(index);
                         $(this).hide(400);
                         var queueUl = $(this).parent().parent().parent();
                         _this._uploadFile(queueUl);
                     });
-                    $('.easy_upload_delbtn').off('click').click(function () {
+                    $('.easy_upload_delbtn').off('click').click(function(){
                         var upStatus = $(this).parent().parent().find('.queue_check').attr('data-up');
-                        if (upStatus != '3') {
+                        if (upStatus!='3') {
                             var indx = $(this).parent().parent().attr('data-index');
                             var target = $(this).parent().parent().parent();
                             _this._deleFiles([indx], target);
@@ -188,7 +188,6 @@
                 },
                 _renderFile: function (fileArr, target) {
                     var queueUl = $(target).parent().parent().find('.easy_upload_queue');
-
                     function render(file) {
                         var preview;
                         var f = file.file;
@@ -197,52 +196,52 @@
                             var imgSrc = URL.createObjectURL(f);
                             preview = '<img class="easy_upload_img" src="' + imgSrc + '" />';
                         } else if (fileType == 'rar' || fileType == 'zip' || fileType == 'arj' || fileType == 'z') {
-                            preview = '<i class="easy_upload_icon easyUploadIcon" ">&#xe69d;</i>';
+                            preview = '<i class="easy_upload_icon easyUploadIcon">&#xe69d;</i>';
                         } else {
                             preview = '<i class="easy_upload_icon easyUploadIcon">&#xe64d;</i>';
                         }
-                      /*   var sHtml = '';
+                        /* var sHtml = '';
                          sHtml += '<p class="status status1">可以上传</p>';
                          sHtml += '<p class="status status2">等待上传</p>';
                          sHtml += '<p class="status status3">上传中</p>';
                          sHtml += '<p class="status status4">上传失败</p>';
                          sHtml += '<p class="status status5">上传成功</p>';*/
                         var $html = '';
-                        $html += '<li class="easy_upload_queue_item"  data-index="' + file.index + '">';
+                        $html += '<li class="easy_upload_queue_item" data-index="' + file.index +'">';
                         $html += option.showPreview ? '<div class="easy_upload_preview queue_item-section">' + preview + '</div>' : '';
                         $html += '<div class="easy_upload_file1 queue_item-section">';
-                        $html += '<p class="easy_upload_filename">' + f.name + '</p>';
-                        // $html += '<p class="easy_upload_progress">';
-                        $html += '<div class="easy_upload_file2 queue_item-section">';
-                        $html += '<p class="easy_upload_fiesize">' + F.formatFileSize(f.size) + '</p>';
-                        // $html += '<span class="easy_upload_bar"></span>';
-                        $html += '</p>';
+                        $html += '<p class="easy_upload_filename">'+ f.name +'</p>';
+                        $html += '<p class="easy_upload_fiesize" style="text-align: center;">' + F.formatFileSize(f.size) +'</p>';
+                        $html += '<p class="easy_upload_delbtn noselect myButtonUp" style="margin: 1px auto" >删除</p>';
                         $html += '</div>';
-                        /*  $html += '<div class="easy_upload_file2 queue_item-section">';
-                         $html += '<p class="easy_upload_fiesize">' + F.formatFileSize(f.size) + '</p>';
-                         $html += '<p class="easy_upload_percent">0%</p>';
-                         $html += '</div>';*/
+                        // $html += '<p class="easy_upload_progress">';
+                        // $html += '<span class="easy_upload_bar"></span>';
+                        // $html += '</p>';
+
+                        // $html += '<div class="easy_upload_file2 queue_item-section">';
+                        // $html += '<p class="easy_upload_fiesize">' + F.formatFileSize(f.size) +'</p>';
+                        // $html += '<p class="easy_upload_percent">0%</p>';
+                        // $html += '</div>';
                         /* $html += '<div class="easy_upload_status queue_item-section">';
                          $html += file.allow ? sHtml : '<p class="status status6">文件不允许</p>';
                          $html += '</div>';*/
-                        $html += '<div class="easy_upload_btn queue_item-section">';
+                        // $html += '<div class="easy_upload_btn queue_item-section">';
                         // $html += file.allow ? '<p class="easy_upload_upbtn btn noselect">上传</p>' : '';
-                        $html += '<p class="easy_upload_delbtn btn noselect">删除</p>';
-                        $html += '</div>';
-                         $html += '<div class="easy_upload_checkone queue_item-section">';
-                         $html += option.multi ? '<i class="easyUploadIcon noselect queue_check queue_check_allow_' + file.allow + '" data-checked="no" data-up="1"></i>' : '';
-                         $html += '</div>';
+                        // $html += '<p class="easy_upload_delbtn btn noselect">删除</p>';
+                        // $html += '</div>';
+                        // $html += '<div class="easy_upload_checkone queue_item-section">';
+                        // $html += option.multi ? '<i class="easyUploadIcon noselect queue_check queue_check_allow_'+ file.allow +'" data-checked="no" data-up="1">&#xe693;</i>' : '';
+                        // $html += '</div>';
                         if (option.multi) {
                             $(queueUl).append($html);
                         } else {
                             $(queueUl).html($html);
                         }
                     }
-
                     for (var i = 0; i < fileArr.length; i++) {
                         if (option.multi) {
                             var qItemNum = $(queueUl).find('.easy_upload_queue_item:visible').length;
-                            if (qItemNum < option.multiNum) render(fileArr[i]);
+                            if (qItemNum<option.multiNum) render(fileArr[i]);
                         } else {
                             render(fileArr[i]);
                         }
@@ -250,33 +249,33 @@
                     this.bindQueue();
                 },
                 _handleCheck: function (opt) {
-                    if (opt.type == 'all') {
-                        if (opt.check == 'yes') {
+                    if (opt.type=='all') {
+                        if (opt.check=='yes') {
                             $(opt.target).html('&#xe61e;').attr('data-checked', 'yes');
                             var qItems = $(opt.target).parent().parent().find('.queue_check');
-                            for (var i = 0; i < qItems.length; i++) {
+                            for (var i=0; i<qItems.length; i++) {
                                 $(qItems[i]).html('&#xe61e;').attr('data-checked', 'yes');
                             }
                         } else {
                             $(opt.target).html('&#xe693;').attr('data-checked', 'no');
                         }
                     } else {
-                        if (opt.check == 'yes') {
+                        if (opt.check=='yes') {
                             $(opt.target).html('&#xe61e;').attr('data-checked', 'yes');
                         } else {
                             $(opt.target).html('&#xe693;').attr('data-checked', 'no');
                         }
                     }
                 },
-                _countCheck: function (target) {
+                _countCheck: function(target) {
                     var checkedAll = true;
                     var qItems = $(target).parent().parent().parent().find('.queue_check');
-                    for (var i = 0; i < qItems.length; i++) {
+                    for (var i=0; i<qItems.length; i++) {
                         if ($(qItems[i]).attr('data-checked') == 'no') checkedAll = false;
                     }
                     return checkedAll;
                 },
-                _uploadFile: function (target) {
+                _uploadFile: function(target) {
                     var _this = this;
                     this._setStatus2(target);
                     function controlUp() {
@@ -287,7 +286,6 @@
                             upFiniehed = true;
                         }
                     }
-
                     function upload() {
                         if (allowNewPost) {
                             allowNewPost = false;
@@ -301,8 +299,8 @@
                                     fd.append(key, option.formParam[key]);
                                 }
                             }
-                            _this._setUpStatus({index: file.index, target: target}, 1);
-                            _this._showProgress(file.index, target);
+                            _this._setUpStatus({ index: file.index, target: target }, 1);
+                            _this._showProgress(file.index,target);
                             $.ajax({
                                 url: option.url,
                                 type: "POST",
@@ -314,7 +312,7 @@
                                     // 标记索引，用于删除操作
                                     res.easyFileIndex = file.index;
                                     var param = _this._findEle(file.index, target);
-                                    if (res.code != option.okCode) {
+                                    if (res.code!=option.okCode){
                                         allowNewPost = true;
                                         if (option.multi) {
                                             response.error.push(res);
@@ -333,7 +331,7 @@
                                         }
                                     }
                                     controlUp();
-                                    _this._setUpStatus({index: file.index, target: target}, 2);
+                                    _this._setUpStatus({ index: file.index, target: target }, 2);
                                 },
                                 error: function (res) {
                                     res.easyFileIndex = file.index;
@@ -347,34 +345,33 @@
                                     var param = _this._findEle(file.index, target);
                                     _this._handleFailed(param);
                                     controlUp();
-                                    _this._setUpStatus({index: file.index, target: target}, 2);
+                                    _this._setUpStatus({ index: file.index, target: target }, 2);
                                 }
                             });
                         }
                     }
-
                     if (upFiniehed) upload(target);
                 },
-                _setUpStatus: function (opt, type) {
+                _setUpStatus: function(opt,type) {
                     var param = this._findEle(opt.index, opt.target);
-                    if (type == 1) {
-                        $(param.ele).find('.queue_check').attr('data-up', 3);
+                    if (type==1) {
+                        $(param.ele).find('.queue_check').attr('data-up',3);
                     } else {
                         $(param.ele).find('.queue_check').attr('data-up', 4);
                     }
                 },
-                _setStatus2: function (target) {
+                _setStatus2: function(target) {
                     var _this = this;
-                    allowFiles.forEach(function (item) {
+                    allowFiles.forEach(function(item){
                         var qItem = _this._findEle(item, target);
-                        if (qItem.upStatus == '1') {
+                        if (qItem.upStatus=='1') {
                             $(qItem.statusDiv).find('.status').hide().end().find('.status2').show();
                             $(qItem.ele).find('.easy_upload_upbtn').hide();
-                            $(qItem.ele).find('.queue_check').attr('data-up', 2);
+                            $(qItem.ele).find('.queue_check').attr('data-up',2);
                         }
                     });
                 },
-                _showProgress: function (index, target) {
+                _showProgress: function(index,target) {
                     var _this = this;
                     var param = this._findEle(index, target);
                     $(param.ele).find('.easy_upload_upbtn').hide(400);
@@ -403,7 +400,7 @@
                         }
                     }, 10);
                 },
-                _findEle: function (index, target) {
+                _findEle: function(index, target) {
                     var obj = {};
                     obj.ele = $(target).find(`.easy_upload_queue_item[data-index=${index}]`);
                     obj.upBar = $(obj.ele).find('.easy_upload_bar');
@@ -412,11 +409,11 @@
                     obj.upStatus = $(obj.ele).find('.queue_check').attr('data-up');
                     return obj;
                 },
-                _findItems: function (type, target) {
+                _findItems: function(type,target) {
                     var arr = [];
-                    if (type == 1) {
+                    if (type==1) {
                         var icon = $(target).find('.queue_check_allow_true[data-up="1"][data-checked="yes"]:visible');
-                    } else {
+                    } else{
                         var icon = $(target).find('.queue_check[data-up="1"][data-checked="yes"]:visible,.queue_check[data-up="2"][data-checked="yes"]:visible,.queue_check[data-up="4"][data-checked="yes"]:visible');
                     }
                     for (var i = 0; i < icon.length; i++) {
@@ -425,38 +422,35 @@
                     }
                     return arr;
                 },
-                _deleFiles: function (arr, target) {
+                _deleFiles: function(arr,target) {
                     var _this = this;
-
                     function dele(item) {
-                        response.success.forEach(function (item1, index1) {
-                            if (item == item1.easyFileIndex) response.success.splice(index1, 1);
+                        response.success.forEach(function(item1,index1){
+                            if (item == item1.easyFileIndex) response.success.splice(index1,1);
                         });
-                        response.error.forEach(function (item2, index2) {
+                        response.error.forEach(function(item2,index2){
                             if (item == item2.easyFileIndex) response.error.splice(index2, 1);
                         });
                     }
-
                     function deleAllowFiles(itm) {
-                        allowFiles.forEach(function (item, index) {
-                            if (itm == item) allowFiles.splice(index, 1);
+                        allowFiles.forEach(function(item,index){
+                            if (itm == item) allowFiles.splice(index,1);
                         });
                     }
-
-                    arr.forEach(function (item) {
+                    arr.forEach(function(item){
                         $(target).find(`.easy_upload_queue_item[data-index=${item}]`).hide().find('.queue_check').hide();
                         if (option.multi) dele(item);
                         var qItem = _this._findEle(item, target);
-                        if (qItem.upStatus == '2') deleAllowFiles(item);
+                        if (qItem.upStatus=='2') deleAllowFiles(item);
                     });
                     option.deleteFunc && option.deleteFunc(response);
                 },
-                _handleFailed: function (param) {
+                _handleFailed: function(param) {
                     clearInterval(showTimer);
                     $(param.upBar).css("background-color", "red");
                     $(param.statusDiv).find('.status').hide().end().find('.status4').show();
                 },
-                _resetParam: function () {
+                _resetParam: function() {
                     loadedPercent = 0;
                     increasePercent = 1;
                     showTimer = undefined;

@@ -5,28 +5,27 @@ import com.hmz.model.ArticleAttach;
 import com.hmz.model.ArticleKind;
 import com.hmz.pojo.ArticleAttachPojo;
 import com.hmz.pojo.ArticleEditPojo;
-import com.hmz.pojo.Result;
+import com.hmz.pojo.MesResult;
 import com.hmz.service.ArticleAttachService;
 import com.hmz.service.ArticleKindService;
 import com.hmz.service.ArticleService;
-import com.hmz.utils.IDUtils;
 import com.hmz.utils.StringUtil;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.springframework.expression.TypeComparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -45,40 +44,76 @@ public class EditorController {
     private ArticleKindService articleKindService;
 
 
-
     @ResponseBody
-    @RequestMapping(value = "/getTags")
-    public ArticleAttachPojo getTags(Integer articleId) {
-        return articleAttachService.getOneByArticleId(articleId);
-    }
+    @RequestMapping(value = "/finishBlog", method = RequestMethod.POST)
+    public String finishBlog(HttpServletRequest request,@RequestParam(value = "files", required = true) MultipartFile file,Integer articleId, String content1, String title, String summary, String tags, String pKind, String cKind) {
+        //文件保存本地目录路径
+        String savePath = request.getServletContext().getRealPath("/") + "attached/cover/";
 
-    @RequestMapping(value = "loadPCKind")
-    @ResponseBody
-    public List<ArticleKind> loadPCKind(String pKindId,String cKindId){
-        return articleKindService.getPCKind(Integer.valueOf(pKindId), Integer.valueOf(cKindId));
-    }
-    @RequestMapping(value = "/saveBlog", method = RequestMethod.POST)
-    @ResponseBody
-    public Result saveBlog(Integer articleId, String content, String title, String sumary, String tags, String pKind, String cKind) {
+        //文件保存目录URL
+        String saveUrl  = request.getContextPath() + "/attached/cover/";
 
-        Result result = new Result();
+        Article one = articleService.getOne(articleId);
+        //把封面文件原来的删除
+        try {
+            if (one.getArticleAvatar() != null || one.getArticleAvatar().length() != 0) {
+                //删除原来的封面文件
+                File fileDel = new File(savePath + one.getArticleAvatar());
+                if (fileDel.exists()) {
+                    fileDel.delete();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String fileName = file.getOriginalFilename();
+        String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String ymd = sdf.format(new Date());
+        savePath += ymd + "\\";
+        saveUrl += ymd + "\\";
+        File dirFile = new File(savePath);
+        if (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+
+        // 保存
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
+
+        try{
+            File targetFile = new File(savePath, newFileName);
+            if (!targetFile.exists())
+            {
+                targetFile.mkdirs();
+            }
+            file.transferTo(targetFile);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        String CoverUrl = saveUrl + newFileName;
+        /*保存基本信息*/
         Article article = new Article();
         ArticleAttach articleAttach = new ArticleAttach();
-        Integer GenArticleId = IDUtils.genIntegerId();
         try {
-            if (articleId != null) {
-                article.setArticleId(articleId);
-                articleAttach.setArticleId(articleId);
-            } else {
-                article.setArticleId(GenArticleId);
-                articleAttach.setArticleId(GenArticleId);
-            }
-            article.setArticleContent(StringUtil.deleteRNB(content));
+            article.setArticleId(articleId);
+            articleAttach.setArticleId(articleId);
+            article.setArticleContent(StringUtil.deleteRNB(content1));
             article.setArticleTitle(title);
             article.setKindChildName(cKind);
             article.setKindParentName(pKind);
             article.setUserId(1);
-            article.setArticleSummary(sumary);
+            article.setArticleSummary(summary);
+            article.setArticleState("审核中");
+            article.setArticleAvatar(CoverUrl);
+            article.setArticleHints(0);
+            article.setArticleCollection(0);
+            article.setArticleUp(0);
+            article.setArticleDown(0);
+            article.setArticleBig(0);
+            article.setArticleFirst(0);
 
             /*-------------*/
             articleAttach.setTags(tags);
@@ -88,24 +123,156 @@ public class EditorController {
         }
         articleAttachService.saveAttache(articleAttach);
         articleService.saveBlog(article);
-        result.setMessage("保存成功");
-        return result;
+        return "main";
     }
 
 
+    @ResponseBody
+    @RequestMapping(value = "/getTags")
+    public ArticleAttachPojo getTags(Integer articleId) {
+        return articleAttachService.getOneByArticleId(articleId);
+    }
+
+    @RequestMapping(value = "loadPCKind")
+    @ResponseBody
+    public List<ArticleKind> loadPCKind(String pKindName,String cKindName){
+        return articleKindService.getPCKind(pKindName, cKindName);
+    }
+
+//    attached/cover/img20180127140224_452.jpg
+/*
+    @RequestMap ping(value = "/saveBlogAvatar", method = RequestMethod.POST)
+    @ResponseBo dy
+    public Map<String, Object> saveBlogAvatar(@RequestParam(value = "files", required = true) MultipartFile file,HttpServletRequest request) {
+        //文件保存本地目录路径
+        String savePath = request.getServletContext().getRealPath("/") + "attached/cover/";
+
+        //文件保存目录URL
+        String saveUrl  = request.getContextPath() + "/attached/cover/";
+        String fileName = file.getOriginalFilename();
+        String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+
+        // 保存
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+            String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
+            try{
+                File targetFile = new File(savePath, newFileName);
+                if (!targetFile.exists())
+                {
+                    targetFile.mkdirs();
+                }
+                file.transferTo(targetFile);
+            }catch(Exception e){
+                return getError("上传文件失败。");
+            }
+        Map<String, Object> succMap = new HashMap<String, Object>();
+        String url = saveUrl + newFileName;
+        succMap.put("error", 0);
+        succMap.put("url", url);
+        return succMap;
+    }
+*/
+
     @RequestMapping(value = "/editBlog")
     public String editBlog(/*Integer articleId,*/ Model model) {
-        Integer articleId = 26;
+        Integer articleId =  12719131;
         ArticleEditPojo articleEditPojo = new ArticleEditPojo();
         Article one = articleService.getOne(articleId);
         ArticleAttachPojo oneByArticleId = articleAttachService.getOneByArticleId(one.getArticleId());
-
         articleEditPojo.setArticle(one);
         articleEditPojo.setArticleAttachPojo(oneByArticleId);
         articleEditPojo.setBlog_state(1);
         model.addAttribute("articlePO", articleEditPojo);
         return "submission";
     }
+
+    @RequestMapping(value = "/saveBlog", method = RequestMethod.POST)
+    @ResponseBody
+    public MesResult saveBlog(HttpServletRequest request, MultipartFile files, Integer articleId, String content1, String title, String summary, String tags, String pKind, String cKind) {
+        //文件保存本地目录路径
+        String savePath = request.getServletContext().getRealPath("/") + "attached/cover/";
+
+        //文件保存目录URL
+        String saveUrl  = request.getContextPath() + "/attached/cover/";
+        MesResult mesResult = new MesResult();
+        Article article = new Article();
+        ArticleAttach articleAttach = new ArticleAttach();
+        try {
+            article.setArticleId(articleId);
+            articleAttach.setArticleId(articleId);
+            article.setArticleContent(StringUtil.deleteRNB(content1));
+            article.setArticleTitle(title);
+            article.setKindChildName(cKind);
+            article.setKindParentName(pKind);
+            article.setUserId(1);
+            article.setArticleSummary(summary);
+            article.setArticleState("已保存");
+            article.setArticleHints(0);
+            article.setArticleCollection(0);
+            article.setArticleUp(0);
+            article.setArticleDown(0);
+            article.setArticleBig(0);
+            article.setArticleFirst(0);
+
+            /*-------------*/
+            articleAttach.setTags(tags);
+            articleAttach.setTagNumber(StringUtil.CountNumber(tags));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (!files.isEmpty()) {
+            //保存封面
+            String fileName = files.getOriginalFilename();
+            String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+
+            // 保存
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+            String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            String ymd = sdf.format(new Date());
+            savePath += ymd + "\\";
+            saveUrl += ymd + "\\";
+            File dirFile = new File(savePath);
+            if (!dirFile.exists()) {
+                dirFile.mkdirs();
+            }
+            try{
+
+                File targetFile = new File(savePath, newFileName);
+                if (!targetFile.exists())
+                {
+                    targetFile.mkdirs();
+                }
+                files.transferTo(targetFile);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            String CoverUrl = saveUrl + newFileName;
+            article.setArticleAvatar(CoverUrl);
+        }
+        articleAttachService.saveAttache(articleAttach);
+        articleService.saveBlog(article);
+        mesResult.setMessage("保存成功");
+        return mesResult;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/loadPKind")
+    public List<ArticleKind> loadPKind() {
+        List<ArticleKind> allKind = articleKindService.getAllPKind();
+        return allKind;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/loadChildKind")
+    public List<ArticleKind> loadChildKind(String parentName) {
+        List<ArticleKind> childKind = articleKindService.getChildKind(parentName);
+        return childKind;
+    }
+
 
     /**
      * 文件上传
@@ -117,11 +284,14 @@ public class EditorController {
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> fileUpload(HttpServletRequest request, HttpServletResponse response) {
-        //文件保存本地目录路径
-        String savePath = request.getServletContext().getRealPath("/") + "attached/";
+        //图片等文件用springmvc提供的上传器
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 
+        //文件保存本地目录路径
+        String savePath = request.getServletContext().getRealPath("/") + "attached/kindEditor/";
         //文件保存目录URL
-        String saveUrl = request.getContextPath() + "attached/";
+        String saveUrl  = request.getContextPath() + "/attached/kindEditor/";
 
         if(!ServletFileUpload.isMultipartContent(request)){
             return getError("请选择文件。");
@@ -155,8 +325,8 @@ public class EditorController {
         }
 
         //创建文件夹
-        savePath += dirName + "/";
-        saveUrl += dirName + "/";
+        savePath += dirName + "\\";
+        saveUrl += dirName + "\\";
         File saveDirFile = new File(savePath);
         if (!saveDirFile.exists()) {
             saveDirFile.mkdirs();
@@ -164,8 +334,8 @@ public class EditorController {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String ymd = sdf.format(new Date());
-        savePath += ymd + "/";
-        saveUrl += ymd + "/";
+        savePath += ymd + "\\";
+        saveUrl += ymd + "\\";
         File dirFile = new File(savePath);
         if (!dirFile.exists()) {
             dirFile.mkdirs();
@@ -176,7 +346,43 @@ public class EditorController {
         //上传文件大小限制为31M，31*1024*1024;
         long maxSize = 32505856;
 
-        FileItemFactory factory = new DiskFileItemFactory();
+        //采用springmvc给提供的上传器
+        for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+            MultipartFile mf = entity.getValue();
+            String fileFullname = mf.getOriginalFilename();
+
+            //检查文件大小
+            if(mf.getSize() > maxSize){
+                return getError("上传文件大小超过限制。");
+            }
+            //检查扩展名
+            String fileExt = fileFullname.substring(fileFullname.lastIndexOf(".") + 1).toLowerCase();
+            if(!Arrays.<String>asList(extMap.get(dirName).split(",")).contains(fileExt)){
+                return getError("上传文件扩展名是不允许的扩展名。\n只允许" + extMap.get(dirName) + "格式。");
+            }
+
+
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+            String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
+
+            File uploadFile = new File(savePath + newFileName);
+            try {
+                FileCopyUtils.copy(mf.getBytes(), uploadFile);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return getError("上传文件失败。");
+            }
+            Map<String, Object> succMap = new HashMap<String, Object>();
+            String url = saveUrl + newFileName;
+            succMap.put("error", 0);
+            succMap.put("url", url);
+            return succMap;
+        }
+        return null;
+        //采用kindeditor提供的官方方法
+      /*  FileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setHeaderEncoding("UTF-8");
         List<?> items = null;
@@ -217,7 +423,7 @@ public class EditorController {
             }
         }
 
-        return null;
+        return null;*/
     }
 
     /**
@@ -229,11 +435,10 @@ public class EditorController {
     @RequestMapping(value = "/fileManager")
     @ResponseBody
     public Object fileManager(HttpServletRequest request, HttpServletResponse response) {
-        //根目录路径，可以指定绝对路径
-        String rootPath = request.getServletContext().getRealPath("/") + "attached/";
-
+        //根目录路径，可以指定绝对路径，比如 /var/www/attached/
+        String rootPath = request.getServletContext().getRealPath("/") + "attached/kindEditor/";
         //根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
-        String rootUrl  = request.getContextPath() + rootPath.substring(2);
+        String rootUrl  = request.getContextPath() + "/attached/kindEditor/";
         //图片扩展名
         String[] fileTypes = new String[]{"gif", "jpg", "jpeg", "png", "bmp"};
 
