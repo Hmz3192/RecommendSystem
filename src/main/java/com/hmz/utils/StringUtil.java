@@ -21,6 +21,8 @@ public class StringUtil {
         String[] s2 = s1.split(",");
         return s2.length;
     }
+
+
     //替换掉回车，换行
     public static String deleteRNB(String s1) {
         String reg = "\r|\n";

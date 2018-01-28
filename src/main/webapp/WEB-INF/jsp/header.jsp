@@ -20,7 +20,35 @@
     <link href="${path}/resource/css/dlzc.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="${path}/resource/css/nanoscroller.css">
+    <%--toast--%>
+    <link href="${path}/resource/toast/toast.style.css" rel="stylesheet">
+    <script type="text/javascript" src="${path}/resource/toast/toast.script.js"></script>
 
+    <script type="text/javascript">
+        var user = "${user}";
+        var logined = ${logined};
+        if(logined) {
+            if(user.userName == null) {
+                toast("登陆提醒", "登陆失败", "error");
+            }
+            else
+                toast("登陆提醒", "登陆成功", "success");
+        }
+
+        function toast(title,message,state) {
+            $.Toast(title, message, state, {
+                stack: true,
+                has_icon:true,
+                has_close_btn:true,
+                fullscreen:false,
+                timeout:3000,
+                sticky:false,
+                has_progress:true,
+                rtl:false,
+            });
+        }
+
+    </script>
 </head>
 <body>
 <header id="<></>op" role="banner" class="transition">
@@ -123,9 +151,10 @@
                 <i class="icon icon-sm-phone"></i>APP下载<em class="guide-prompt"></em>
             </li>
             <li class="search-li js-show-search-box"><a><i class="icon icon-search "></i></a><span>搜索</span></li>
+
             <li class="login-link-box"><a class="cd-signin">登录</a></li>
             <li ><a class="cd-signup" >注册</a></li>
-            <li><a class="cd-tougao"  id="tougao" href="${path}/tosub">投稿</a></li>
+            <li><a class="cd-tougao"  id="tougao" target="_self">投稿</a></li>
         </ul>
     </div>
     <div class="cd-user-modal">
@@ -138,7 +167,7 @@
                         <div class="login-form username-box " style="margin-top:52px;">
                             <%--  <a class="js-open-sms-login sms-text">短信快捷登录</a>--%>
                             <form action="${path}/login" method="post">
-                                <input type="hidden" name="Token" value="${Token}" />
+                                <%--<input type="hidden" name="Token" value="${Token}" />--%>
                                 <label class="login-label transition" >
                                     <input id="login_username"  name="userName" class="login-input" placeholder="手机号／邮箱／虎嗅账号">
                                 </label>
@@ -150,7 +179,7 @@
                                     <label><input id="autologin" type="checkbox">&nbsp;2周内自动登录</label>
                                     <a href="/user/reset_password" class="js-forget-passward pull-right">忘记密码</a>
                                 </div>
-                                <button class="js-btn-login btn-login" type="submit">登&nbsp;录</button>
+                                <input class="js-btn-login btn-login" type="submit">登&nbsp;录</input>
                             </form>
                         </div>
                         <div class="js-open-register register-text">极速注册</div>
@@ -209,16 +238,7 @@
     <script src="${path}/resource/js/d-login.js"></script>
     <script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
     <script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>
-    <script type="text/javascript">
-        var tougao = document.getElementById('tougao');
-        tougao.onclick = function(){
-            <c:if test="${sessionScope.user } == null">
-            alert("请先登录");
-            return false;
-            </c:if>
-        }
 
-    </script>
 </header>
 </body>
 </html>

@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -37,7 +38,7 @@ public class UserController {
 
 
     @RequestMapping("/")
-    @Token(save=true)
+//    @Token(save=true)
     public String toPage() {
         userService.selectAll();
         return "main";
@@ -73,22 +74,23 @@ public class UserController {
     }
 
 
-    @Token(remove = true)
-    @RequestMapping("/login")
-    public MesResult login(User user, HttpSession session) {
+//    @Token(remove = true)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(User user, Model model) {
         MesResult mesResult = new MesResult();
         logger.info(user.getUserName() + "--------" + user.getPassword());
         try {
             User userLogined = userService.loginUser(user);
-            session.setAttribute("user", userLogined);
+            model.addAttribute("user", userLogined);
+            model.addAttribute("logined", true);
             mesResult.setMessage("登陆成功");
-            return mesResult;
+            return "main";
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        model.addAttribute("logined", false);
         mesResult.setMessage("登陆失败");
-        return mesResult;
+        return "main";
     }
 
 
