@@ -43,4 +43,19 @@ public class NewsController {
 
         return pageResult;
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/rewen")
+    public List<Article> rewen() {
+        List<Article> articles = articleService.selectFirstFiveArticle();
+        return articles;
+    }
+
+    @RequestMapping(value = "/search")
+    public String search(String input) {
+        System.out.println(input);
+        return "search";
+    }
+
 }

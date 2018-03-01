@@ -9,13 +9,13 @@ public class JedisUtil {
     private static int PORT = 6379;
     private static String AUTH = "123456";
 
-    private static int MAX_ACTIVE = 1024;
+    private static int MAX_ACTIVE = 102400;
 
     private static int MAX_IDLE = 200;
 
     private static int MAX_WAIT = 10000;
 
-    private static int TIMEOUT = 360000;
+    private static int TIMEOUT = 36000000;
 
     private static boolean TEST_ON_BORROW = true;
 

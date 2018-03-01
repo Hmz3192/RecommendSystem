@@ -1,13 +1,4 @@
-
-
-
-
-
 /*导航app下载鼠标经过*/
-
-
-
-
 var mst;
 jQuery(".xiala li").hover(function(){
     var curItem = jQuery(this);
@@ -19,9 +10,6 @@ jQuery(".xiala li").hover(function(){
     if(mst!=null)clearTimeout(mst);
     jQuery(this).find("div").slideUp('fast');
 });
-
-
-
 
 
 /*底部鼠标经过*/

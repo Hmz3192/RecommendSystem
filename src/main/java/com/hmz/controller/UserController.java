@@ -1,15 +1,13 @@
 package com.hmz.controller;
 
-import com.hmz.interceptor.Token;
 import com.hmz.model.Article;
 import com.hmz.model.User;
 import com.hmz.pojo.ArticleEditPojo;
-import com.hmz.pojo.MesResult;
 import com.hmz.redis.JedisUtil;
 import com.hmz.service.ArticleAttachService;
+import com.hmz.service.ArticleService;
 import com.hmz.service.UserService;
 import com.hmz.utils.IDUtils;
-import org.apache.ibatis.annotations.Result;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @Author Hu mingzhi
@@ -35,7 +34,8 @@ public class UserController {
     private UserService userService;
     @Resource
     private ArticleAttachService articleAttachService;
-
+    @Resource
+    private ArticleService articleService;
 
     @RequestMapping("/")
 //    @Token(save=true)
@@ -52,11 +52,8 @@ public class UserController {
     public String app() {
         return "app";
     }
-    @RequestMapping("/toarticle")
-    public String article() {
-        return "article";
-    }
-    @RequestMapping("/tomember")
+
+    @RequestMapping("/tomyself")
     public String member() {
         return "member";
     }
@@ -74,22 +71,29 @@ public class UserController {
     }
 
 
-//    @Token(remove = true)
+    //    @Token(remove = true)
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(User user, Model model) {
-        MesResult mesResult = new MesResult();
+    public String login(User user, Model model, HttpSession session) {
+
         logger.info(user.getUserName() + "--------" + user.getPassword());
         try {
             User userLogined = userService.loginUser(user);
-            model.addAttribute("user", userLogined);
-            model.addAttribute("logined", true);
-            mesResult.setMessage("登陆成功");
+            session.setAttribute("user", userLogined);
+            session.setAttribute("logined", true);
+            model.addAttribute("result","登陆成功");
             return "main";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        model.addAttribute("logined", false);
-        mesResult.setMessage("登陆失败");
+        session.setAttribute("logined", false);
+        model.addAttribute("result","登陆失败");
+        return "main";
+    }
+
+    @RequestMapping(value = "/exit")
+    public String logout(HttpSession session,Model model) {
+        session.invalidate();
+        model.addAttribute("exitResult", "退出成功");
         return "main";
     }
 
@@ -103,6 +107,16 @@ public class UserController {
         logger.info("清楚成功");
         return "清楚成功";
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/getMyArticle")
+    public List<Article> getMyArticle(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        List<Article> articles = articleService.selectMyArticles(user.getUserId());
+        return articles;
+    }
+
 
 
     @RequestMapping(value = "/test")

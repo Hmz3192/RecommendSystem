@@ -1,10 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ThinKPad
-  Date: 2018/1/22
-  Time: 12:38
-  To change this template use File | Settings | File Templates.
---%>
+<!--
+Created by IntelliJ IDEA.
+User: ThinKPad
+Date: 2018/1/22
+Time: 12:38
+To change this template use File | Settings | File Templates.
+-->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set value="${pageContext.request.contextPath}" var="path"
@@ -26,10 +26,9 @@
     <link href="${path}/resource/css/login.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/zzsc.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/dlzc.css" rel="stylesheet" type="text/css"/>
-    <%--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>--%>
 
     <link rel="stylesheet" type="text/css" href="${path}/resource/css/nanoscroller.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/jquery.js"></script>
+    <script type="text/javascript" src="${path}/resource/js/jquery.js"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -48,7 +47,7 @@
             //没有更多数据
             var nomore_Text = '没有更多数据';
             /*
-             请求数据接口
+             请求正文列表接口
              */
             function loadData() {
                 //发送ajax
@@ -86,19 +85,21 @@
                         title = rs.articleTitle,
                         summary = rs.articleSummary,
                         collection = rs.articleCollection,
+                        up = rs.articleUp,
+                        down = rs.articleDown,
                         articleBig = rs.articleBig;
 //                    html+='<li data-id="'+id+'">'+title+'</li>';
-
+                    var article_href = "${path}/toarticle/" + id;
                     if (articleBig > 0) {
                         html += '<div class="mod-b mod-art mod-b-push ">' +
-                            '<a class="transition" href="#" target="_blank" title="' + title + '">' +
+                            '<a class="transition" href="' + article_href + '" target="_blank" title="' + title + '">' +
                             '<div class="mod-thumb ">' +
                             '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
                             '</div></a>' +
                             '<div class="column-link-box column-link-big-box">' +
                             '<a href="#" class="column-link" target="_blank">车与出行</a>' +
                             '</div><div class="mob-ctt">' +
-                            '<h2><a href="#" class="transition msubstr-row5" target="_blank">' + title + '</a></h2>' +
+                            '<h2><a href="' + article_href + '" class="transition msubstr-row5" target="_blank">' + title + '</a></h2>' +
                             '<div class="mob-author"><div class="author-face">' +
                             '<a href="#" target="_blank"><img class="lazy" src="/resource/sy-img/59_1502432173.jpg"></a>' +
                             '</div><a href="#" target="_blank">' +
@@ -112,7 +113,7 @@
                             '<div class="mod-b mod-art">' +
                                 /*state*/
                             '<div class="mod-angle">' + id + '</div>' +
-                            '<div class="mod-thumb "><a class="transition" title="' + title + '" href="#" target="_blank">' +
+                            '<div class="mod-thumb "><a class="transition" title="' + title + '" href="' + article_href + '" target="_blank">' +
                                 /*pic1*/
                             '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
                             '</a></div><div class="column-link-box">' +
@@ -120,7 +121,7 @@
                             '<a href="#" class="column-link" target="_blank">娱乐淘金</a></div>' +
                             '<div class="mob-ctt">' +
                                 /*title*/
-                            '<h2><a href="#" class="transition msubstr-row2" target="_blank">' + title + '</a></h2>' +
+                            '<h2><a href="' + article_href + '" class="transition msubstr-row2" target="_blank">' + title + '</a></h2>' +
                             '<div class="mob-author"><div class="author-face">' +
                                 /*user-avatar*/
                             '<a href="#" target="_blank"><img src="/resource/sy-img/59_1502432173.jpg"></a></div>' +
@@ -132,6 +133,18 @@
                             '<i class="icon icon-cmt"></i><em>0</em>' +
                                 /*collection-number*/
                             '<i class="icon icon-fvr"></i><em>' + collection + '</em>' +
+
+                            //dian zan
+                            '<div class="article-type pull-right">' +
+                            '<div class="icon-like-prompt" id="zanAdd" ><i class="icon icon-like active"></i><span class="c1" id="upText" >+1</span></div>' +
+                            '<div class="icon-no-like-prompt" id="zanDown"><i class="icon icon-no-like active"></i><span class="c1" id="downText" >+1</span></div>' +
+                            '<ul>' +
+                            '<li class="js-icon-like"  id="like"><i class="icon icon-like" id="up"></i>' +
+                            '<span class="like" id="upNum">' + up + '</span></li>' +
+                            '<li class="js-no-icon-like"  id="noLike"><i class="icon icon-no-like " id="down" ></i>' +
+                            '<span class="like" id="downNum">' + down + '</span></li>' +
+                            '</ul>' +
+                            '</div>' +
                                 /*summary*/
                             '</div><div class="mob-sub">' + summary + '</div>' +
                             '</div></div></div>'
@@ -147,6 +160,106 @@
                     loadingBtn.html(nomore_Text);
                 }
             }
+
+            /*
+             请求正文列表接口
+             */
+            function loadReWen() {
+                //发送ajax
+                $.ajax({
+                    //url
+                    url: "${path}/rewen",
+                    //请求方式
+                    type: 'POST',
+                    //成功回调
+                    success: function (data1) {
+                        var html = '', result1 = data1, len2 = result1.length, i = 0;
+                        var path = '${path}';
+                        //循环数据
+                        for (; i < 5; i++) {
+                            var rs = result1[i],
+                                id = rs.articleId,
+                                pic = "http://localhost:8111/" + rs.articleAvatar,
+                                title = rs.articleTitle,
+                                articleHints = rs.articleHints,
+                                article_href = "${path}/toarticle/" + id;
+
+                            html += '<li><div class="hot-article-img">' +
+                                '<a href=" '+ article_href + '" target="_blank" title="' + title  + '">' +
+                                '<img src="' + pic + '"></a></div>' +
+                                '<a href="'+ article_href + '" class="transition" target="_blank">' + title  +'</a>' +
+                                '<div style="float: right"><span class="watch-icon" style="margin-right: 5px"  ></span> ' +
+                                '<span style="font-size: 20px;" > '+ articleHints + ' </span></div></li>';
+                        }
+
+                        $("#reWen").append(html)
+                    },
+                    //失败回调
+                    error: function (e, e2, e3) {
+                        //
+                        alert('请求失败，原因：' + e3);
+                    }
+                });
+            }
+
+
+            var zanCancle = 0,downCancle = 0;;
+            $(document).on("click", "#like", function () {
+                if(downCancle == 0) {
+                    var zanAdd = $(this).parent().parent().children("#zanAdd"),
+                        upNum = $(this).children("#upNum"),
+                        up = $(this).children("#up"),
+                        upText = $(this).parent().parent().children().children("#upText"),
+                        num = parseInt(upNum.text());
+                    if (zanCancle == 0) {
+                        up.addClass("active")
+                        num+=1
+                        upText.text("+1")
+                        upNum.text(num)
+                        zanAdd.stop().animate({opacity: '1'}, "slow")
+                        zanAdd.animate({opacity: '0'}, "slow")
+                        zanCancle = 1;
+                    }else {
+                        up.removeClass("active")
+                        upText.text("-1")
+                        num-=1
+                        upNum.text(num)
+                        zanAdd.animate({opacity: '1'}, "slow")
+                        zanAdd.animate({opacity: '0'}, "slow")
+                        zanCancle = 0;
+                    }
+                }
+
+            });
+
+
+            $(document).on("click", "#noLike", function () {
+                if(zanCancle == 0) {
+                    var zanDown = $(this).parent().parent().children("#zanDown"),
+                        downNum = $(this).children("#downNum"),
+                        down = $(this).children("#down"),
+                        downText = $(this).parent().parent().children().children("#downText"),
+                        num2 = parseInt(downNum.text());
+                    if (downCancle == 0) {
+                        down.addClass("active")
+                        num2+=1
+                        downText.text("+1")
+                        downNum.text(num2)
+                        zanDown.stop().animate({opacity: '1'}, "slow")
+                        zanDown.animate({opacity: '0'}, "slow")
+                        downCancle = 1;
+                    }else {
+                        down.removeClass("active")
+                        downText.text("-1")
+                        num2-=1
+                        downNum.text(num2)
+                        zanDown.animate({opacity: '1'}, "slow")
+                        zanDown.animate({opacity: '0'}, "slow")
+                        downCancle = 0;
+                    }
+                }
+
+            });
 
             /*
              判断是否要加载接口
@@ -182,6 +295,7 @@
             window.onload = function () {
                 //加载数据
                 loadData();
+                loadReWen();
             };
 
             /*
@@ -204,41 +318,10 @@
 <div class="placeholder-height"></div>
 <div class="container" id="index">
     <div class="wrap-left pull-left">
-        <div class="big-pic-box">
-            <div class="big-pic">
-                <a href="#" target="_blank" class="transition" title="醒醒吧，腾讯、网易称霸的游戏行业，谁都没机会成为第三">
-                    <div class="back-img"><img src="${path}/resource/sy-img/061708387437.jpg"
-                                               alt="醒醒吧，腾讯、网易称霸的游戏行业，谁都没机会成为第三"></div>
-                    <div class="big-pic-content">
-                        <h1 class="t-h1">醒醒吧，腾讯、网易称霸的游戏行业，谁都没机会成为第三</h1>
-                    </div>
-                </a>
-            </div>
-            <div class="big2-pic big2-pic-index big2-pic-index-top">
-                <a href="#" class="back-img transition" target="_blank" title="嘘！Facebook 正在上海悄悄寻找办公室">
-                    <img class="lazy" src="${path}/resource/sy-img/142618969973.jpg" alt="嘘！Facebook 正在上海悄悄寻找办公室">
-                </a>
-                <a href="#" target="_blank" title="嘘！Facebook 正在上海悄悄寻找办公室">
-                    <div class="big2-pic-content">
-                        <h2 class="t-h1">嘘！Facebook 正在上海悄悄寻找办公室</h2>
-                    </div>
-                </a>
-            </div>
-            <div class="big2-pic big2-pic-index big2-pic-index-bottom">
-                <a href="#" class="back-img transition" target="_blank" title="马云在人生最艰难时去了延安，在革命根据地决定建立淘宝">
-                    <img class="lazy" src="${path}/resource/sy-img/093433055013.jpg" alt="马云在人生最艰难时去了延安，在革命根据地决定建立淘宝">
-                </a>
-                <a href="#" target="_blank" 马云在人生最艰难时去了延安，在革命根据地决定建立淘宝>
-                    <div class="big2-pic-content">
-                        <h2 class="t-h1">马云在人生最艰难时去了延安，在革命根据地决定建立淘宝</h2>
-                    </div>
-                </a>
-            </div>
-        </div>
 
-        <%--动态加载--%>
+        <!--动态加载 -->
         <div class="mod-info-flow" style="width: 100%;">
-                <ul id="list"></ul>
+            <ul id="list"></ul>
             <div class="get-mod-more js-get-mod-more-list transition" id="loading" style="cursor: pointer;">
                 点击加载更多
             </div>
@@ -251,312 +334,14 @@
 
         <link rel="stylesheet" type="text/css" href="https://static.huxiucdn.com/www/css/moment.css">
         <div id="moment"></div>
-        <div class="box-moder moder-story-list">
-            <h3>24小时</h3>
-            <span class="pull-right project-more story-more"><a href="#"
-                                                                class="transition index-24-right js-index-24-right"
-                                                                target="_blank">查看全部</a></span>
+        <div class="box-moder hot-article">
+            <h3>实时热文</h3>
+            <span class="pull-right project-more story-more">
+            <a href="#" class="transition" target="_blank">查看全部</a></span>
             <span class="span-mark"></span>
-            <div class="story-box-warp hour-box-warp">
-                <div class="nano">
-                    <div class="overthrow nano-content description" tabindex="0">
-                        <ul class="box-list mt-box-list">
-                            <!--公共24小时列表部分-->
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。<a
-                                                    href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。
-                                                <a href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp] </a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。
-                                                <a href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。<a
-                                                    href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。<a
-                                                    href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。<a
-                                                    href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。<a
-                                                    href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。
-                                                <a href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。<a
-                                                    href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="story-content">
-                                    <div class="mt-story-title js-story-title" story-data-show="true">
-                                        <p class="transition hour-arrow">
-                                            <span class="icon icon-caret js-mt-index-icon"></span>
-                                        </p>
-                                        <ul class="hour-head">
-                                            <li><img class="hour-tx" src="${path}/resource/sy-img/touxiang.jpg"
-                                                     alt="头像"></li>
-                                            <li>
-                                                <p>果然黑</p>
-                                                <p>3分钟前</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="mt-index-info-parent">
-                                        <div class="story-info mt-story-info">
-                                            <p class="story-detail-hide hour-detail-hide mt-index-cont mt-index-cont2 js-mt-index-cont2">
-                                                #苹果至少要等到2019年才能摆脱对三星的依赖# 作为苹果现有LCD显示屏长期的供货商，LG
-                                                Display可做到2019年实现OLED显示屏的全面发货，明年年底可以实现少量的发货。目前，LG与苹果就一些协商预付款的细节问题讨论到最后阶段。<a
-                                                    href="#" target="_blank" class="mt-index-cont2-a">[&nbsp原文&nbsp]</a>
-                                            </p>
-                                            <div class="mt-index-end">
-                                                <div class="mt-index-realend">...</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="nano-pane">
-                        <div class="nano-slider" style="height: 179px; transform: translate(0px, 0px);"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="js-more-moment" data-cur_page="0"></div>
+            <ul id="reWen">
+
+            </ul>
         </div>
         <div class="placeholder"></div>
         <!--24小时部分结束1-->
@@ -570,8 +355,8 @@
 <%@include file="footer.jsp" %>
 
 <script type="text/javascript" src="${path}/resource/js/mouse.js"></script>
-<%--<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
-<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>--%>
+<!--<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
+<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>-->
 </body>
 
 </html>

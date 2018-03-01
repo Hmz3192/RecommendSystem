@@ -17,4 +17,11 @@ public interface ArticleService {
 
     Article getOne(Integer articleID);
 
+    List<Article> selectMyArticles(Integer userId);
+
+    Integer updateOne(Article article);
+
+
+    List<Article> selectFirstFiveArticle();
+
 }

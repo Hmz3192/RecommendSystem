@@ -60,4 +60,33 @@ public class ArticleServicelmpl implements ArticleService {
     public Article getOne(Integer articleID) {
         return articleMapper.selectByPrimaryKey(articleID);
     }
+
+    @Cacheable(value = {"ArticleCache"})
+    @Override
+    public List<Article> selectMyArticles(Integer userId) {
+        ArticleExample example = new ArticleExample();
+        ArticleExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        List<Article> articles = articleMapper.selectByExample(example);
+        return articles;
+    }
+
+    @Override
+    public Integer updateOne(Article article) {
+        ArticleExample example0 = new ArticleExample();
+        ArticleExample.Criteria criteria0 = example0.createCriteria();
+        criteria0.andArticleIdEqualTo(article.getArticleId());
+        int i = articleMapper.updateByExampleSelective(article, example0);
+        return i;
+    }
+
+    @Override
+    public List<Article> selectFirstFiveArticle() {
+        ArticleExample example = new ArticleExample();
+        ArticleExample.Criteria criteria = example.createCriteria();
+        example.setOrderByClause("article_hints desc");
+        List<Article> articles = articleMapper.selectByExample(example);
+        List<Article> list1 = articles.subList(0, 5);
+        return list1;
+    }
 }

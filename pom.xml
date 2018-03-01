@@ -36,6 +36,13 @@
 
 
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-queryparser -->
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-queryparser</artifactId>
+      <version>4.4.0</version>
+    </dependency>
+
     <dependency>
       <!-- 添加jstl依赖 -->
       <groupId>jstl</groupId>
@@ -291,7 +298,12 @@
       <version>2.7.0</version>
     </dependency>-->
     <!-- redis end-->
-
+    <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-queryparser -->
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-queryparser</artifactId>
+      <version>4.6.0</version>
+    </dependency>
 
 
   </dependencies>
@@ -322,6 +334,20 @@
           <overwrite>true</overwrite>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+          <encoding>UTF-8</encoding>
+          <compilerArguments>
+            <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+          </compilerArguments>
+        </configuration>
+      </plugin>
+
     </plugins>
 
   </build>

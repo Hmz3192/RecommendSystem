@@ -114,7 +114,7 @@ $(document).ready(function(){
 
     });
 
-    $('.box').easydrag();
+    // $('.box').easydrag();
 
 
 });

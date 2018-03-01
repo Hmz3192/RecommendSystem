@@ -72,8 +72,8 @@ public class EditorController {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String ymd = sdf.format(new Date());
-        savePath += ymd + "\\";
-        saveUrl += ymd + "\\";
+        savePath += ymd + "/";
+        saveUrl += ymd + "/";
         File dirFile = new File(savePath);
         if (!dirFile.exists()) {
             dirFile.mkdirs();
@@ -232,14 +232,13 @@ public class EditorController {
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String ymd = sdf.format(new Date());
-            savePath += ymd + "\\";
-            saveUrl += ymd + "\\";
+            savePath += ymd + "/";
+            saveUrl += ymd + "/";
             File dirFile = new File(savePath);
             if (!dirFile.exists()) {
                 dirFile.mkdirs();
             }
             try{
-
                 File targetFile = new File(savePath, newFileName);
                 if (!targetFile.exists())
                 {

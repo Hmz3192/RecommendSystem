@@ -948,6 +948,17 @@ position:absolute;
 padding:30px!important;
 }
 
+.watch-icon {
+	position:relative;
+	display:inline-block;
+	vertical-align:text-bottom;
+	background-image:url(../images/watch.png);
+	background-repeat:no-repeat;
+	width:20px;
+	height:20px;
+}
+
+
 .icon {
 display:inline-block;
 vertical-align:text-bottom;
@@ -2275,7 +2286,7 @@ border-radius:47px;
 
 .search-input-list {
 height:60px;
-width:100%;
+width:95%;
 border:1px solid #f0f0f0;
 font-size:18px;
 padding-left:20px;
@@ -4166,7 +4177,7 @@ display:list-item;
 min-height:280px;
 border-left:1px solid #f0f0f0;
 margin-left:269px;
-padding:75px 35px 0 50px;
+padding:30px 35px 0 50px;
 }
 
 .user-info-box .user-info {
@@ -5414,7 +5425,7 @@ text-align:center;
 cursor:pointer;
 }
 
-70% {
+/*70% {
 -webkit-transform:scale(1.05) rotateX(0);
 transform:scale(1.05) rotateX(0);
 }
@@ -5422,7 +5433,7 @@ transform:scale(1.05) rotateX(0);
 100% {
 -webkit-transform:scale(1) rotateX(0);
 transform:scale(1) rotateX(0);
-}
+}*/
 
 .clear {
 clear:both;
@@ -5756,7 +5767,7 @@ top:40px;
 left:-10px;
 width:30px;
 height:28px;
-transition:0;
+/*transition:0;*/
 }
 
 .cy-mod-thumb {
@@ -6500,7 +6511,7 @@ font-size:14px;
 line-height:24px;
 overflow:hidden;
 text-overflow:ellipsis;
-display:0;
+/*display:0;*/
 -webkit-box-orient:vertical;
 line-clamp:3;
 -webkit-line-clamp:3;
@@ -6652,7 +6663,7 @@ margin-top:5px;
 border-radius:0;
 }
 
-.search-box-last,.box-topic .topic-pic-title:hover,.go-top:hover .go-hover,50% {
+.search-box-last,.box-topic .topic-pic-title:hover,.go-top:hover .go-hover/*,50%*/ {
 opacity:1;
 }
 
@@ -6991,7 +7002,7 @@ display:inline-block;
 width:100%;
 }
 
-@media screen and max-width1255px {
+@media screen /*and max-width1255px*/ {
 .go-top-box {
 left:auto;
 right:0;

@@ -14,4 +14,5 @@ public interface UserService {
 
     User loginUser(User user);
 
+    User getUserById(Integer userId);
 }

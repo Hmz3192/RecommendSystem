@@ -1,10 +1,10 @@
-<%--
+<!--
   Created by IntelliJ IDEA.
   User: ThinKPad
   Date: 2018/1/24
   Time: 14:32
   To change this template use File | Settings | File Templates.
---%>
+-->
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set value="${pageContext.request.contextPath}" var="path"
@@ -34,12 +34,12 @@
     <link href="${path}/resource/css/login.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/zzsc.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/dlzc.css" rel="stylesheet" type="text/css"/>
-    <%--webUpload--%>
+    <!--webUpload-->
     <link rel="stylesheet" href="${path}/resource/webUpload/easy-upload.css">
 
-<%--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>--%>
+<!--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>-->
     <link rel="stylesheet" type="text/css" href="${path}/resource/css/nanoscroller.css">
-    <%--kindEditor--%>
+    <!--kindEditor-->
     <link rel="stylesheet" href="${path}/resource/kindEditor/themes/default/default.css"/>
     <link rel="stylesheet" href="${path}/resource/kindEditor/plugins/code/prettify.css"/>
 
@@ -289,7 +289,7 @@
             window.onload = function () {
                 //加载kind数据
                 loadPKind();
-                alert(${articlePO.blog_state});
+                <%--alert(${articlePO.blog_state});--%>
                 <c:if test="${articlePO.blog_state == 1}">
                 //加载tag
                 loadTag();
@@ -421,7 +421,7 @@
 <%@include file="header.jsp" %>
 <div class="placeholder"></div>
 
-<%--编辑器--%>
+<!--编辑器-->
 <div class="container" id="index" style="width: 95%!important;margin: 0px auto">
     <div class="wrap-left pull-left" style="margin-left: 13%;width: 55%;">
         <div class="row-fluid">
@@ -491,7 +491,7 @@
                                     <div id="upload" class="upload"><p>选择封面</p></div>
                                 <br>
                             </fieldset>
-                            <%--<%=htmlData%>--%>
+                            <!--<%=htmlData%>-->
                             <fieldset>
                                 <legend>内容</legend>
                                 <textarea name="content1" id ="content1" cols="200" rows="8"
@@ -503,12 +503,12 @@
                                 <input type="text" class="form-control" style="width: 100px;" name="tags" id="tags"
                                        data-role="tagsinput" placeholder="请输入标签"/>
                             </fieldset>
-                            <%--<input type="submit" name="button" value="提交内容"/> (提交快捷键: Ctrl + Enter)--%>
+                            <!--<input type="submit" name="button" value="提交内容"/> (提交快捷键: Ctrl + Enter)-->
                             <br>
                             <fieldset>
                             <input type="button"  id="finish" class="myButton" name="finish" value="发布"  />
                             <input type="button"  id="save" class="myButton" value="保存" name="getHtml"/>
-                                <%--<input type="button"  id="saveCover" class="myButton" value="保存封面" />--%>
+                                <!--<input type="button"  id="saveCover" class="myButton" value="保存封面" />-->
 
                             </fieldset>
                         </form>
@@ -547,22 +547,22 @@
 </div>
 <div class="placeholder"></div>
 
-<%--页脚--%>
+<!--页脚-->
 <%@include file="footer.jsp" %>
-<%--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>--%>
-<%--<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
-<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>--%>
-<%--kindEditor--%>
+<!--<script language="javascript" type="text/javascript" src="${path}/resource/js/jquery-1.11.1.min.js"/>-->
+<!--<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>
+<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>-->
+<!--kindEditor-->
 <script charset="utf-8" src="${path}/resource/kindEditor/kindeditor-all.js"></script>
 <script charset="utf-8" src="${path}/resource/kindEditor/lang/zh-CN.js"></script>
 <script charset="utf-8" src="${path}/resource/kindEditor/plugins/code/prettify.js"></script>
 <script type="text/javascript"  charset="utf-8" src="${path}/resource/kindEditor/plugins/jwplayer/jwplayer.js"></script>
-<%--自定义的选择图片--%>
+<!--自定义的选择图片-->
 <link rel="stylesheet" charset="utf-8" href="${path}/resource/css/tinyImgUpload.css">
 <script type="text/javascript" src="${path}/resource/js/tinyImgUpload.js"></script>
-<%--鼠标滑动--%>
+<!--鼠标滑动-->
 <script type="text/javascript" src="${path}/resource/js/mouse.js"></script>
-<%--tag标签--%>
+<!--tag标签-->
 <script type="text/javascript" src="${path}/resource/js/bootstrap-tagsinput.js"></script>
 <script language="javascript" type="text/javascript" src="${path}/resource/webUpload/easyUpload.js"></script>
 <script>

@@ -6,10 +6,35 @@ jQuery(document).ready(function($){
         $form_modal_tab = $('.cd-switcher'),
         $tab_login = $form_modal_tab.children('li').eq(0).children('a'),
         $tab_signup = $form_modal_tab.children('li').eq(1).children('a'),
+        $login = $('.cd-signin'),
+        $register = $('.cd-signup'),
+        $tougao = $('.cd-tougao'),
+        $form_forgot_password = $('.js-forget-passward'),
         $main_nav = $('.main_nav');
 
+
+
+        $login.on('click',function (eve) {
+            $form_modal.addClass('is-visible');
+            login_selected()
+        });
+        $register.on('click',function (eve) {
+            $form_modal.addClass('is-visible');
+            $('#progress').css('width','50%'),
+            $("#register").css('display','none'),
+            $("#nextBtn").text("下一步"),
+            $("#survery").css('display','block');
+            signup_selected()
+        });
+        $tougao.on('click',function (eve) {
+            if(user == null || user.length == 0) {
+                toast("提醒","请先登录","warning");
+                return false;
+            }else
+                window.location.href="http://localhost:8111/tosub"
+        });
     //弹出窗口
-    $main_nav.on('click', function(event){
+   /* $main_nav.on('click', function(event){
 
         if( $(event.target).is($main_nav) ) {
             // on mobile open the submenu
@@ -28,7 +53,9 @@ jQuery(document).ready(function($){
 
         }
 
-    });
+    });*/
+
+
 
     //关闭弹出窗口
     $('.cd-user-modal').on('click', function(event){
@@ -64,5 +91,4 @@ jQuery(document).ready(function($){
         $tab_login.removeClass('selected');
         $tab_signup.addClass('selected');
     }
-
 });

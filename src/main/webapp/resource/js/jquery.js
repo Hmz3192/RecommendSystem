@@ -6322,8 +6322,11 @@ jQuery.extend({
 					tag = ( rtagName.exec( elem ) || ["", ""] )[1].toLowerCase();
 					wrap = wrapMap[ tag ] || wrapMap._default;
 					depth = wrap[0];
+					//显示top图标
+					if(elem == '<div id="topcontrol" ><img src="images/top.png" style="width:30px; height:30px; border:0;" /></div>') {
+                        elem = '<div id="topcontrol" ><img src="http://localhost:8111/resource/images/top.png" style="width:30px; height:30px; border:0;" /></div>'
+                    }
 					div.innerHTML = wrap[1] + elem + wrap[2];
-
 					// Move to the right depth
 					while ( depth-- ) {
 						div = div.lastChild;
