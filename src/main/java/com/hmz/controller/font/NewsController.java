@@ -1,4 +1,4 @@
-package com.hmz.controller;
+package com.hmz.controller.font;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -55,7 +55,7 @@ public class NewsController {
     @RequestMapping(value = "/search")
     public String search(String input) {
         System.out.println(input);
-        return "search";
+        return "font/search";
     }
 
 }

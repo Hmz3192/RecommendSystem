@@ -1,4 +1,4 @@
-package com.hmz.controller;
+package com.hmz.controller.font;
 
 import com.hmz.model.Article;
 import com.hmz.model.ArticleComment;
@@ -58,7 +58,7 @@ public class ArticleController {
             e.printStackTrace();
         }
         model.addAttribute("state", 0);
-        return "article";
+        return "font/article";
     }
 
     //kind = zanPlus,zanMinus

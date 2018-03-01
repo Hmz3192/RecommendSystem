@@ -1,4 +1,4 @@
-package com.hmz.controller;
+package com.hmz.controller.font;
 
 import com.hmz.model.Article;
 import com.hmz.model.User;
@@ -37,7 +37,7 @@ public class UserController {
     @Resource
     private ArticleService articleService;
 
-    @RequestMapping("/")
+    @RequestMapping("/f")
 //    @Token(save=true)
     public String toPage() {
         userService.selectAll();
@@ -45,17 +45,17 @@ public class UserController {
     }
     @RequestMapping("/toactive")
     public String active() {
-        return "active";
+        return "font/active";
     }
 
     @RequestMapping("/toapp")
     public String app() {
-        return "app";
+        return "font/app";
     }
 
     @RequestMapping("/tomyself")
     public String member() {
-        return "member";
+        return "font/member";
     }
 
     @RequestMapping("/tosub")
@@ -67,7 +67,7 @@ public class UserController {
         article.setArticleId(GenArticleId);
         articleEditPojo.setArticle(article);
         model.addAttribute("articlePO", articleEditPojo);
-        return "submission";
+        return "font/submission";
     }
 
 
@@ -87,14 +87,14 @@ public class UserController {
         }
         session.setAttribute("logined", false);
         model.addAttribute("result","登陆失败");
-        return "main";
+        return "font/main";
     }
 
     @RequestMapping(value = "/exit")
     public String logout(HttpSession session,Model model) {
         session.invalidate();
         model.addAttribute("exitResult", "退出成功");
-        return "main";
+        return "font/main";
     }
 
 

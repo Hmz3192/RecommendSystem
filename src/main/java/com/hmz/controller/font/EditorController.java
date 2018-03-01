@@ -1,4 +1,4 @@
-package com.hmz.controller;
+package com.hmz.controller.font;
 
 import com.hmz.model.Article;
 import com.hmz.model.ArticleAttach;
@@ -123,7 +123,7 @@ public class EditorController {
         }
         articleAttachService.saveAttache(articleAttach);
         articleService.saveBlog(article);
-        return "main";
+        return "font/main";
     }
 
 
@@ -183,7 +183,7 @@ public class EditorController {
         articleEditPojo.setArticleAttachPojo(oneByArticleId);
         articleEditPojo.setBlog_state(1);
         model.addAttribute("articlePO", articleEditPojo);
-        return "submission";
+        return "font/submission";
     }
 
     @RequestMapping(value = "/saveBlog", method = RequestMethod.POST)

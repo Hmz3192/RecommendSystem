@@ -65,7 +65,7 @@ To change this template use File | Settings | File Templates.
                     article_content_id.append(html);
                 } else {
                     alert("出错啦")
-                    window.location.href = "http://localhost:8111/"
+                    window.location.href = "../../"
                 }
 
             }
