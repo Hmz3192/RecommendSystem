@@ -150,7 +150,7 @@
                             <div id="dropdown-element" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="${path}/article" style="text-align: center">文章管理</a>
+                                        <li><a href="${path}/article" style="text-align: center">文章审核</a>
                                         </li>
                                         <li><a href="${path}/articleKind" style="text-align: center">类型管理</a>
                                         </li>
@@ -162,7 +162,7 @@
                         </li>
                         <li class="panel panel-default dropdown">
                             <a data-toggle="collapse" href="#dropdown-table">
-                                <span class="icon fa fa-table"></span><span class="title">广告管理</span>
+                                <span class="icon fa fa-table"></span><span class="title">媒体管理</span>
                             </a>
                             <!-- Dropdown level 1 -->
                             <div id="dropdown-table" class="panel-collapse collapse">
@@ -170,7 +170,7 @@
                                     <ul class="nav navbar-nav">
                                         <li><a href="${path}/adver" style="text-align: center">广告管理</a>
                                         </li>
-                                        <li><a href="#" style="text-align: center">新增广告</a>
+                                        <li><a href="${path}/addAdver" style="text-align: center">新增广告</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -204,9 +204,9 @@
                             <div id="component-example" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="${path}/permission" style="text-align: center">权限分配</a>
+                                        <li><a href="${path}/role" style="text-align: center">角色管理</a>
                                         </li>
-                                        <li><a href="${path}/role" style="text-align: center">角色分配</a>
+                                        <li><a href="${path}/permission" style="text-align: center">权限分配</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -214,13 +214,14 @@
                         </li>
                         <!-- Dropdown-->
                         <li>
-                            <a data-toggle="collapse" href="${path}/chart">
-                                <span class="icon fa fa-slack"></span><span class="title">运营图表</span>
+                            <a href="${path}/chart">
+                                <span class="icon fa fa-slack"></span><span class="title">网站流量</span>
+
                             </a>
                         </li>
                         <!-- Dropdown-->
                         <li>
-                            <a data-toggle="collapse" href="${path}/mesboard">
+                            <a href="${path}/mesboard">
                                 <span class="icon fa fa-archive"></span><span class="title">留言板</span>
                             </a>
                         </li>
@@ -237,76 +238,229 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <div class="title">类型管理</div>
+                                    <div class="title">文章类型管理</div>
+                                    <hr>
+                                    <div>
+                                        <!-- 新增类型 -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#addKind">
+                                            新增类型
+                                        </button>
+                                        <!-- 新增类型 -->
+                                        <div class="modal fade" id="addKind" tabindex="-1" role="dialog"
+                                             aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close"><span
+                                                                aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">新增类型</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">关闭
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary">发布</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Column heading</th>
-                                        <th>Column heading</th>
-                                        <th>Column heading</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="active">
-                                        <th scope="row">1</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr class="success">
-                                        <th scope="row">3</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr class="info">
-                                        <th scope="row">5</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">6</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr class="warning">
-                                        <th scope="row">7</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">8</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <th scope="row">9</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+
+
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>父类型</th>
+                                            <th>子类型数量</th>
+                                            <th>子类型ID</th>
+                                            <th>子类型</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="active">
+                                            <th scope="row" >1</th>
+                                            <td>移动开发</td>
+                                            <td>3</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                                            data-toggle="dropdown"
+                                                            style="margin: 0 auto;border-radius: 6px">
+                                                        操作 <span
+                                                            class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editParent">修改信息</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td></td>
+                                            <td></td>
+                                            <td>2</td>
+                                            <td>安卓</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                                            data-toggle="dropdown"
+                                                            style="margin: 0 auto;border-radius: 6px">
+                                                        操作 <span
+                                                            class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editParent">修改信息</a></li>
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editSon">修改父类</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td></td>
+                                            <td></td>
+                                            <td>3</td>
+                                            <td>ios</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                                            data-toggle="dropdown"
+                                                            style="margin: 0 auto;border-radius: 6px">
+                                                        操作 <span
+                                                            class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editParent">修改信息</a></li>
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editSon">修改父类</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td></td>
+                                            <td></td>
+                                            <td>4</td>
+                                            <td>web</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                                            data-toggle="dropdown"
+                                                            style="margin: 0 auto;border-radius: 6px">
+                                                        操作 <span
+                                                            class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editParent">修改信息</a></li>
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editSon">修改父类</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="active">
+                                            <th scope="row" >5</th>
+                                            <td>大数据</td>
+                                            <td>2</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                                            data-toggle="dropdown"
+                                                            style="margin: 0 auto;border-radius: 6px">
+                                                        操作 <span
+                                                            class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editParent">修改信息</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td></td>
+                                            <td></td>
+                                            <td>6</td>
+                                            <td>Hadoop</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                                            data-toggle="dropdown"
+                                                            style="margin: 0 auto;border-radius: 6px">
+                                                        操作 <span
+                                                            class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editParent">修改信息</a></li>
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editSon">修改父类</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td></td>
+                                            <td></td>
+                                            <td>7</td>
+                                            <td>HBase</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                                            data-toggle="dropdown"
+                                                            style="margin: 0 auto;border-radius: 6px">
+                                                        操作 <span
+                                                            class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editParent">修改信息</a></li>
+                                                        <li><a href="#" data-toggle="modal"
+                                                               data-target="#editSon">修改父类</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <nav>
+                                            <ul class="pagination pagination-lg" style="margin-left: 40%;margin-top: 5%">
+                                                <li>
+                                                    <a href="#" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <li class="active"><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">4</a></li>
+                                                <li><a href="#">5</a></li>
+                                                <li>
+                                                    <a href="#" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -315,6 +469,65 @@
         </div>
     </div>
 </div>
+
+<!--修改信息-->
+<div class="modal fade" id="editParent" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel1">修改父类信息</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary">发布</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--父类选择-->
+<div class="modal fade" id="editSon" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">父类选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="radio3">
+                    <input type="radio" id="radio1" name="radio1" value="option1">
+                    <label for="radio1">
+                        移动开发
+                    </label>
+                </div>
+                <div class="radio3">
+                    <input type="radio" id="radio2" name="radio1" value="option2">
+                    <label for="radio2">
+                        大数据
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary">保存</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Javascript Libs -->
 <script type="text/javascript" src="${path}/backResource/js/jquery.min.js"></script>
 <script type="text/javascript" src="${path}/backResource/js/bootstrap.min.js"></script>

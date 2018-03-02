@@ -29,8 +29,8 @@
     <link rel="stylesheet" type="text/css" href="${path}/backResource/css/themes/flat-blue.css">
 </head>
 
-<body class="flat-blue" >
-<div class="app-container" >
+<body class="flat-blue" style="height: auto">
+<div class="app-container">
     <div class="row content-container">
         <!--titleBar-->
         <nav class="navbar navbar-default navbar-fixed-top navbar-top">
@@ -46,7 +46,7 @@
                         <i class="fa fa-th icon"></i>
                     </button>
                 </div>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" >
                     <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                         <i class="fa fa-times icon"></i>
                     </button>
@@ -151,7 +151,7 @@
                             <div id="dropdown-element" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="${path}/article" style="text-align: center">文章管理</a>
+                                        <li><a href="${path}/article" style="text-align: center">文章审核</a>
                                         </li>
                                         <li><a href="${path}/articleKind" style="text-align: center">类型管理</a>
                                         </li>
@@ -163,7 +163,7 @@
                         </li>
                         <li class="panel panel-default dropdown">
                             <a data-toggle="collapse" href="#dropdown-table">
-                                <span class="icon fa fa-table"></span><span class="title">广告管理</span>
+                                <span class="icon fa fa-table"></span><span class="title">媒体管理</span>
                             </a>
                             <!-- Dropdown level 1 -->
                             <div id="dropdown-table" class="panel-collapse collapse">
@@ -171,7 +171,7 @@
                                     <ul class="nav navbar-nav">
                                         <li><a href="${path}/adver" style="text-align: center">广告管理</a>
                                         </li>
-                                        <li><a href="#" style="text-align: center">新增广告</a>
+                                        <li><a href="${path}/addAdver" style="text-align: center">新增广告</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -205,9 +205,9 @@
                             <div id="component-example" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="${path}/permission" style="text-align: center">权限分配</a>
+                                        <li><a href="${path}/role" style="text-align: center">角色管理</a>
                                         </li>
-                                        <li><a href="${path}/role" style="text-align: center">角色分配</a>
+                                        <li><a href="${path}/permission" style="text-align: center">权限分配</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -215,23 +215,25 @@
                         </li>
                         <!-- Dropdown-->
                         <li>
-                            <a data-toggle="collapse" href="${path}/chart">
-                                <span class="icon fa fa-slack"></span><span class="title">运营图表</span>
+                            <a href="${path}/chart">
+                                <span class="icon fa fa-slack"></span><span class="title">网站流量</span>
+
                             </a>
                         </li>
                         <!-- Dropdown-->
                         <li>
-                            <a data-toggle="collapse" href="${path}/mesboard">
+                            <a href="${path}/mesboard">
                                 <span class="icon fa fa-archive"></span><span class="title">留言板</span>
                             </a>
                         </li>
+
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
             </nav>
         </div>
         <!-- Main Content -->
-        <div class="container-fluid" >
+        <div class="container-fluid">
             <div class="side-body padding-top">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
@@ -241,7 +243,7 @@
                                     <i class="icon fa fa-inbox fa-4x"></i>
                                     <div class="content">
                                         <div class="title">50</div>
-                                        <div class="sub-title">New Mails</div>
+                                        <div class="sub-title">APP下载量</div>
                                     </div>
                                     <div class="clear-both"></div>
                                 </div>
@@ -255,7 +257,7 @@
                                     <i class="icon fa fa-comments fa-4x"></i>
                                     <div class="content">
                                         <div class="title">23</div>
-                                        <div class="sub-title">New Message</div>
+                                        <div class="sub-title">评论量</div>
                                     </div>
                                     <div class="clear-both"></div>
                                 </div>
@@ -269,7 +271,7 @@
                                     <i class="icon fa fa-tags fa-4x"></i>
                                     <div class="content">
                                         <div class="title">280</div>
-                                        <div class="sub-title">Product View</div>
+                                        <div class="sub-title">用户量</div>
                                     </div>
                                     <div class="clear-both"></div>
                                 </div>
@@ -283,168 +285,37 @@
                                     <i class="icon fa fa-share-alt fa-4x"></i>
                                     <div class="content">
                                         <div class="title">16</div>
-                                        <div class="sub-title">Share</div>
+                                        <div class="sub-title">分享量</div>
                                     </div>
                                     <div class="clear-both"></div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                </div>
-                <div class="row  no-margin-bottom">
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="card primary">
-                                    <div class="card-jumbotron no-padding">
-                                        <canvas id="jumbotron-line-chart" class="chart no-padding"></canvas>
-                                    </div>
-                                    <div class="card-body half-padding">
-                                        <h4 class="float-left no-margin font-weight-300">Profits</h4>
-                                        <h2 class="float-right no-margin font-weight-300">$3200</h2>
-                                        <div class="clear-both"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <div class="thumbnail no-margin-bottom">
-                                    <img src="${path}/backResource/img/thumbnails/picjumbo.com_IMG_4566.jpg"
-                                         class="img-responsive">
-                                    <div class="caption">
-                                        <h3 id="thumbnail-label">Thumbnail label<a class="anchorjs-link"
-                                                                                   href="#thumbnail-label"><span
-                                                class="anchorjs-icon"></span></a></h3>
-                                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit
-                                            non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies
-                                            vehicula ut id elit.</p>
-                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#"
-                                                                                                           class="btn btn-default"
-                                                                                                           role="button">Button</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="thumbnail no-margin-bottom">
-                                    <img src="${path}/backResource/img/thumbnails/picjumbo.com_IMG_3241.jpg"
-                                         class="img-responsive">
-                                    <div class="caption">
-                                        <h3 id="thumbnail-label2">Thumbnail label<a class="anchorjs-link"
-                                                                                    href="#thumbnail-label"><span
-                                                class="anchorjs-icon"></span></a></h3>
-                                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit
-                                            non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies
-                                            vehicula ut id elit.</p>
-                                        <p><a href="#" class="btn btn-success" role="button">Button</a> <a href="#"
-                                                                                                           class="btn btn-default"
-                                                                                                           role="button">Button</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <div class="card primary">
-                                    <div class="card-jumbotron no-padding">
-                                        <canvas id="jumbotron-bar-chart" class="chart no-padding"></canvas>
-                                    </div>
-                                    <div class="card-body half-padding">
-                                        <h4 class="float-left no-margin font-weight-300">Orders</h4>
-                                        <div class="clear-both"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="card primary">
-                                    <div class="card-jumbotron no-padding">
-                                        <canvas id="jumbotron-line-2-chart" class="chart no-padding"></canvas>
-                                    </div>
-                                    <div class="card-body half-padding">
-                                        <h4 class="float-left no-margin font-weight-300">Pages view</h4>
-                                        <div class="clear-both"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card card-success">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <div class="title"><i class="fa fa-comments-o"></i> Last Message</div>
-                                </div>
-                                <div class="clear-both"></div>
-                            </div>
-                            <div class="card-body no-padding">
-                                <ul class="message-list">
-                                    <a href="#">
-                                        <li>
-                                            <img src="${path}/backResource/img/profile/profile-1.jpg"
-                                                 class="profile-img pull-left">
-                                            <div class="message-block">
-                                                <div><span class="username">Tui2Tone</span> <span
-                                                        class="message-datetime">12 min ago</span>
-                                                </div>
-                                                <div class="message">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                    elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula
-                                                    sodales.
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </a>
-                                    <a href="#">
-                                        <li>
-                                            <img src="${path}/backResource/img/profile/profile-1.jpg"
-                                                 class="profile-img pull-left">
-                                            <div class="message-block">
-                                                <div><span class="username">Tui2Tone</span> <span
-                                                        class="message-datetime">15 min ago</span>
-                                                </div>
-                                                <div class="message">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                    elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula
-                                                    sodales.
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </a>
-                                    <a href="#">
-                                        <li>
-                                            <img src="${path}/backResource/img/profile/profile-1.jpg"
-                                                 class="profile-img pull-left">
-                                            <div class="message-block">
-                                                <div><span class="username">Tui2Tone</span> <span
-                                                        class="message-datetime">2 hour ago</span>
-                                                </div>
-                                                <div class="message">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                    elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula
-                                                    sodales.
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </a>
-                                    <a href="#">
-                                        <li>
-                                            <img src="${path}/backResource/img/profile/profile-1.jpg"
-                                                 class="profile-img pull-left">
-                                            <div class="message-block">
-                                                <div><span class="username">Tui2Tone</span> <span
-                                                        class="message-datetime">1 day ago</span>
-                                                </div>
-                                                <div class="message">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                    elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula
-                                                    sodales.
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </a>
-                                    <a href="#" id="message-load-more">
-                                        <li class="text-center load-more">
-                                            <i class="fa fa-refresh"></i> load more..
-                                        </li>
-                                    </a>
+                    <div class="card-body">
+                        <div class="col-xs-12">
+                            <div class="sub-title" style="font-size: 18px;">客户意见板</div>
+                            <hr>
+                            <div>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <span class="badge">14</span> APP新闻推荐的真棒！
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="badge">1</span> APP新闻推荐的真棒！
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="badge">2</span> APP新闻推荐的真棒！
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="badge">2</span> APP新闻推荐的真棒！
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="badge">2</span> APP新闻推荐的真棒！
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="badge">2</span> APP新闻推荐的真棒！
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -454,7 +325,7 @@
         </div>
     </div>
 </div>
-<footer class="app-footer">
+<footer class="app-footer" style="margin-left: 60%;">
 </footer>
 <!-- Javascript Libs -->
 <script type="text/javascript" src="${path}/backResource/js/jquery.min.js"></script>
@@ -470,7 +341,44 @@
 <script type="text/javascript" src="${path}/backResource/js/ace/theme-github.js"></script>
 <!-- Javascript -->
 <script type="text/javascript" src="${path}/backResource/js/app.js"></script>
-<script type="text/javascript" src="${path}/backResource/js/index.js"></script>
+
+<script type="text/javascript">
+    window.onload = function(){
+        $(".app-footer").hide()
+        Toast();
+    }
+
+    function Toast() {
+        var html = '<div><div class="alert alert-success alert-dismissible fade in" role="alert">' +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+        '<span aria-hidden="true">×</span></button>' +
+        '<h4 id="oh-snap!-you-got-an-error!">系统提醒' +
+        '<a class="anchorjs-link" href="#oh-snap!-you-got-an-error!">' +
+        '<span class="anchorjs-icon"></span></a></h4>' +
+        '<p>发现新的未完成任务.</p>' +
+        '</div></div>'
+        $(".app-footer").append(html);
+        $(".app-footer").fadeIn("slow");
+        $('.app-footer').delay(3000).fadeOut("slow",Toast2());
+    }
+
+    function Toast2() {
+        var html = '<div><div class="alert alert-warning alert-dismissible fade in" role="alert">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">×</span></button>' +
+            '<h4 id="oh-snap!-you-got-an-error!">系统提醒' +
+            '<a class="anchorjs-link" href="#oh-snap!-you-got-an-error!">' +
+            '<span class="anchorjs-icon"></span></a></h4>' +
+            '<p>请尽快完成手头任务，保证网站的正常运营，今日下午正常开例会.</p>' +
+            '<p><button type="button" class="btn btn-danger">收到</button>' +
+            '</p></div></div>'
+        $(".app-footer").append(html);
+        $(".app-footer").fadeIn("slow");
+        $('.app-footer').delay(3000).fadeOut("slow");
+    }
+
+
+</script>
 </body>
 
 </html>

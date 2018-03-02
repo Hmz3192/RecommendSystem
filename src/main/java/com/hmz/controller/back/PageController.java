@@ -20,6 +20,12 @@ public class PageController {
         return "back/adver";
     }
 
+    @RequestMapping("/addAdver")
+    public String addAdver() {
+        return "back/addAdver";
+    }
+
+
     @RequestMapping("/article")
     public String article() {
         return "back/article";
@@ -34,6 +40,7 @@ public class PageController {
     public String articleKind() {
         return "back/articleKind";
     }
+
     @RequestMapping("/chart")
     public String chart() {
         return "back/chart";
@@ -43,14 +50,17 @@ public class PageController {
     public String manager() {
         return "back/manager";
     }
+
     @RequestMapping("/mesboard")
     public String mesboard() {
         return "back/mesboard";
     }
+
     @RequestMapping("/permission")
     public String permission() {
         return "back/permission";
     }
+
     @RequestMapping("/role")
     public String role() {
         return "back/role";
@@ -59,7 +69,9 @@ public class PageController {
     @RequestMapping("/user")
     public String user() {
         return "back/user";
-    }  @RequestMapping("/vip")
+    }
+
+    @RequestMapping("/vip")
     public String vip() {
         return "back/vip";
     }

@@ -11,7 +11,6 @@ To change this template use File | Settings | File Templates.
        scope="page"/>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>后台管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,8 +38,8 @@ To change this template use File | Settings | File Templates.
                         <i class="fa fa-bars icon"></i>
                     </button>
                     <ol class="breadcrumb navbar-breadcrumb">
-                        <li>文章管理</li>
-                        <li class="active">评论管理</li>
+                        <li>媒体管理</li>
+                        <li class="active">新增广告</li>
                     </ol>
                     <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                         <i class="fa fa-th icon"></i>
@@ -142,7 +141,7 @@ To change this template use File | Settings | File Templates.
                                 <span class="icon fa fa-tachometer"></span><span class="title">首页</span>
                             </a>
                         </li>
-                        <li class="active panel panel-default dropdown">
+                        <li class="panel panel-default dropdown">
                             <a data-toggle="collapse" href="#dropdown-element">
                                 <span class="icon glyphicon glyphicon-list-alt"></span><span class="title">文章管理</span>
                             </a>
@@ -160,7 +159,7 @@ To change this template use File | Settings | File Templates.
                                 </div>
                             </div>
                         </li>
-                        <li class="panel panel-default dropdown">
+                        <li class="active panel panel-default dropdown">
                             <a data-toggle="collapse" href="#dropdown-table">
                                 <span class="icon fa fa-table"></span><span class="title">媒体管理</span>
                             </a>
@@ -216,7 +215,6 @@ To change this template use File | Settings | File Templates.
                         <li>
                             <a href="${path}/chart">
                                 <span class="icon fa fa-slack"></span><span class="title">网站流量</span>
-
                             </a>
                         </li>
                         <!-- Dropdown-->
@@ -235,118 +233,51 @@ To change this template use File | Settings | File Templates.
         <div class="container-fluid">
             <div class="side-body">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12">
+                    <div class="col-xs-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <div class="title">评论管理</div>
+                                    <div class="title">新增广告</div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="sub-title">广告名称：</div>
+                                <div style="margin-left: 5%">
+                                    <input type="text" class="form-control" placeholder="请输入广告的名称">
                                 </div>
 
+                                <div class="sub-title">广告商家：</div>
+                                <div style="margin-left: 5%">
+                                    <input type="text" class="form-control" placeholder="请输入广告的商家全称">
+                                </div>
 
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>评论文章ID</th>
-                                            <th>评论用户名</th>
-                                            <th>评论内容</th>
-                                            <th>评论时间</th>
-                                            <th>赞</th>
-                                            <th>踩</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>127191351</td>
-                                            <td>用户一</td>
-                                            <td>很赞！</td>
-                                            <td>17-01-02 12:00:12</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle"
-                                                            data-toggle="dropdown"
-                                                            style="margin: 0 auto;border-radius: 6px">
-                                                        操作 <span
-                                                            class="caret"></span></button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li><a href="#" data-toggle="modal"
-                                                               data-target="#editParent">不予显示</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>127191351</td>
-                                            <td>用户一</td>
-                                            <td>很赞！</td>
-                                            <td>17-01-02 12:00:12</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle"
-                                                            data-toggle="dropdown"
-                                                            style="margin: 0 auto;border-radius: 6px">
-                                                        操作 <span
-                                                            class="caret"></span></button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li><a href="#" data-toggle="modal"
-                                                               data-target="#editParent">不予显示</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>127191351</td>
-                                            <td>用户一</td>
-                                            <td>很赞！</td>
-                                            <td>17-01-02 12:00:12</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle"
-                                                            data-toggle="dropdown"
-                                                            style="margin: 0 auto;border-radius: 6px">
-                                                        操作 <span
-                                                            class="caret"></span></button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li><a href="#" data-toggle="modal"
-                                                               data-target="#editParent">不予显示</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div>
-                                        <nav>
-                                            <ul class="pagination pagination-lg" style="margin-left: 40%;margin-top: 5%">
-                                                <li>
-                                                    <a href="#" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                                <li class="active"><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">4</a></li>
-                                                <li><a href="#">5</a></li>
-                                                <li>
-                                                    <a href="#" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                <div class="sub-title">广告位置：</div>
+                                <div style="margin-left: 5%">
+                                    <div class="radio3 radio-check radio-inline">
+                                        <input type="radio" id="radio4" name="radio2" value="option1" checked="">
+                                        <label for="radio4">
+                                            首页
+                                        </label>
                                     </div>
+                                    <div class="radio3 radio-check radio-inline">
+                                        <input type="radio" id="radio5" name="radio2" value="option2">
+                                        <label for="radio5">
+                                            详情页
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="sub-title">广告图片：</div>
+                                <div class="form-group" style="margin-left: 5%">
+                                    <input type="file" id="exampleInputFile">
+                                </div>
+
+                                <div class="sub-title">跳转链接：</div>
+                                <div style="margin-left: 5%">
+                                    <input type="text" class="form-control" placeholder="请输入跳转的路径">
+                                </div>
+                                <div class="login-button text-center" style="margin-top: 3%">
+                                    <input type="submit" class="btn btn-primary" value="提交">
                                 </div>
                             </div>
                         </div>
@@ -354,64 +285,7 @@ To change this template use File | Settings | File Templates.
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!--修改信息-->
-<div class="modal fade" id="editParent" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel1">修改父类信息</h4>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                        data-dismiss="modal">关闭
-                </button>
-                <button type="button" class="btn btn-primary">发布</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--父类选择-->
-<div class="modal fade" id="editSon" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel2" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">父类选择</h4>
-            </div>
-            <div class="modal-body">
-                <div class="radio3">
-                    <input type="radio" id="radio1" name="radio1" value="option1">
-                    <label for="radio1">
-                        移动开发
-                    </label>
-                </div>
-                <div class="radio3">
-                    <input type="radio" id="radio2" name="radio1" value="option2">
-                    <label for="radio2">
-                        大数据
-                    </label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                        data-dismiss="modal">关闭
-                </button>
-                <button type="button" class="btn btn-primary">保存</button>
-
-            </div>
-        </div>
     </div>
 </div>
 

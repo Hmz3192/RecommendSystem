@@ -1,17 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
+<!--
+Created by IntelliJ IDEA.
   User: ThinKPad
   Date: 2018/3/1
   Time: 20:27
   To change this template use File | Settings | File Templates.
---%>
+-->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set value="${pageContext.request.contextPath}" var="path"
        scope="page"/>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>后台管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +39,7 @@
                     </button>
                     <ol class="breadcrumb navbar-breadcrumb">
                         <li>文章管理</li>
-                        <li class="active">文章管理</li>
+                        <li class="active">文章审核</li>
                     </ol>
                     <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                         <i class="fa fa-th icon"></i>
@@ -150,7 +149,7 @@
                             <div id="dropdown-element" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="${path}/article" style="text-align: center">文章管理</a>
+                                        <li><a href="${path}/article" style="text-align: center">文章审核</a>
                                         </li>
                                         <li><a href="${path}/articleKind" style="text-align: center">类型管理</a>
                                         </li>
@@ -162,7 +161,7 @@
                         </li>
                         <li class="panel panel-default dropdown">
                             <a data-toggle="collapse" href="#dropdown-table">
-                                <span class="icon fa fa-table"></span><span class="title">广告管理</span>
+                                <span class="icon fa fa-table"></span><span class="title">媒体管理</span>
                             </a>
                             <!-- Dropdown level 1 -->
                             <div id="dropdown-table" class="panel-collapse collapse">
@@ -170,7 +169,7 @@
                                     <ul class="nav navbar-nav">
                                         <li><a href="${path}/adver" style="text-align: center">广告管理</a>
                                         </li>
-                                        <li><a href="#" style="text-align: center">新增广告</a>
+                                        <li><a href="${path}/addAdver" style="text-align: center">新增广告</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -204,9 +203,9 @@
                             <div id="component-example" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="${path}/permission" style="text-align: center">权限分配</a>
+                                        <li><a href="${path}/role" style="text-align: center">角色管理</a>
                                         </li>
-                                        <li><a href="${path}/role" style="text-align: center">角色分配</a>
+                                        <li><a href="${path}/permission" style="text-align: center">权限分配</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -214,13 +213,13 @@
                         </li>
                         <!-- Dropdown-->
                         <li>
-                            <a data-toggle="collapse" href="${path}/chart">
-                                <span class="icon fa fa-slack"></span><span class="title">运营图表</span>
+                            <a href="${path}/chart">
+                                <span class="icon fa fa-slack"></span><span class="title">网站流量</span>
                             </a>
                         </li>
                         <!-- Dropdown-->
                         <li>
-                            <a data-toggle="collapse" href="${path}/mesboard">
+                            <a href="${path}/mesboard">
                                 <span class="icon fa fa-archive"></span><span class="title">留言板</span>
                             </a>
                         </li>
@@ -236,9 +235,21 @@
                     <div class="col-sm-12 col-md-12">
                         <div class="card">
                             <div class="card-header">
-
                                 <div class="card-title">
                                     <div class="title">文章管理</div>
+                                    <hr>
+                                    <i style="font-size: 16px">审核状态：</i>
+                                    <button type="button" class="btn btn-default">未审核</button>
+                                    <button type="button" class="btn btn-success"
+                                            style="background-color: #99e9d9;color: black;border-color: transparent">审核通过
+                                    </button>
+                                    <button type="button" class="btn btn-danger"
+                                            style="background-color: #ffb8aa;color: black;border-color: transparent">审核失败
+                                    </button>
+                                    <button type="button" class="btn " style="background-color: #ffe5a2;color: black">
+                                        举报异常
+                                    </button>
+
                                 </div>
                             </div>
                             <div class="card-body">
@@ -246,68 +257,327 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Column heading</th>
-                                        <th>Column heading</th>
-                                        <th>Column heading</th>
+                                        <th>用户</th>
+                                        <th>文章封面</th>
+                                        <th>文章详情</th>
+                                        <th>父类型</th>
+                                        <th>子类型</th>
+                                        <th>点击量</th>
+                                        <th>收藏量</th>
+                                        <th>赞</th>
+                                        <th>踩</th>
+                                        <th>是否大图</th>
+                                        <th>审核状态</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="active">
-                                        <th scope="row">1</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr class="success">
-                                        <th scope="row">3</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr class="info">
-                                        <th scope="row">5</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">6</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
                                     <tr class="warning">
-                                        <th scope="row">7</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
+                                        <th scope="row">127191351</th>
+                                        <td>111</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">查看封面 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#" data-toggle="modal" data-target="#fengmian">查看封面一</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="modal" data-target="#quanWen">浏览全文
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>移动开发</td>
+                                        <td>安卓</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>否</td>
+                                        <td>存在异常</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle"
+                                                        data-toggle="dropdown"
+                                                        style="margin: 0 auto;border-radius: 6px">
+                                                    操作 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#" data-toggle="modal" data-target="#juBaoMes">查看举报信息</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#" style="color: red">文章下线</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">8</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
+                                    <tr class="active">
+                                        <th scope="row">127191351</th>
+                                        <td>111</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">查看封面 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">查看封面一</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">浏览全文
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>移动开发</td>
+                                        <td>安卓</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>否</td>
+                                        <td>未审核</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle"
+                                                        data-toggle="dropdown"
+                                                        style="margin: 0 auto;border-radius: 6px">
+                                                    操作 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">敏感词审核</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#" style="color: red">审核不予通过</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-danger" data-toggle="dropdown"
+                                                        style="margin: 0 auto;border-radius: 6px">审核通过
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="active">
+                                        <th scope="row">127191351</th>
+                                        <td>111</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">查看封面 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">查看封面一</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">浏览全文
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>移动开发</td>
+                                        <td>安卓</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>否</td>
+                                        <td>未审核</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle"
+                                                        data-toggle="dropdown"
+                                                        style="margin: 0 auto;border-radius: 6px">
+                                                    操作 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">敏感词审核</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#" style="color: red">审核不予通过</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-danger" data-toggle="dropdown"
+                                                        style="margin: 0 auto;border-radius: 6px">审核通过
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="active">
+                                        <th scope="row">127191351</th>
+                                        <td>111</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">查看封面 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">查看封面一</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">浏览全文
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>移动开发</td>
+                                        <td>安卓</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>否</td>
+                                        <td>未审核</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle"
+                                                        data-toggle="dropdown"
+                                                        style="margin: 0 auto;border-radius: 6px">
+                                                    操作 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">敏感词审核</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#" style="color: red">审核不予通过</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-danger" data-toggle="dropdown"
+                                                        style="margin: 0 auto;border-radius: 6px">审核通过
+                                                </button>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr class="danger">
-                                        <th scope="row">9</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
+                                        <th scope="row">127191351</th>
+                                        <td>111</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">查看封面 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">查看封面一</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">浏览全文
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>移动开发</td>
+                                        <td>安卓</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>否</td>
+                                        <td>审核失败</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle"
+                                                        data-toggle="dropdown"
+                                                        style="margin: 0 auto;border-radius: 6px">
+                                                    操作 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">敏感词审核</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#" style="color: red">重新上线</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="success">
+                                        <th scope="row">127191351</th>
+                                        <td>111</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">查看封面 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">查看封面一</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                                                        style="margin: 0 auto;background-color: #c2c2c2;border-radius: 6px"
+                                                        data-toggle="dropdown">浏览全文
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>移动开发</td>
+                                        <td>安卓</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>否</td>
+                                        <td>审核通过</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle"
+                                                        data-toggle="dropdown"
+                                                        style="margin: 0 auto;border-radius: 6px">
+                                                    操作 <span
+                                                        class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#" style="color: red">强制下线</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
+                                <div>
+                                    <nav>
+                                        <ul class="pagination pagination-lg" style="margin-left: 40%;margin-top: 5%">
+                                            <li>
+                                                <a href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="active"><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                            <li>
+                                                <a href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -316,6 +586,57 @@
         </div>
     </div>
 </div>
+
+
+<!-- 封面Modal -->
+<div class="modal fade" id="fengmian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel1">封面一</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--全文-->
+<div class="modal fade" id="quanWen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">全文</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--举报信息-->
+<div class="modal fade" id="juBaoMes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel3">举报信息</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Javascript Libs -->
 <script type="text/javascript" src="${path}/backResource/js/jquery.min.js"></script>
 <script type="text/javascript" src="${path}/backResource/js/bootstrap.min.js"></script>
