@@ -1,3 +1,6 @@
+import com.hmz.utils.ThreadPoolUtils;
+import org.junit.Test;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,6 +60,27 @@ public class test1 {
         String reg3 = "\r|\n";
         System.out.println(html.replaceAll(reg3, ""));
 //        System.out.println(getTextFromHtml(str));
+    }
+
+
+    @Test
+    public void test2() throws Exception {
+        ThreadPoolUtils.getLongTimeOutThread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("开始睡觉");
+
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("睡醒了");
+            }
+        });
+        Thread.sleep(3000);
+        System.out.println("2");
+
     }
 
 }

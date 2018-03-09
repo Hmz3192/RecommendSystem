@@ -15,6 +15,7 @@ import java.util.Properties;
 public class StringUtil {
     public List<String> allPathResult = new ArrayList<String>();
 
+
     public StringUtil(String inputPath) {
         getAllPath(inputPath);
     }

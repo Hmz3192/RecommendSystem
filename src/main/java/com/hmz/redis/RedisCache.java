@@ -29,7 +29,7 @@ public class RedisCache implements Cache {
     }
 
     public void putObject(Object key, Object value) {
-        System.out.println("-------------------"+key.toString());
+//        System.out.println("-------------------"+key.toString());
         JedisUtil.getJedis().set(SerializeUtil.serialize(key.toString()),
                 SerializeUtil.serialize(value));
     }

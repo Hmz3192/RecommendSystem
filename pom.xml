@@ -32,17 +32,25 @@
     <!-- 分页组件 -->
     <pagehelper.version>3.7.5</pagehelper.version>
     <jsqlparser.version>0.9.1</jsqlparser.version>
+
+
+    <mahout.version>0.8</mahout.version>
+    <jedis.version>2.8.2</jedis.version>
+    <fastjson.version>1.2.14</fastjson.version>
+    <container.version>2.17</container.version>
+    <spark.version>1.6.2</spark.version>
+    <kafka.version>0.8.1.1</kafka.version>
+    <scala.version>2.10.4</scala.version>
   </properties>
 
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-queryparser -->
-    <dependency>
-      <groupId>org.apache.lucene</groupId>
-      <artifactId>lucene-queryparser</artifactId>
-      <version>4.4.0</version>
-    </dependency>
-
+    <!-- put javax.ws.rs as the first dependency, it is important!!! -->
+  <!--  <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0</version>
+    </dependency>-->
     <dependency>
       <!-- 添加jstl依赖 -->
       <groupId>jstl</groupId>
@@ -50,17 +58,11 @@
       <version>1.2</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+    <!--servlet 包 -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api -->
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>javax.servlet.jsp-api</artifactId>
-      <version>2.3.1</version>
       <scope>provided</scope>
     </dependency>
 
@@ -303,6 +305,76 @@
       <version>4.6.0</version>
     </dependency>
 
+
+
+    <dependency>
+      <groupId>org.apache.mahout</groupId>
+      <artifactId>mahout-core</artifactId>
+      <version>${mahout.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.mahout</groupId>
+      <artifactId>mahout-math</artifactId>
+      <version>${mahout.version}</version>
+    </dependency>
+    <!--
+        <dependency>
+          <groupId>org.apache.kafka</groupId>
+          <artifactId>kafka_2.10</artifactId>
+          <version>${kafka.version}</version>
+          <exclusions>
+            <exclusion>
+              <groupId>com.sun.jmx</groupId>
+              <artifactId>jmxri</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>com.sun.jdmk</groupId>
+              <artifactId>jmxtools</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>javax.jms</groupId>
+              <artifactId>jms</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-streaming_2.10</artifactId>
+          <version>${spark.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-streaming-kafka_2.10</artifactId>
+          <version>${spark.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.scala-lang</groupId>
+          <artifactId>scala-compiler</artifactId>
+          <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.scala-lang</groupId>
+          <artifactId>scala-reflect</artifactId>
+          <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.scala-lang</groupId>
+          <artifactId>scala-library</artifactId>
+          <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.scala-lang</groupId>
+          <artifactId>scala-actors</artifactId>
+          <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.scala-lang</groupId>
+          <artifactId>scalap</artifactId>
+          <version>${scala.version}</version>
+        </dependency>-->
 
   </dependencies>
   <build>
