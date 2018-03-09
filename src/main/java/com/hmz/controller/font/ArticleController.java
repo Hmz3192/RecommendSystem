@@ -53,7 +53,7 @@ public class ArticleController {
             articleDetail.setArticleAttachPojo(oneByArticleId);
             model.addAttribute("state", 1);
             model.addAttribute("articleDetail", articleDetail);
-            return "article";
+            return "font/article";
         } catch (Exception e) {
             e.printStackTrace();
         }

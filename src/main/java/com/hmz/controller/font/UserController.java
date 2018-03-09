@@ -41,7 +41,7 @@ public class UserController {
 //    @Token(save=true)
     public String toPage() {
         userService.selectAll();
-        return "main";
+        return "font/main";
     }
     @RequestMapping("/toactive")
     public String active() {
@@ -81,7 +81,7 @@ public class UserController {
             session.setAttribute("user", userLogined);
             session.setAttribute("logined", true);
             model.addAttribute("result","登陆成功");
-            return "main";
+            return "font/main";
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -185,11 +185,11 @@ To change this template use File | Settings | File Templates.
                                 article_href = "${path}/toarticle/" + id;
 
                             html += '<li><div class="hot-article-img">' +
-                                '<a href=" '+ article_href + '" target="_blank" title="' + title  + '">' +
+                                '<a href=" ' + article_href + '" target="_blank" title="' + title + '">' +
                                 '<img src="' + pic + '"></a></div>' +
-                                '<a href="'+ article_href + '" class="transition" target="_blank">' + title  +'</a>' +
+                                '<a href="' + article_href + '" class="transition" target="_blank">' + title + '</a>' +
                                 '<div style="float: right"><span class="watch-icon" style="margin-right: 5px"  ></span> ' +
-                                '<span style="font-size: 20px;" > '+ articleHints + ' </span></div></li>';
+                                '<span style="font-size: 20px;" > ' + articleHints + ' </span></div></li>';
                         }
 
                         $("#reWen").append(html)
@@ -203,9 +203,10 @@ To change this template use File | Settings | File Templates.
             }
 
 
-            var zanCancle = 0,downCancle = 0;;
+            var zanCancle = 0, downCancle = 0;
+            ;
             $(document).on("click", "#like", function () {
-                if(downCancle == 0) {
+                if (downCancle == 0) {
                     var zanAdd = $(this).parent().parent().children("#zanAdd"),
                         upNum = $(this).children("#upNum"),
                         up = $(this).children("#up"),
@@ -213,16 +214,16 @@ To change this template use File | Settings | File Templates.
                         num = parseInt(upNum.text());
                     if (zanCancle == 0) {
                         up.addClass("active")
-                        num+=1
+                        num += 1
                         upText.text("+1")
                         upNum.text(num)
                         zanAdd.stop().animate({opacity: '1'}, "slow")
                         zanAdd.animate({opacity: '0'}, "slow")
                         zanCancle = 1;
-                    }else {
+                    } else {
                         up.removeClass("active")
                         upText.text("-1")
-                        num-=1
+                        num -= 1
                         upNum.text(num)
                         zanAdd.animate({opacity: '1'}, "slow")
                         zanAdd.animate({opacity: '0'}, "slow")
@@ -234,7 +235,7 @@ To change this template use File | Settings | File Templates.
 
 
             $(document).on("click", "#noLike", function () {
-                if(zanCancle == 0) {
+                if (zanCancle == 0) {
                     var zanDown = $(this).parent().parent().children("#zanDown"),
                         downNum = $(this).children("#downNum"),
                         down = $(this).children("#down"),
@@ -242,16 +243,16 @@ To change this template use File | Settings | File Templates.
                         num2 = parseInt(downNum.text());
                     if (downCancle == 0) {
                         down.addClass("active")
-                        num2+=1
+                        num2 += 1
                         downText.text("+1")
                         downNum.text(num2)
                         zanDown.stop().animate({opacity: '1'}, "slow")
                         zanDown.animate({opacity: '0'}, "slow")
                         downCancle = 1;
-                    }else {
+                    } else {
                         down.removeClass("active")
                         downText.text("-1")
-                        num2-=1
+                        num2 -= 1
                         downNum.text(num2)
                         zanDown.animate({opacity: '1'}, "slow")
                         zanDown.animate({opacity: '0'}, "slow")
@@ -331,26 +332,72 @@ To change this template use File | Settings | File Templates.
 
     <div class="wrap-right pull-right">
         <div class="right-ad-box"></div>
-
-        <link rel="stylesheet" type="text/css" href="https://static.huxiucdn.com/www/css/moment.css">
-        <div id="moment"></div>
-        <div class="box-moder hot-article">
-            <h3>实时热文</h3>
-            <span class="pull-right project-more story-more">
-            <a href="#" class="transition" target="_blank">查看全部</a></span>
+        <div class="box-moder moder-project-list promote-box">
+            <h3>新鲜事</h3>
             <span class="span-mark"></span>
-            <ul id="reWen">
+            <ul>
+                <li>
+                    <div class="mod-thumb">
+                        <a href="#" target="_blank">
+                            <img src="${path}/resource/sy-img/233950517521.jpg">
+                        </a>
+                    </div>
+                    <div class="project-content">
+                        <a href="#" class="c2" target="_blank">实体商业转型</a>
+                        <span class="point">&bull;</span>
+                        <a href="#" target="_blank">实体空间在召唤，他们押宝了零售业态转型升级</a>
+                    </div>
+                    <span style="float: right;margin-top: 2px;color: #f63756">1小时前</span>
+                </li>
+                <li>
+                    <div class="mod-thumb">
+                        <a href="#" target="_blank">
+                            <img src="${path}/resource/sy-img/233950517521.jpg">
+                        </a>
+                    </div>
+                    <div class="project-content">
+                        <a href="#" class="c2" target="_blank">实体商业转型</a>
+                        <span class="point">&bull;</span>
+                        <a href="#" target="_blank">实体空间在召唤，他们押宝了零售业态转型升级</a>
+                    </div>
+                    <span style="float: right;margin-top: 2px;color: #f63756">1小时前</span>
 
+                </li>
+                <li>
+                    <div class="mod-thumb">
+                        <a href="#" target="_blank">
+                            <img src="${path}/resource/sy-img/233950517521.jpg">
+                        </a>
+                    </div>
+                    <div class="project-content">
+                        <a href="#" class="c2" target="_blank">实体商业转型</a>
+                        <span class="point">&bull;</span>
+                        <a href="#" target="_blank">实体空间在召唤，他们押宝了零售业态转型升级</a>
+                    </div>
+                    <span style="float: right;margin-top: 2px;color: #f63756">1小时前</span>
+
+                </li>
             </ul>
         </div>
-        <div class="placeholder"></div>
-        <!--24小时部分结束1-->
-        <div class="ad-wrap">
-            <div class="ad-title">广告</div>
-        </div>
-        <div class="placeholder"></div>
+    <link rel="stylesheet" type="text/css" href="https://static.huxiucdn.com/www/css/moment.css">
+    <div id="moment"></div>
+    <div class="box-moder hot-article">
+        <h3>实时热文</h3>
+        <span class="pull-right project-more story-more">
+            <a href="#" class="transition" target="_blank">查看全部</a></span>
+        <span class="span-mark"></span>
+        <ul id="reWen">
 
+        </ul>
     </div>
+    <div class="placeholder"></div>
+    <!--24小时部分结束1-->
+    <div class="ad-wrap">
+        <div class="ad-title">广告</div>
+    </div>
+    <div class="placeholder"></div>
+
+</div>
 </div>
 <%@include file="footer.jsp" %>
 

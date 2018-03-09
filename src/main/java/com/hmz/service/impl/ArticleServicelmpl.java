@@ -29,6 +29,7 @@ public class ArticleServicelmpl implements ArticleService {
     public List<Article> selectAllArticle() {
         ArticleExample example = new ArticleExample();
         ArticleExample.Criteria criteria = example.createCriteria();
+        example.setOrderByClause("article_hints DESC");
         List<Article> articles = articleMapper.selectByExample(example);
         return articles;
     }
