@@ -113,6 +113,7 @@ public class NewsController {
         List<String> similarItems = JedisUtil.getJedis().mget(userItemStrs.toArray(new String[userItemStrs.size()]));
         Set<ItemSimilarity> similarItemsSet = new TreeSet<>();
         int i = 0;
+        String s1 = similarItems.get(0);
         for(String item: similarItems) {
             i++;
             if (item == null || item.length() == 0) {
@@ -133,7 +134,7 @@ public class NewsController {
                 recommendedItemIDs.add((item.getId()));
                 similarity.put(item.getId(), item.getS());
             }
-            if(recommendedItemIDs.size() >= 100)
+            if(recommendedItemIDs.size() >= 30)
                 break;
         }
         recommendedItems.setItems(recommendedItemIDs.toArray(new Long[0]));

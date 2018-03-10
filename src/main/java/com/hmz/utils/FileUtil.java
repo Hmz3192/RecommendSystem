@@ -12,7 +12,7 @@ public class FileUtil {
     private static final String COLON_DELIMTER = "::";
 
     public static File write2Dat(List<ArticleRating> articleRating) throws IOException {
-        File originalFile = new File("E:\\WorkSpace\\IdeaWorkSpace\\RecommendSystem\\src\\main\\resources\\rating.dat");
+        File originalFile = new File("E:\\WorkSpace\\Idea\\RecommendSystem\\src\\main\\resources\\rating.dat");
         if (!originalFile.exists()) {
             originalFile.createNewFile();
         }

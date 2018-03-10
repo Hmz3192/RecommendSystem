@@ -42,8 +42,8 @@
             var userId = "";
             <c:if test="${sessionScope.user != null}">
             userId = ${sessionScope.user.userId}
+                loadRecoData();
             </c:if>
-
 
                 /*
           页面加载完毕执行一次查询
