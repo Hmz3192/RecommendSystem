@@ -39,17 +39,17 @@ public class ArticleController {
         ArticleDetail articleDetail = new ArticleDetail();
         try {
             //文章详细
-            Article one = articleService.getOne(articleId);
+            Article one = articleService.getOne(Long.valueOf(articleId));
             articleDetail.setArticle(one);
             //人信息
-            Integer userId = one.getUserId();
+            Long userId = one.getUserId();
             User userById = userService.getUserById(userId);
             articleDetail.setUser(userById);
             //评论
-            List<ArticleComment> commsByArticleId = articleCommentService.getCommsByArticleId(articleId);
+            List<ArticleComment> commsByArticleId = articleCommentService.getCommsByArticleId(Long.valueOf(articleId));
             articleDetail.setArticleComments(commsByArticleId);
             //tag
-            ArticleAttachPojo oneByArticleId = articleAttachService.getOneByArticleId(articleId);
+            ArticleAttachPojo oneByArticleId = articleAttachService.getOneByArticleId(Long.valueOf(articleId));
             articleDetail.setArticleAttachPojo(oneByArticleId);
             model.addAttribute("state", 1);
             model.addAttribute("articleDetail", articleDetail);
@@ -67,7 +67,7 @@ public class ArticleController {
     @ResponseBody
     public Integer zanOrCai(@PathVariable("articleId") Integer articleId,@PathVariable("opKind") String opKind,@PathVariable("orNumber") Integer orNumber){
         Article article = new Article();
-        article.setArticleId(articleId);
+        article.setArticleId(Long.valueOf(articleId));
         if (opKind.equalsIgnoreCase("zanPlus")) {
             article.setArticleUp(orNumber + 1);
             orNumber += 1;

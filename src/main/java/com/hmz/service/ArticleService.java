@@ -1,7 +1,6 @@
 package com.hmz.service;
 
 import com.hmz.model.Article;
-import com.hmz.model.User;
 
 import java.util.List;
 
@@ -15,13 +14,17 @@ public interface ArticleService {
 
     boolean saveBlog(Article article);
 
-    Article getOne(Integer articleID);
+    Article getOne(Long articleID);
 
-    List<Article> selectMyArticles(Integer userId);
+    List<Article> selectMyArticles(Long userId);
 
     Integer updateOne(Article article);
 
+    void insertone(Article article);
 
     List<Article> selectFirstFiveArticle();
+
+    List<Article> selectByArray(Long[] array);
+
 
 }

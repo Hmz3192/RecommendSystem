@@ -5,12 +5,12 @@
   <cache type="com.hmz.redis.RedisCache" />
   <resultMap id="BaseResultMap" type="com.hmz.model.Article">
     <constructor>
-      <idArg column="article_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="article_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="article_content" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="article_title" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="kind_parent_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="kind_child_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="article_summary" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="article_writer" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="article_source" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -105,15 +105,24 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from article
-    where article_id = #{articleId,jdbcType=INTEGER}
+    where article_id = #{articleId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByArray" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from article
+    where article_id IN
+    <foreach collection="array" item="array" index="index" open="(" separator="," close=")">
+      #{array}
+    </foreach>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from article
-    where article_id = #{articleId,jdbcType=INTEGER}
+    where article_id = #{articleId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.hmz.model.ArticleExample">
     delete from article
@@ -129,8 +138,8 @@
       check_up, article_collection, article_up, 
       article_down, article_state, article_avatar, 
       article_big, article_first)
-    values (#{articleId,jdbcType=INTEGER}, #{articleContent,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, 
-      #{kindParentName,jdbcType=VARCHAR}, #{kindChildName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+    values (#{articleId,jdbcType=BIGINT}, #{articleContent,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, 
+      #{kindParentName,jdbcType=VARCHAR}, #{kindChildName,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
       #{articleSummary,jdbcType=VARCHAR}, #{articleWriter,jdbcType=VARCHAR}, #{articleSource,jdbcType=VARCHAR}, 
       #{articleHints,jdbcType=INTEGER}, #{releaseTime,jdbcType=VARCHAR}, #{articlePower,jdbcType=VARCHAR}, 
       #{checkUp,jdbcType=INTEGER}, #{articleCollection,jdbcType=INTEGER}, #{articleUp,jdbcType=INTEGER}, 
@@ -203,7 +212,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="articleId != null">
-        #{articleId,jdbcType=INTEGER},
+        #{articleId,jdbcType=BIGINT},
       </if>
       <if test="articleContent != null">
         #{articleContent,jdbcType=VARCHAR},
@@ -218,7 +227,7 @@
         #{kindChildName,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="articleSummary != null">
         #{articleSummary,jdbcType=VARCHAR},
@@ -274,7 +283,7 @@
     update article
     <set>
       <if test="record.articleId != null">
-        article_id = #{record.articleId,jdbcType=INTEGER},
+        article_id = #{record.articleId,jdbcType=BIGINT},
       </if>
       <if test="record.articleContent != null">
         article_content = #{record.articleContent,jdbcType=VARCHAR},
@@ -289,7 +298,7 @@
         kind_child_name = #{record.kindChildName,jdbcType=VARCHAR},
       </if>
       <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=BIGINT},
       </if>
       <if test="record.articleSummary != null">
         article_summary = #{record.articleSummary,jdbcType=VARCHAR},
@@ -340,12 +349,12 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update article
-    set article_id = #{record.articleId,jdbcType=INTEGER},
+    set article_id = #{record.articleId,jdbcType=BIGINT},
       article_content = #{record.articleContent,jdbcType=VARCHAR},
       article_title = #{record.articleTitle,jdbcType=VARCHAR},
       kind_parent_name = #{record.kindParentName,jdbcType=VARCHAR},
       kind_child_name = #{record.kindChildName,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=BIGINT},
       article_summary = #{record.articleSummary,jdbcType=VARCHAR},
       article_writer = #{record.articleWriter,jdbcType=VARCHAR},
       article_source = #{record.articleSource,jdbcType=VARCHAR},
@@ -380,7 +389,7 @@
         kind_child_name = #{kindChildName,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="articleSummary != null">
         article_summary = #{articleSummary,jdbcType=VARCHAR},
@@ -425,7 +434,7 @@
         article_first = #{articleFirst,jdbcType=INTEGER},
       </if>
     </set>
-    where article_id = #{articleId,jdbcType=INTEGER}
+    where article_id = #{articleId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hmz.model.Article">
     update article
@@ -433,7 +442,7 @@
       article_title = #{articleTitle,jdbcType=VARCHAR},
       kind_parent_name = #{kindParentName,jdbcType=VARCHAR},
       kind_child_name = #{kindChildName,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
       article_summary = #{articleSummary,jdbcType=VARCHAR},
       article_writer = #{articleWriter,jdbcType=VARCHAR},
       article_source = #{articleSource,jdbcType=VARCHAR},
@@ -448,6 +457,6 @@
       article_avatar = #{articleAvatar,jdbcType=VARCHAR},
       article_big = #{articleBig,jdbcType=INTEGER},
       article_first = #{articleFirst,jdbcType=INTEGER}
-    where article_id = #{articleId,jdbcType=INTEGER}
+    where article_id = #{articleId,jdbcType=BIGINT}
   </update>
 </mapper>

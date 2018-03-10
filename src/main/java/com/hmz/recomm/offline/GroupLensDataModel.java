@@ -8,7 +8,6 @@ import org.apache.mahout.common.iterator.FileLineIterable;
 
 import java.io.*;
 import java.util.List;
-import java.util.Random;
 import java.util.regex.Pattern;
 
 public final class GroupLensDataModel extends FileDataModel {

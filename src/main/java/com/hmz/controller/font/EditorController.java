@@ -53,7 +53,7 @@ public class EditorController {
         //文件保存目录URL
         String saveUrl  = request.getContextPath() + "/attached/cover/";
 
-        Article one = articleService.getOne(articleId);
+        Article one = articleService.getOne(Long.valueOf(articleId));
         //把封面文件原来的删除
         try {
             if (one.getArticleAvatar() != null || one.getArticleAvatar().length() != 0) {
@@ -98,13 +98,13 @@ public class EditorController {
         Article article = new Article();
         ArticleAttach articleAttach = new ArticleAttach();
         try {
-            article.setArticleId(articleId);
-            articleAttach.setArticleId(articleId);
+            article.setArticleId(Long.valueOf(articleId));
+            articleAttach.setArticleId(Long.valueOf(articleId));
             article.setArticleContent(StringUtil.deleteRNB(content1));
             article.setArticleTitle(title);
             article.setKindChildName(cKind);
             article.setKindParentName(pKind);
-            article.setUserId(1);
+            article.setUserId(Long.valueOf(1));
             article.setArticleSummary(summary);
             article.setArticleState("审核中");
             article.setArticleAvatar(CoverUrl);
@@ -130,12 +130,12 @@ public class EditorController {
     @ResponseBody
     @RequestMapping(value = "/getTags")
     public ArticleAttachPojo getTags(Integer articleId) {
-        return articleAttachService.getOneByArticleId(articleId);
+        return articleAttachService.getOneByArticleId(Long.valueOf(articleId));
     }
 
     @RequestMapping(value = "loadPCKind")
     @ResponseBody
-    public List<ArticleKind> loadPCKind(String pKindName,String cKindName){
+    public List<ArticleKind> loadPCKind(String pKindName, String cKindName){
         return articleKindService.getPCKind(pKindName, cKindName);
     }
 
@@ -177,7 +177,7 @@ public class EditorController {
     public String editBlog(/*Integer articleId,*/ Model model) {
         Integer articleId =  12719131;
         ArticleEditPojo articleEditPojo = new ArticleEditPojo();
-        Article one = articleService.getOne(articleId);
+        Article one = articleService.getOne(Long.valueOf(articleId));
         ArticleAttachPojo oneByArticleId = articleAttachService.getOneByArticleId(one.getArticleId());
         articleEditPojo.setArticle(one);
         articleEditPojo.setArticleAttachPojo(oneByArticleId);
@@ -198,13 +198,13 @@ public class EditorController {
         Article article = new Article();
         ArticleAttach articleAttach = new ArticleAttach();
         try {
-            article.setArticleId(articleId);
-            articleAttach.setArticleId(articleId);
+            article.setArticleId(Long.valueOf(articleId));
+            articleAttach.setArticleId(Long.valueOf(articleId));
             article.setArticleContent(StringUtil.deleteRNB(content1));
             article.setArticleTitle(title);
             article.setKindChildName(cKind);
             article.setKindParentName(pKind);
-            article.setUserId(1);
+            article.setUserId(Long.valueOf(1));
             article.setArticleSummary(summary);
             article.setArticleState("已保存");
             article.setArticleHints(0);

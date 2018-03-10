@@ -2,7 +2,7 @@ package com.hmz.model;
 
 import java.io.Serializable;
 
-public class ArticleRating implements Serializable{
+public class ArticleRating implements Serializable {
     private Long userId;
 
     private Long articleId;

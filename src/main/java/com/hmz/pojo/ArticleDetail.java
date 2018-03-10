@@ -1,7 +1,6 @@
 package com.hmz.pojo;
 
 import com.hmz.model.Article;
-import com.hmz.model.ArticleAttach;
 import com.hmz.model.ArticleComment;
 import com.hmz.model.User;
 

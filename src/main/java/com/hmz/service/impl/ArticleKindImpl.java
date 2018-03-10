@@ -27,7 +27,7 @@ public class ArticleKindImpl implements ArticleKindService {
     public List<ArticleKind> getAllPKind() {
         ArticleKindExample example = new ArticleKindExample();
         ArticleKindExample.Criteria criteria = example.createCriteria();
-        criteria.andParentIdEqualTo(0);
+        criteria.andParentIdEqualTo(Long.valueOf(0));
         return articleKindMapper.selectByExample(example);
     }
 

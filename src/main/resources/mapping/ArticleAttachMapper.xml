@@ -5,7 +5,7 @@
   <cache type="com.hmz.redis.RedisCache" />
   <resultMap id="BaseResultMap" type="com.hmz.model.ArticleAttach">
     <constructor>
-      <arg column="article_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="article_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="tags" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="tag_number" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="pics" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -96,7 +96,7 @@
   <insert id="insert" parameterType="com.hmz.model.ArticleAttach">
     insert into article_attach (article_id, tags, tag_number, 
       pics, pic_number)
-    values (#{articleId,jdbcType=INTEGER}, #{tags,jdbcType=VARCHAR}, #{tagNumber,jdbcType=INTEGER}, 
+    values (#{articleId,jdbcType=BIGINT}, #{tags,jdbcType=VARCHAR}, #{tagNumber,jdbcType=INTEGER}, 
       #{pics,jdbcType=VARCHAR}, #{picNumber,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.hmz.model.ArticleAttach">
@@ -120,7 +120,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="articleId != null">
-        #{articleId,jdbcType=INTEGER},
+        #{articleId,jdbcType=BIGINT},
       </if>
       <if test="tags != null">
         #{tags,jdbcType=VARCHAR},
@@ -146,7 +146,7 @@
     update article_attach
     <set>
       <if test="record.articleId != null">
-        article_id = #{record.articleId,jdbcType=INTEGER},
+        article_id = #{record.articleId,jdbcType=BIGINT},
       </if>
       <if test="record.tags != null">
         tags = #{record.tags,jdbcType=VARCHAR},
@@ -167,7 +167,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update article_attach
-    set article_id = #{record.articleId,jdbcType=INTEGER},
+    set article_id = #{record.articleId,jdbcType=BIGINT},
       tags = #{record.tags,jdbcType=VARCHAR},
       tag_number = #{record.tagNumber,jdbcType=INTEGER},
       pics = #{record.pics,jdbcType=VARCHAR},

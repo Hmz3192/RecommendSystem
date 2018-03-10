@@ -114,52 +114,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Integer value) {
+        public Criteria andUserIdEqualTo(Long value) {
             addCriterion("user_id =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Integer value) {
+        public Criteria andUserIdNotEqualTo(Long value) {
             addCriterion("user_id <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Integer value) {
+        public Criteria andUserIdGreaterThan(Long value) {
             addCriterion("user_id >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
             addCriterion("user_id >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Integer value) {
+        public Criteria andUserIdLessThan(Long value) {
             addCriterion("user_id <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
+        public Criteria andUserIdLessThanOrEqualTo(Long value) {
             addCriterion("user_id <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Integer> values) {
+        public Criteria andUserIdIn(List<Long> values) {
             addCriterion("user_id in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Integer> values) {
+        public Criteria andUserIdNotIn(List<Long> values) {
             addCriterion("user_id not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Integer value1, Integer value2) {
+        public Criteria andUserIdBetween(Long value1, Long value2) {
             addCriterion("user_id between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserIdNotBetween(Long value1, Long value2) {
             addCriterion("user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
@@ -371,6 +371,136 @@ public class UserExample {
 
         public Criteria andEmailNotBetween(String value1, String value2) {
             addCriterion("email not between", value1, value2, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkIsNull() {
+            addCriterion("work is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkIsNotNull() {
+            addCriterion("work is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkEqualTo(String value) {
+            addCriterion("work =", value, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkNotEqualTo(String value) {
+            addCriterion("work <>", value, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkGreaterThan(String value) {
+            addCriterion("work >", value, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkGreaterThanOrEqualTo(String value) {
+            addCriterion("work >=", value, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkLessThan(String value) {
+            addCriterion("work <", value, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkLessThanOrEqualTo(String value) {
+            addCriterion("work <=", value, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkLike(String value) {
+            addCriterion("work like", value, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkNotLike(String value) {
+            addCriterion("work not like", value, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkIn(List<String> values) {
+            addCriterion("work in", values, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkNotIn(List<String> values) {
+            addCriterion("work not in", values, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkBetween(String value1, String value2) {
+            addCriterion("work between", value1, value2, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkNotBetween(String value1, String value2) {
+            addCriterion("work not between", value1, value2, "work");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeIsNull() {
+            addCriterion("age is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeIsNotNull() {
+            addCriterion("age is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeEqualTo(Integer value) {
+            addCriterion("age =", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeNotEqualTo(Integer value) {
+            addCriterion("age <>", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeGreaterThan(Integer value) {
+            addCriterion("age >", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("age >=", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeLessThan(Integer value) {
+            addCriterion("age <", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeLessThanOrEqualTo(Integer value) {
+            addCriterion("age <=", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeIn(List<Integer> values) {
+            addCriterion("age in", values, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeNotIn(List<Integer> values) {
+            addCriterion("age not in", values, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeBetween(Integer value1, Integer value2) {
+            addCriterion("age between", value1, value2, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeNotBetween(Integer value1, Integer value2) {
+            addCriterion("age not between", value1, value2, "age");
             return (Criteria) this;
         }
 

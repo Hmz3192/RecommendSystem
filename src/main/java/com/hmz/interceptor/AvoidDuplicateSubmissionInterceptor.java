@@ -1,6 +1,5 @@
 package com.hmz.interceptor;
 
-import com.hmz.model.User;
 import java.lang.reflect.Method;
 import java.util.UUID;
 

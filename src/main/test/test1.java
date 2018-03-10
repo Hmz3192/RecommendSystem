@@ -83,4 +83,15 @@ public class test1 {
 
     }
 
+    @Test
+    public void test3() {
+        String s = "Animation|Children's|Comedy";
+        String[] types = s.split("\\|");
+        System.out.println(types[0] + "----");
+        System.out.println(types[1] + "----");
+        System.out.println(types[2] + "----");
+
+
+    }
+
 }

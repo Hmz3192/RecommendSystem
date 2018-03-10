@@ -114,52 +114,52 @@ public class ArticleKindExample {
             return (Criteria) this;
         }
 
-        public Criteria andKindIdEqualTo(Integer value) {
+        public Criteria andKindIdEqualTo(Long value) {
             addCriterion("kind_id =", value, "kindId");
             return (Criteria) this;
         }
 
-        public Criteria andKindIdNotEqualTo(Integer value) {
+        public Criteria andKindIdNotEqualTo(Long value) {
             addCriterion("kind_id <>", value, "kindId");
             return (Criteria) this;
         }
 
-        public Criteria andKindIdGreaterThan(Integer value) {
+        public Criteria andKindIdGreaterThan(Long value) {
             addCriterion("kind_id >", value, "kindId");
             return (Criteria) this;
         }
 
-        public Criteria andKindIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andKindIdGreaterThanOrEqualTo(Long value) {
             addCriterion("kind_id >=", value, "kindId");
             return (Criteria) this;
         }
 
-        public Criteria andKindIdLessThan(Integer value) {
+        public Criteria andKindIdLessThan(Long value) {
             addCriterion("kind_id <", value, "kindId");
             return (Criteria) this;
         }
 
-        public Criteria andKindIdLessThanOrEqualTo(Integer value) {
+        public Criteria andKindIdLessThanOrEqualTo(Long value) {
             addCriterion("kind_id <=", value, "kindId");
             return (Criteria) this;
         }
 
-        public Criteria andKindIdIn(List<Integer> values) {
+        public Criteria andKindIdIn(List<Long> values) {
             addCriterion("kind_id in", values, "kindId");
             return (Criteria) this;
         }
 
-        public Criteria andKindIdNotIn(List<Integer> values) {
+        public Criteria andKindIdNotIn(List<Long> values) {
             addCriterion("kind_id not in", values, "kindId");
             return (Criteria) this;
         }
 
-        public Criteria andKindIdBetween(Integer value1, Integer value2) {
+        public Criteria andKindIdBetween(Long value1, Long value2) {
             addCriterion("kind_id between", value1, value2, "kindId");
             return (Criteria) this;
         }
 
-        public Criteria andKindIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andKindIdNotBetween(Long value1, Long value2) {
             addCriterion("kind_id not between", value1, value2, "kindId");
             return (Criteria) this;
         }
@@ -304,7 +304,7 @@ public class ArticleKindExample {
             return (Criteria) this;
         }
 
-        public Criteria andParentIdEqualTo(Integer value) {
+        public Criteria andParentIdEqualTo(Long value) {
             addCriterion("parent_id =", value, "parentId");
             return (Criteria) this;
         }

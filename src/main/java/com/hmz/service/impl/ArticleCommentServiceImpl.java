@@ -22,7 +22,7 @@ public class ArticleCommentServiceImpl  implements ArticleCommentService{
     private ArticleCommentMapper articleCommentMapper;
 
     @Override
-    public List<ArticleComment> getCommsByArticleId(Integer articleId) {
+    public List<ArticleComment> getCommsByArticleId(Long articleId) {
         ArticleCommentExample articleCommentExample = new ArticleCommentExample();
         ArticleCommentExample.Criteria criteria = articleCommentExample.createCriteria();
         criteria.andArticleIdEqualTo(articleId);

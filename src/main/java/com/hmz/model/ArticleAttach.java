@@ -2,8 +2,8 @@ package com.hmz.model;
 
 import java.io.Serializable;
 
-public class ArticleAttach implements Serializable{
-    private Integer articleId;
+public class ArticleAttach implements Serializable {
+    private Long articleId;
 
     private String tags;
 
@@ -13,7 +13,7 @@ public class ArticleAttach implements Serializable{
 
     private Integer picNumber;
 
-    public ArticleAttach(Integer articleId, String tags, Integer tagNumber, String pics, Integer picNumber) {
+    public ArticleAttach(Long articleId, String tags, Integer tagNumber, String pics, Integer picNumber) {
         this.articleId = articleId;
         this.tags = tags;
         this.tagNumber = tagNumber;
@@ -25,11 +25,11 @@ public class ArticleAttach implements Serializable{
         super();
     }
 
-    public Integer getArticleId() {
+    public Long getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Integer articleId) {
+    public void setArticleId(Long articleId) {
         this.articleId = articleId;
     }
 

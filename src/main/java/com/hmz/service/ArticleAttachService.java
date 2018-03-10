@@ -9,7 +9,9 @@ import com.hmz.pojo.ArticleAttachPojo;
  */
 public interface ArticleAttachService {
 
-    ArticleAttachPojo getOneByArticleId(Integer articlID);
+    ArticleAttachPojo getOneByArticleId(Long articlID);
 
     void saveAttache(ArticleAttach articleAttach);
+
+    void insertAttache(ArticleAttach articleAttach);
 }

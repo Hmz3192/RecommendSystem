@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface ArticleCommentService {
 
-    List<ArticleComment> getCommsByArticleId(Integer articleId);
+    List<ArticleComment> getCommsByArticleId(Long articleId);
 }

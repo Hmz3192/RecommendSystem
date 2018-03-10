@@ -2,8 +2,8 @@ package com.hmz.model;
 
 import java.io.Serializable;
 
-public class ArticleKind implements Serializable{
-    private Integer kindId;
+public class ArticleKind implements Serializable {
+    private Long kindId;
 
     private String kindName;
 
@@ -11,7 +11,7 @@ public class ArticleKind implements Serializable{
 
     private Integer parentId;
 
-    public ArticleKind(Integer kindId, String kindName, Integer kindNumber, Integer parentId) {
+    public ArticleKind(Long kindId, String kindName, Integer kindNumber, Integer parentId) {
         this.kindId = kindId;
         this.kindName = kindName;
         this.kindNumber = kindNumber;
@@ -22,11 +22,11 @@ public class ArticleKind implements Serializable{
         super();
     }
 
-    public Integer getKindId() {
+    public Long getKindId() {
         return kindId;
     }
 
-    public void setKindId(Integer kindId) {
+    public void setKindId(Long kindId) {
         this.kindId = kindId;
     }
 

@@ -3,7 +3,6 @@ package com.hmz.service.impl;
 import com.hmz.dao.ArticleAttachMapper;
 import com.hmz.model.ArticleAttach;
 import com.hmz.model.ArticleAttachExample;
-import com.hmz.model.ArticleExample;
 import com.hmz.pojo.ArticleAttachPojo;
 import com.hmz.service.ArticleAttachService;
 import com.hmz.utils.StringUtil;
@@ -27,7 +26,7 @@ public class ArticleAttachServiceImpl implements ArticleAttachService {
 
     @Cacheable(value = "ArticleAttachCache")
     @Override
-    public ArticleAttachPojo getOneByArticleId(Integer articleID) {
+    public ArticleAttachPojo getOneByArticleId(Long articleID) {
         ArticleAttachPojo articleAttachPojo = new ArticleAttachPojo();
         ArticleAttachExample example = new ArticleAttachExample();
         ArticleAttachExample.Criteria criteria = example.createCriteria();
@@ -55,5 +54,10 @@ public class ArticleAttachServiceImpl implements ArticleAttachService {
             //插入保存
             articleAttachMapper.insert(articleAttach);
         }
+    }
+
+    @Override
+    public void insertAttache(ArticleAttach articleAttach) {
+        articleAttachMapper.insertSelective(articleAttach);
     }
 }

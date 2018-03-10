@@ -3,7 +3,7 @@ package com.hmz.model;
 import java.io.Serializable;
 
 public class Article implements Serializable{
-    private Integer articleId;
+    private Long articleId;
 
     private String articleContent;
 
@@ -13,7 +13,7 @@ public class Article implements Serializable{
 
     private String kindChildName;
 
-    private Integer userId;
+    private Long userId;
 
     private String articleSummary;
 
@@ -43,7 +43,7 @@ public class Article implements Serializable{
 
     private Integer articleFirst;
 
-    public Article(Integer articleId, String articleContent, String articleTitle, String kindParentName, String kindChildName, Integer userId, String articleSummary, String articleWriter, String articleSource, Integer articleHints, String releaseTime, String articlePower, Integer checkUp, Integer articleCollection, Integer articleUp, Integer articleDown, String articleState, String articleAvatar, Integer articleBig, Integer articleFirst) {
+    public Article(Long articleId, String articleContent, String articleTitle, String kindParentName, String kindChildName, Long userId, String articleSummary, String articleWriter, String articleSource, Integer articleHints, String releaseTime, String articlePower, Integer checkUp, Integer articleCollection, Integer articleUp, Integer articleDown, String articleState, String articleAvatar, Integer articleBig, Integer articleFirst) {
         this.articleId = articleId;
         this.articleContent = articleContent;
         this.articleTitle = articleTitle;
@@ -70,11 +70,11 @@ public class Article implements Serializable{
         super();
     }
 
-    public Integer getArticleId() {
+    public Long getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Integer articleId) {
+    public void setArticleId(Long articleId) {
         this.articleId = articleId;
     }
 
@@ -110,11 +110,11 @@ public class Article implements Serializable{
         this.kindChildName = kindChildName == null ? null : kindChildName.trim();
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

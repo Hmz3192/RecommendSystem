@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Integer userId) {
+    public User getUserById(Long userId) {
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andUserIdEqualTo(userId);
@@ -55,6 +55,11 @@ public class UserServiceImpl implements UserService {
             return users.get(0);
         }
         return null;
+    }
+
+    @Override
+    public void insertUser(User user) {
+        userMapper.insertSelective(user);
     }
 
 

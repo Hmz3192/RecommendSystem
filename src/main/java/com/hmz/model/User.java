@@ -2,14 +2,18 @@ package com.hmz.model;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
-    private Integer userId;
+public class User implements Serializable {
+    private Long userId;
 
     private String userName;
 
     private String password;
 
     private String email;
+
+    private String work;
+
+    private Integer age;
 
     private Integer sex;
 
@@ -23,11 +27,13 @@ public class User implements Serializable{
 
     private String introduction;
 
-    public User(Integer userId, String userName, String password, String email, Integer sex, String location, String avatar, String phone, Integer vip, String introduction) {
+    public User(Long userId, String userName, String password, String email, String work, Integer age, Integer sex, String location, String avatar, String phone, Integer vip, String introduction) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.work = work;
+        this.age = age;
         this.sex = sex;
         this.location = location;
         this.avatar = avatar;
@@ -40,11 +46,11 @@ public class User implements Serializable{
         super();
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -70,6 +76,22 @@ public class User implements Serializable{
 
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
+    }
+
+    public String getWork() {
+        return work;
+    }
+
+    public void setWork(String work) {
+        this.work = work == null ? null : work.trim();
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Integer getSex() {

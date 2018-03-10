@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class ArticleComment implements Serializable {
     private Integer commentId;
 
-    private Integer articleId;
+    private Long articleId;
 
     private String userName;
 
@@ -19,7 +19,7 @@ public class ArticleComment implements Serializable {
 
     private Integer replayCommentId;
 
-    public ArticleComment(Integer commentId, Integer articleId, String userName, String commentBody, String commentTime, Integer commentUp, Integer commentDown, Integer replayCommentId) {
+    public ArticleComment(Integer commentId, Long articleId, String userName, String commentBody, String commentTime, Integer commentUp, Integer commentDown, Integer replayCommentId) {
         this.commentId = commentId;
         this.articleId = articleId;
         this.userName = userName;
@@ -42,11 +42,11 @@ public class ArticleComment implements Serializable {
         this.commentId = commentId;
     }
 
-    public Integer getArticleId() {
+    public Long getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Integer articleId) {
+    public void setArticleId(Long articleId) {
         this.articleId = articleId;
     }
 

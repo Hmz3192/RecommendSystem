@@ -10,7 +10,7 @@ public interface ArticleKindMapper {
 
     int deleteByExample(ArticleKindExample example);
 
-    int deleteByPrimaryKey(Integer kindId);
+    int deleteByPrimaryKey(Long kindId);
 
     int insert(ArticleKind record);
 
@@ -18,7 +18,7 @@ public interface ArticleKindMapper {
 
     List<ArticleKind> selectByExample(ArticleKindExample example);
 
-    ArticleKind selectByPrimaryKey(Integer kindId);
+    ArticleKind selectByPrimaryKey(Long kindId);
 
     int updateByExampleSelective(@Param("record") ArticleKind record, @Param("example") ArticleKindExample example);
 

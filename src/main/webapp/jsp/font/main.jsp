@@ -1,10 +1,3 @@
-<!--
-Created by IntelliJ IDEA.
-User: ThinKPad
-Date: 2018/1/22
-Time: 12:38
-To change this template use File | Settings | File Templates.
--->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set value="${pageContext.request.contextPath}" var="path"
@@ -46,6 +39,26 @@ To change this template use File | Settings | File Templates.
             var rows = 10;
             //没有更多数据
             var nomore_Text = '没有更多数据';
+            var userId = "";
+            <c:if test="${sessionScope.user != null}">
+            userId = ${sessionScope.user.userId}
+            </c:if>
+
+
+                /*
+          页面加载完毕执行一次查询
+          */
+                window.onload = function () {
+                    loadReWen();
+                    //加载数据
+                    <c:if test="${sessionScope.user == null}">
+                    //游客，得出最点击量高和赞高的
+                    loadData();
+                    </c:if>
+
+                };
+
+
             /*
              请求正文列表接口
              */
@@ -59,140 +72,8 @@ To change this template use File | Settings | File Templates.
                     //参数
                     data: {currentPage: currentPage, rows: rows},
                     //成功回调
-                    success: sucessCallback,
-                    //失败回调
-                    error: function (e, e2, e3) {
-                        //
-                        alert('请求失败，原因：' + e3);
-                    }
-                });
-            }
-
-            /*
-             成功回调函数
-             */
-            function sucessCallback(data) {
-                //当前页自增
-                currentPage++;
-                var html = '', result = data.amounts, len = result.length, i = 0;
-                var path = '${path}';
-                //循环数据
-                for (; i < len; i++) {
-
-                    var rs = result[i],
-                        id = rs.articleId,
-                        pic = "http://localhost:8111/" + rs.articleAvatar,
-                        title = rs.articleTitle,
-                        summary = rs.articleSummary,
-                        collection = rs.articleCollection,
-                        up = rs.articleUp,
-                        down = rs.articleDown,
-                        articleBig = rs.articleBig;
-//                    html+='<li data-id="'+id+'">'+title+'</li>';
-                    var article_href = "${path}/toarticle/" + id;
-                    if (articleBig > 0) {
-                        html += '<div class="mod-b mod-art mod-b-push ">' +
-                            '<a class="transition" href="' + article_href + '" target="_blank" title="' + title + '">' +
-                            '<div class="mod-thumb ">' +
-                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
-                            '</div></a>' +
-                            '<div class="column-link-box column-link-big-box">' +
-                            '<a href="#" class="column-link" target="_blank">车与出行</a>' +
-                            '</div><div class="mob-ctt">' +
-                            '<h2><a href="' + article_href + '" class="transition msubstr-row5" target="_blank">' + title + '</a></h2>' +
-                            '<div class="mob-author"><div class="author-face">' +
-                            '<a href="#" target="_blank"><img class="lazy" src="/resource/sy-img/59_1502432173.jpg"></a>' +
-                            '</div><a href="#" target="_blank">' +
-                            '<span class="author-name">autocarweekly</span>' +
-                            '</a><a href="#" target="_blank"></a>' +
-                            '<span class="time">5小时前</span></div>' +
-                            '<div class="mob-sub">' + summary + '</div>' +
-                            '</div></div>'
-                    } else {
-                        html += '<div class="mod-info-flow">' +
-                            '<div class="mod-b mod-art">' +
-                                /*state*/
-                            '<div class="mod-angle">' + id + '</div>' +
-                            '<div class="mod-thumb "><a class="transition" title="' + title + '" href="' + article_href + '" target="_blank">' +
-                                /*pic1*/
-                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
-                            '</a></div><div class="column-link-box">' +
-                                /*tag1*/
-                            '<a href="#" class="column-link" target="_blank">娱乐淘金</a></div>' +
-                            '<div class="mob-ctt">' +
-                                /*title*/
-                            '<h2><a href="' + article_href + '" class="transition msubstr-row2" target="_blank">' + title + '</a></h2>' +
-                            '<div class="mob-author"><div class="author-face">' +
-                                /*user-avatar*/
-                            '<a href="#" target="_blank"><img src="/resource/sy-img/59_1502432173.jpg"></a></div>' +
-                                /*user-name*/
-                            '<a href="#" target="_blank"><span class="author-name ">量子位</span></a>' +
-                                /*release-time*/
-                            '<a href="#" target="_blank" title="购买VIP会员"></a><span class="time">1小时前</span>' +
-                                /*comment-number*/
-                            '<i class="icon icon-cmt"></i><em>0</em>' +
-                                /*collection-number*/
-                            '<i class="icon icon-fvr"></i><em>' + collection + '</em>' +
-
-                            //dian zan
-                            '<div class="article-type pull-right">' +
-                            '<div class="icon-like-prompt" id="zanAdd" ><i class="icon icon-like active"></i><span class="c1" id="upText" >+1</span></div>' +
-                            '<div class="icon-no-like-prompt" id="zanDown"><i class="icon icon-no-like active"></i><span class="c1" id="downText" >+1</span></div>' +
-                            '<ul>' +
-                            '<li class="js-icon-like"  id="like"><i class="icon icon-like" id="up"></i>' +
-                            '<span class="like" id="upNum">' + up + '</span></li>' +
-                            '<li class="js-no-icon-like"  id="noLike"><i class="icon icon-no-like " id="down" ></i>' +
-                            '<span class="like" id="downNum">' + down + '</span></li>' +
-                            '</ul>' +
-                            '</div>' +
-                                /*summary*/
-                            '</div><div class="mob-sub">' + summary + '</div>' +
-                            '</div></div></div>'
-                    }
-                }
-                //渲染数据
-                list.append(html);
-                //接口是否查询完毕
-                if (data.total == data.currentPage || currentPage > data.total) {
-                    //数据全部加载完毕
-                    isLoad = false;
-                    //
-                    loadingBtn.html(nomore_Text);
-                }
-            }
-
-            /*
-             请求正文列表接口
-             */
-            function loadReWen() {
-                //发送ajax
-                $.ajax({
-                    //url
-                    url: "${path}/rewen",
-                    //请求方式
-                    type: 'POST',
-                    //成功回调
-                    success: function (data1) {
-                        var html = '', result1 = data1, len2 = result1.length, i = 0;
-                        var path = '${path}';
-                        //循环数据
-                        for (; i < 5; i++) {
-                            var rs = result1[i],
-                                id = rs.articleId,
-                                pic = "http://localhost:8111/" + rs.articleAvatar,
-                                title = rs.articleTitle,
-                                articleHints = rs.articleHints,
-                                article_href = "${path}/toarticle/" + id;
-
-                            html += '<li><div class="hot-article-img">' +
-                                '<a href=" ' + article_href + '" target="_blank" title="' + title + '">' +
-                                '<img src="' + pic + '"></a></div>' +
-                                '<a href="' + article_href + '" class="transition" target="_blank">' + title + '</a>' +
-                                '<div style="float: right"><span class="watch-icon" style="margin-right: 5px"  ></span> ' +
-                                '<span style="font-size: 20px;" > ' + articleHints + ' </span></div></li>';
-                        }
-
-                        $("#reWen").append(html)
+                    success: function (data) {
+                            setData2Html(data);
                     },
                     //失败回调
                     error: function (e, e2, e3) {
@@ -202,6 +83,57 @@ To change this template use File | Settings | File Templates.
                 });
             }
 
+            /*
+             请求正文列表接口
+             */
+            function loadReWen() {
+                $.get("${path}/rewen", function (data1) {
+                    var html = '', result1 = data1.amounts, len2 = result1.length, i = 0;
+                    var path = '${path}';
+                    //循环数据
+                    for (; i < len2; i++) {
+                        var rs = result1[i],
+                            id = rs.articleId,
+                            pic = "http://localhost:8111/" + rs.articleAvatar,
+                            title = rs.articleTitle,
+                            articleHints = rs.articleHints,
+                            article_href = path + "/toarticle/" + id;
+
+                        html += '<li><div class="hot-article-img">' +
+                            '<a href=" ' + article_href + '" target="_blank" title="' + title + '">' +
+                            '<img src="' + pic + '"></a></div>' +
+                            '<a href="' + article_href + '" class="transition" target="_blank">' + title + '</a>' +
+                            '<div style="float: right"><span class="watch-icon" style="margin-right: 5px"  ></span> ' +
+                            '<span style="font-size: 20px;" > ' + articleHints + ' </span></div></li>';
+                    }
+
+                    $("#reWen").append(html)
+                })
+            }
+
+            function loadRecoData() {
+                //发送ajax
+                $.ajax({
+                    //url
+                    url: "${path}/loadRecom",
+                    //请求方式
+                    type: 'POST',
+                    //参数
+                    data: {currentPage: currentPage, rows: rows,userId: userId},
+                    //成功回调
+                    success: function (data) {
+                        if(data.total==0) {
+                            alert("无推荐")
+                        }else
+                        setData2Html(data);
+                    },
+                    //失败回调
+                    error: function (e, e2, e3) {
+                        //
+                        Console('请求失败，原因：' + e3);
+                    }
+                });
+            }
 
             var zanCancle = 0, downCancle = 0;
             ;
@@ -262,6 +194,127 @@ To change this template use File | Settings | File Templates.
 
             });
 
+            function setData2Html(data) {
+                //当前页自增
+                currentPage++;
+                var html = '', result = data.amounts, len = result.length, i = 0;
+                var path = '${path}';
+                //循环数据
+                for (; i < len; i++) {
+
+                    var rs = result[i],
+                        id = rs.articleId,
+                        pic = "http://localhost:8111/" + rs.articleAvatar,
+                        title = rs.articleTitle,
+                        summary = rs.articleSummary,
+                        collection = rs.articleCollection,
+                        up = rs.articleUp,
+                        down = rs.articleDown,
+                        hints = rs.articleHints,
+                        articleBig = rs.articleBig;
+//                    html+='<li data-id="'+id+'">'+title+'</li>';
+                    var article_href = path + "/toarticle/" + id;
+                    if (articleBig > 0) {
+                        html += '<div class="mod-b mod-art mod-b-push ">' +
+                            '<a class="transition" href="' + article_href + '" target="_blank" title="' + title + '">' +
+                            '<div class="mod-thumb ">' +
+                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
+                            '</div></a>' +
+                            '<div class="column-link-box column-link-big-box">' +
+                            '<a href="#" class="column-link" target="_blank">车与出行</a>' +
+                            '</div><div class="mob-ctt">' +
+                            '<h2><a href="' + article_href + '" class="transition msubstr-row5" target="_blank">' + title + '</a></h2>' +
+                            '<div class="mob-author"><div class="author-face">' +
+                            '<a href="#" target="_blank"><img class="lazy" src="/resource/sy-img/59_1502432173.jpg"></a>' +
+                            '</div><a href="#" target="_blank">' +
+                            '<span class="author-name">autocarweekly</span>' +
+                            '</a>' +
+                            '</div>' +
+                            '<div class="mob-author">' +
+                            '<i class="icon icon-cmt" style="margin-left: 5px" title="点击量"></i><em title="点击量">' + hints + '</em>' +
+                            '<i class="icon icon-fvr" style="margin-left: 5px" title="收藏量"></i><em title="收藏量">' + collection + '</em>' +
+                            '<div class="article-type pull-right">' +
+                            '<div class="icon-like-prompt" id="zanAdd"><i class="icon icon-like active"></i><span class="c1" id="upText">+1</span>' +
+                            '</div>' +
+                            '<div class="icon-no-like-prompt" style="margin-left: 27%;" id="zanDown"><i class="icon icon-no-like active"></i><span class="c1" id="downText">+1</span>' +
+                            '</div>' +
+                            '<ul>' +
+                            '<li class="js-icon-like"  id="like"><i class="icon icon-like" id="up"></i>' +
+                            '<span class="like" id="upNum">' + up + '</span></li>' +
+                            '<li class="js-no-icon-like"  id="noLike"><i class="icon icon-no-like " id="down" ></i>' +
+                            '<span class="like" id="downNum">' + down + '</span></li>' +
+                            '</ul>' +
+                            '</div></div>' +
+
+
+                            '<div class="mob-sub">' + summary + '</div>' +
+                            '</div></div>'
+                    } else {
+                        html += '<div class="mod-info-flow">' +
+                            '<div class="mod-b mod-art">' +
+                            /*state*/
+                            '<div class="mod-angle">' + id + '</div>' +
+                            '<div class="mod-thumb "><a class="transition" title="' + title + '" href="' + article_href + '" target="_blank">' +
+                            /*pic1*/
+                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
+                            '</a></div><div class="column-link-box">' +
+                            /*tag1*/
+                            '<a href="#" class="column-link" target="_blank">娱乐淘金</a></div>' +
+                            '<div class="mob-ctt">' +
+                            /*title*/
+                            '<h2><a href="' + article_href + '" class="transition msubstr-row2" target="_blank">' + title + '</a></h2>' +
+                            '<div class="mob-author"><div class="author-face">' +
+                            /*user-avatar*/
+                            '<a href="#" target="_blank"><img src="/resource/sy-img/59_1502432173.jpg"></a></div>' +
+                            /*user-name*/
+                            '<a href="#" target="_blank"><span class="author-name ">量子位</span></a>' +
+                            /*comment-number*/
+                            '<i class="icon icon-cmt" title="点击量"></i><em title="点击量">' + hints + '</em>' +
+                            /*collection-number*/
+                            '<i class="icon icon-fvr" title="收藏量"></i><em title="收藏量">' + collection + '</em>' +
+
+                            //dian zan
+                            '<div class="article-type pull-right">' +
+                            '<div class="icon-like-prompt" id="zanAdd" ><i class="icon icon-like active"></i><span class="c1" id="upText" >+1</span></div>' +
+                            '<div class="icon-no-like-prompt" style="margin-left: 14%" id="zanDown"><i class="icon icon-no-like active"></i><span class="c1" id="downText" >+1</span></div>' +
+                            '<ul>' +
+                            '<li class="js-icon-like"  id="like"><i class="icon icon-like" id="up"></i>' +
+                            '<span class="like" id="upNum">' + up + '</span></li>' +
+                            '<li class="js-no-icon-like"  id="noLike"><i class="icon icon-no-like " id="down" ></i>' +
+                            '<span class="like" id="downNum">' + down + '</span></li>' +
+                            '</ul>' +
+                            '</div>' +
+                            /*summary*/
+                            '</div><div class="mob-sub">' + summary + '</div>' +
+                            '</div></div></div>'
+                    }
+                    if(i == 5 ) {
+                        //adver
+                        html += '<div class="mod-b mod-art promote">' +
+                            '<a href="#" title="">' +
+                            '<div class="mod-thumb">' +
+                            '<img class="lazy" src="'+ path +'/resource/sy-img/233950517521.jpg">' +
+                            '</div>' +
+                            '</a>' +
+                            '<div class="mob-ctt">' +
+                            '<a href="#" >实体商业转型</a>' +
+                            '<span class="point">&bull;</span>' +
+                            '<a href="#" >实体空间在召唤，他们押宝了零售业态转型升级</a>' +
+                            '<span class="span-mark-pro">推广</span>' +
+                            '</div>' +
+                            '</div>'
+                    }
+                }
+                //渲染数据
+                list.append(html);
+                //接口是否查询完毕
+                if (data.total == data.currentPage || currentPage > data.total) {
+                    //数据全部加载完毕
+                    isLoad = false;
+                    //
+                    loadingBtn.html(nomore_Text);
+                }
+            }
             /*
              判断是否要加载接口
              */
@@ -290,22 +343,21 @@ To change this template use File | Settings | File Templates.
              }
              });*/
 
-            /*
-             页面加载完毕执行一次查询
-             */
-            window.onload = function () {
-                //加载数据
-                loadData();
-                loadReWen();
-            };
 
             /*
              点击加载更多
              */
             loadingBtn.click(function () {
-                //是否加载数据
+                <c:if test="${sessionScope.user == null}">
+                //是否加载游客数据
                 if (isLoad)
                     loadData();
+                </c:if>
+                <c:if test="${sessionScope.user != null}">
+                if (isLoad)
+                    loadRecoData();
+                </c:if>
+
             });
         });
     </script>
@@ -379,25 +431,25 @@ To change this template use File | Settings | File Templates.
                 </li>
             </ul>
         </div>
-    <link rel="stylesheet" type="text/css" href="https://static.huxiucdn.com/www/css/moment.css">
-    <div id="moment"></div>
-    <div class="box-moder hot-article">
-        <h3>实时热文</h3>
-        <span class="pull-right project-more story-more">
+        <link rel="stylesheet" type="text/css" href="https://static.huxiucdn.com/www/css/moment.css">
+        <div id="moment"></div>
+        <div class="box-moder hot-article">
+            <h3>实时热文</h3>
+            <span class="pull-right project-more story-more">
             <a href="#" class="transition" target="_blank">查看全部</a></span>
-        <span class="span-mark"></span>
-        <ul id="reWen">
+            <span class="span-mark"></span>
+            <ul id="reWen">
 
-        </ul>
-    </div>
-    <div class="placeholder"></div>
-    <!--24小时部分结束1-->
-    <div class="ad-wrap">
-        <div class="ad-title">广告</div>
-    </div>
-    <div class="placeholder"></div>
+            </ul>
+        </div>
+        <div class="placeholder"></div>
+        <!--24小时部分结束1-->
+        <div class="ad-wrap">
+            <div class="ad-title">广告</div>
+        </div>
+        <div class="placeholder"></div>
 
-</div>
+    </div>
 </div>
 <%@include file="footer.jsp" %>
 

@@ -1,14 +1,26 @@
 package com.hmz.controller.font;
 
 import com.hmz.model.Article;
+import com.hmz.model.ArticleRating;
 import com.hmz.model.User;
 import com.hmz.pojo.ArticleEditPojo;
+import com.hmz.recomm.offline.GroupLensDataModel;
+import com.hmz.recomm.offline.ItemsSimilarityRedisWriter;
+import com.hmz.recomm.offline.UserItemSimilarityRedisWriter;
 import com.hmz.redis.JedisUtil;
 import com.hmz.service.ArticleAttachService;
 import com.hmz.service.ArticleService;
+import com.hmz.service.RatingService;
 import com.hmz.service.UserService;
+import com.hmz.utils.FileUtil;
 import com.hmz.utils.IDUtils;
 import org.apache.log4j.Logger;
+import org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender;
+import org.apache.mahout.cf.taste.impl.similarity.LogLikelihoodSimilarity;
+import org.apache.mahout.cf.taste.impl.similarity.precompute.MultithreadedBatchItemSimilarities;
+import org.apache.mahout.cf.taste.model.DataModel;
+import org.apache.mahout.cf.taste.recommender.ItemBasedRecommender;
+import org.apache.mahout.cf.taste.similarity.precompute.BatchItemSimilarities;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +31,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,7 +43,8 @@ import java.util.List;
 public class UserController {
 
     public static Logger logger = Logger.getLogger(UserController.class);
-
+    @Resource
+    private RatingService ratingService;
     @Resource
     private UserService userService;
     @Resource
@@ -64,7 +79,7 @@ public class UserController {
         ArticleEditPojo articleEditPojo = new ArticleEditPojo();
         articleEditPojo.setBlog_state(0);
         Article article = new Article();
-        article.setArticleId(GenArticleId);
+        article.setArticleId(Long.valueOf(GenArticleId));
         articleEditPojo.setArticle(article);
         model.addAttribute("articlePO", articleEditPojo);
         return "font/submission";
@@ -91,7 +106,29 @@ public class UserController {
     }
 
     @RequestMapping(value = "/exit")
-    public String logout(HttpSession session,Model model) {
+    public String logout(HttpSession session,Model model) throws IOException {
+        final List<ArticleRating> articleRating = ratingService.getArticleRating();
+        File file = FileUtil.write2Dat(articleRating);
+        DataModel datamodel = new GroupLensDataModel(file);
+        try {
+            UserItemSimilarityRedisWriter userItemSimilarityTableRedisWriter =
+                    new UserItemSimilarityRedisWriter(datamodel);
+            userItemSimilarityTableRedisWriter.storeToRedis();
+
+            ItemBasedRecommender recommender = new GenericItemBasedRecommender(datamodel,new LogLikelihoodSimilarity(datamodel));
+
+            BatchItemSimilarities batch = new MultithreadedBatchItemSimilarities(recommender, 30);
+
+            int numSimilarities = batch.computeItemSimilarities(Runtime.getRuntime().availableProcessors(), 1,
+                    new ItemsSimilarityRedisWriter());
+
+            System.out.println("Computed " + numSimilarities + " similarities for " + datamodel.getNumItems() + " items "
+                    + "and saved them to redis");
+
+            userItemSimilarityTableRedisWriter.waitUtilDone();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         session.invalidate();
         model.addAttribute("exitResult", "退出成功");
         return "font/main";
