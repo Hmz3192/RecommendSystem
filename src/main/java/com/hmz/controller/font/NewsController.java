@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hmz.model.Article;
+import com.hmz.model.ArticleKind;
 import com.hmz.pojo.PageResult;
 import com.hmz.pojo.RecommendedItems;
 import com.hmz.recomm.common.ItemSimilarity;
@@ -170,7 +171,12 @@ public class NewsController {
 
         return pageResult;
     }
-
+    @ResponseBody
+    @RequestMapping(value = "/kind")
+    public List<ArticleKind> kind() {
+        List<ArticleKind> allPKind = articleKindService.getAllPKind();
+        return allPKind;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/rewen")

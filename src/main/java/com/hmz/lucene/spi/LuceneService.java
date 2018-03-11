@@ -1,6 +1,5 @@
 package com.hmz.lucene.spi;
 
-import com.hmz.lucene.ConstantParams;
 import com.hmz.lucene.api.FullTextIndexParams;
 import com.hmz.lucene.api.FullTextResult;
 import com.hmz.lucene.api.FullTextSearchParams;

@@ -15,4 +15,5 @@ public interface ArticleKindService {
     List<ArticleKind> getChildKind(String PName);
 
     List<ArticleKind> getPCKind(String pKindName,String cKindName);
+
 }

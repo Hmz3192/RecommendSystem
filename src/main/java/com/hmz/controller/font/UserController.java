@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.hmz.model.Article;
 import com.hmz.model.ArticleRating;
 import com.hmz.model.User;
+import com.hmz.pojo.AritlceNumber;
 import com.hmz.pojo.ArticleEditPojo;
 import com.hmz.pojo.PageResult;
 import com.hmz.recomm.offline.GroupLensDataModel;
@@ -91,10 +92,10 @@ public class UserController {
 
     @RequestMapping("/getMyArticle")
     @ResponseBody
-    public PageResult getMyArticle(Integer userId,Integer currentPage,Integer rows) {
+    public PageResult getMyArticle(Integer userId,Integer statue,Integer currentPage,Integer rows) {
         logger.info("当前页为===="+currentPage);
         PageHelper.startPage(currentPage, rows);
-        List<Article> articles = articleService.selectAllMyArticle(Long.valueOf(userId));
+        List<Article> articles = articleService.selectAllMyArticle(Long.valueOf(userId),statue);
         PageInfo<Article> info = new PageInfo<Article>(articles);
         long total;
         if (info.getTotal() % rows == 0) {
@@ -103,6 +104,15 @@ public class UserController {
             total = info.getTotal() / rows + 1;
         PageResult pageResult = new PageResult(total, articles, currentPage);
         return pageResult;
+
+    }
+
+    @RequestMapping("/ln")
+    @ResponseBody
+    public AritlceNumber ln(Integer userId) {
+        AritlceNumber aritlceNumber;
+        aritlceNumber = articleService.loadnum(Long.valueOf(userId));
+        return aritlceNumber;
 
     }
 

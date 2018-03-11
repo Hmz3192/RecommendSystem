@@ -1,7 +1,5 @@
 package com.hmz.utils;
 
-import com.hmz.lucene.ConstantParams;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;

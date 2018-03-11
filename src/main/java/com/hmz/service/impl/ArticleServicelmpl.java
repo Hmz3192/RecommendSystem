@@ -3,6 +3,7 @@ package com.hmz.service.impl;
 import com.hmz.dao.ArticleMapper;
 import com.hmz.model.Article;
 import com.hmz.model.ArticleExample;
+import com.hmz.pojo.AritlceNumber;
 import com.hmz.service.ArticleService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -35,10 +36,27 @@ public class ArticleServicelmpl implements ArticleService {
     }
 
     @Override
-    public List<Article> selectAllMyArticle(Long userId) {
+    public List<Article> selectAllMyArticle(Long userId,Integer statue) {
         ArticleExample example = new ArticleExample();
         ArticleExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
+        //已发布
+        if (statue == 1) {
+            criteria.andCheckUpEqualTo(1);
+            criteria.andArticleStateEqualTo("已发布");
+        } else if (statue == 2) {
+            //审核失败
+            criteria.andCheckUpEqualTo(2);
+            criteria.andArticleStateEqualTo("已发布");
+        }else if (statue == 0) {
+            //审核中
+            criteria.andCheckUpEqualTo(0);
+            criteria.andArticleStateEqualTo("已发布");
+        }else if (statue == 3) {
+            //草稿
+            criteria.andCheckUpEqualTo(3);
+            criteria.andArticleStateEqualTo("已保存");
+        }
         example.setOrderByClause("release_time DESC");
         List<Article> articles = articleMapper.selectByExample(example);
         return articles;
@@ -125,5 +143,56 @@ public class ArticleServicelmpl implements ArticleService {
             #{array}
     </foreach>
   </select>*/
+    }
+
+    @Override
+    public AritlceNumber loadnum(Long userId) {
+        AritlceNumber aritlceNumber = new AritlceNumber();
+
+        for(int i=0;i<4;i++) {
+            //已发布
+            if (i == 1) {
+                ArticleExample example = new ArticleExample();
+                ArticleExample.Criteria criteria = example.createCriteria();
+                criteria.andUserIdEqualTo(userId);
+                criteria.andCheckUpEqualTo(1);
+                criteria.andArticleStateEqualTo("已发布");
+                long l = articleMapper.countByExample(example);
+                aritlceNumber.setYf(l);
+
+            } else if (i == 2) {
+                ArticleExample example = new ArticleExample();
+                ArticleExample.Criteria criteria = example.createCriteria();
+                criteria.andUserIdEqualTo(userId);
+                //审核失败
+                criteria.andCheckUpEqualTo(2);
+                criteria.andArticleStateEqualTo("已发布");
+                long l = articleMapper.countByExample(example);
+                aritlceNumber.setWg(l);
+
+            }else if (i == 0) {
+                ArticleExample example = new ArticleExample();
+                ArticleExample.Criteria criteria = example.createCriteria();
+                criteria.andUserIdEqualTo(userId);
+                //审核中
+                criteria.andCheckUpEqualTo(0);
+                criteria.andArticleStateEqualTo("已发布");
+                long l = articleMapper.countByExample(example);
+                aritlceNumber.setSh(l);
+
+            }else if (i == 3) {
+                ArticleExample example = new ArticleExample();
+                ArticleExample.Criteria criteria = example.createCriteria();
+                criteria.andUserIdEqualTo(userId);
+                //草稿
+                criteria.andCheckUpEqualTo(3);
+                criteria.andArticleStateEqualTo("已保存");
+                long l = articleMapper.countByExample(example);
+                aritlceNumber.setCg(l);
+
+            }
+        }
+
+        return aritlceNumber;
     }
 }

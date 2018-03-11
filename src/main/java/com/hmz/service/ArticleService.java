@@ -1,6 +1,7 @@
 package com.hmz.service;
 
 import com.hmz.model.Article;
+import com.hmz.pojo.AritlceNumber;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface ArticleService {
 
     List<Article> selectAllArticle();
 
-    List<Article> selectAllMyArticle(Long userId);
+    List<Article> selectAllMyArticle(Long userId, Integer statue);
 
 
     boolean saveBlog(Article article);
@@ -29,5 +30,5 @@ public interface ArticleService {
 
     List<Article> selectByArray(Long[] array);
 
-
+    AritlceNumber loadnum(Long userId);
 }

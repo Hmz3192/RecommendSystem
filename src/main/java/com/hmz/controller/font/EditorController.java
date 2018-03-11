@@ -14,10 +14,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -106,7 +103,7 @@ public class EditorController {
             article.setKindParentName(pKind);
             article.setUserId(Long.valueOf(1));
             article.setArticleSummary(summary);
-            article.setArticleState("审核中");
+            article.setArticleState("已发布");
             article.setArticleAvatar(CoverUrl);
             article.setArticleHints(0);
             article.setArticleCollection(0);
@@ -173,9 +170,8 @@ public class EditorController {
     }
 */
 
-    @RequestMapping(value = "/editBlog")
-    public String editBlog(/*Integer articleId,*/ Model model) {
-        Integer articleId =  12719131;
+    @RequestMapping(value = "/editBlog/{articleId}")
+    public String editBlog(@PathVariable("articleId") Integer articleId, Model model) {
         ArticleEditPojo articleEditPojo = new ArticleEditPojo();
         Article one = articleService.getOne(Long.valueOf(articleId));
         ArticleAttachPojo oneByArticleId = articleAttachService.getOneByArticleId(one.getArticleId());
@@ -209,6 +205,7 @@ public class EditorController {
             article.setArticleState("已保存");
             article.setArticleHints(0);
             article.setArticleCollection(0);
+            article.setCheckUp(0);
             article.setArticleUp(0);
             article.setArticleDown(0);
             article.setArticleBig(0);

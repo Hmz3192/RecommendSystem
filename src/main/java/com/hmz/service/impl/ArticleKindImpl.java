@@ -42,7 +42,6 @@ public class ArticleKindImpl implements ArticleKindService {
         ArticleKindExample.Criteria criteria2 = example2.createCriteria();
         criteria2.andParentIdEqualTo(ParticleKinds.get(0).getKindId());
         List<ArticleKind> CParticleKinds = articleKindMapper.selectByExample(example2);
-
         return CParticleKinds;
     }
 

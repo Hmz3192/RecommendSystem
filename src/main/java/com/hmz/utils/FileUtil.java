@@ -12,10 +12,14 @@ public class FileUtil {
     private static final String COLON_DELIMTER = "::";
 
     public static File write2Dat(List<ArticleRating> articleRating) throws IOException {
-        File originalFile = new File("E:\\WorkSpace\\Idea\\RecommendSystem\\src\\main\\resources\\rating.dat");
+        File originalFile = new File(new File(System.getProperty("java.io.tmpdir")), "ratings.dat");
+        if (originalFile.exists()) {
+            originalFile.delete();
+        }
         if (!originalFile.exists()) {
             originalFile.createNewFile();
         }
+
 
         try {
             FileWriter writer1 = new FileWriter(originalFile.getAbsoluteFile());

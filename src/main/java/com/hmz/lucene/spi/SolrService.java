@@ -1,9 +1,9 @@
 package com.hmz.lucene.spi;
 
-import com.hmz.lucene.ConstantParams;
 import com.hmz.lucene.api.FullTextIndexParams;
 import com.hmz.lucene.api.FullTextResult;
 import com.hmz.lucene.api.FullTextSearchParams;
+import com.hmz.utils.ConstantPara;
 import com.hmz.utils.StringUtil;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
@@ -193,7 +193,7 @@ public class SolrService extends FullTextServiceImpl {
 					while(iter.hasNext()){
 						String key = iter.next();
 						String value = assignField.get(key);
-						queryString += key+":"+queryWord + ConstantParams.SINGLE_BLANK + value + ConstantParams.SINGLE_BLANK;
+						queryString += key+":"+queryWord + ConstantPara.SINGLE_BLANK + value + ConstantPara.SINGLE_BLANK;
 						lastValue = value;
 					}
 				}
@@ -310,7 +310,7 @@ public class SolrService extends FullTextServiceImpl {
 	public SolrServer beginServer(){
 		SolrServer solrServer = null;
 		try {
-			String url = StringUtil.getConfigParam(ConstantParams.SOLR_URL, "", ConstantParams.SEARCH_CONFIG);
+			String url = StringUtil.getConfigParam(ConstantPara.SOLR_URL, "", ConstantPara.SEARCH_CONFIG);
 			solrServer = new HttpSolrServer(url);
 		} catch (Exception e) {
 			e.printStackTrace();

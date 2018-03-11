@@ -14,15 +14,73 @@
     <link href="${path}/resource/css/login.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/zzsc.css" rel="stylesheet" type="text/css"/>
     <link href="${path}/resource/css/dlzc.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" type="text/css" href="${path}/resource/slide/css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="${path}/resource/slide/css/htmleaf-demo.css">
+    <link href="${path}/resource/slide/css/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="${path}/resource/slide/delighters.js"></script>
+    <script type="text/javascript" src="${path}/resource/slide/script.js"></script>
+
     <script type="text/javascript" src="${path}/resource/js/jquery.js"></script>
-    <%--<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>--%>
-    <%--<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>--%>
+    <!--<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>-->
+    <!--<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>-->
+    <style type="text/css">
+        #tagbox {
+            position: relative;
+            margin: 20px auto 0px;
+            width: 300px;
+            height: 250px;
+            background: #f8c82d;
+        }
+
+        #tagbox a {
+            position: absolute;
+            padding: 3px 6px;
+            font-family: Microsoft YaHei;
+            color: #fff;
+            TOP: 0px;
+            font-weight: bold;
+            text-decoration: none;
+            left: 0px
+        }
+
+        #tagbox a:hover {
+            border: #eee 1px solid;
+            background: #a2a2a2;
+        }
+
+        #tagbox .blue {
+            color: #3ca5f6;
+            font-size: 30px;
+        }
+
+        #tagbox .red {
+            color: #f63756;
+            font-size: 30px;
+
+        }
+
+        #tagbox .yellow {
+            color: yellow;
+            font-size: 30px;
+
+        }
+
+        #tagbox .common {
+            color: #8a6d3b;
+            font-size: 30px;
+
+        }
+
+
+    </style>
+
 </head>
 
 <body style="background-color:#f0f4fb;">
 <%@include file="header.jsp" %>
 
-<div class="placeholder-height"></div>
+<div class="placeholder-height" id="zuji"></div>
 <div class="container per_center_body" id="per_center">
     <div class="user-info-warp">
         <div class="user-head-box">
@@ -30,7 +88,7 @@
             <div class="user-name">${sessionScope.user.userName}<a href="#" target="_blank"><i class="i-vip icon-vip"
                                                                                                title="虎嗅黑卡会员"></i></a>
             </div>
-            <div class="user-one">产品老司机</div>
+            <div class="user-one"></div>
             <div class="user-one user-auth">认证作者<i class="i-icon icon-auth3" title="虎嗅认证作者"></i></div>
             <a href="javascript:" class="btn btn-messages js-login">编辑资料</a>
             <div class="admin-btn-warp"></div>
@@ -54,7 +112,7 @@
                 </div>
                 <div class="more-user-info"><i class="icon icon-user-point"></i>所在地址：保密</div>
             </div>
-            <%-- <div class="col-lg-5">
+            <!-- <div class="col-lg-5">
                  <div class="user-info"><i class="icon icon-user-point"></i>公司：旅客App</div>
                  <div class="user-info"><i class="icon icon-user-point"></i>职业：产品个体户</div>
                  <div class="user-info"><i class="icon icon-user-point"></i>邮箱：保密</div>
@@ -64,8 +122,8 @@
                  <div class="user-info"><i class="icon icon-user-point"></i>微信：17276694</div>
                  <div class="user-info"><i class="icon icon-user-point"></i>微信公众号：lvkeapp2015</div>
              </div>
-             <div class="btn-box"><a class="js-sea-more-info more-info pull-right">更多<span class="caret"></span></a></div>--%>
-            <%--<div class="more-user-info-box">
+             <div class="btn-box"><a class="js-sea-more-info more-info pull-right">更多<span class="caret"></span></a></div>-->
+            <!--<div class="more-user-info-box">
                 <div class="col-lg-5">
                     <div class="more-user-info"><i class="icon icon-user-point"></i>真实姓名：保密</div>
                     <div class="more-user-info"><i class="icon icon-user-point"></i>手机：保密</div>
@@ -80,7 +138,7 @@
                 <div style="width:100%;">
                     <div class="more-user-info" style="padding-left:75px;"><span>认证星级：<i class="i-icon2 icon2-stars03"></i></span></div>
                 </div>
-            </div>--%>
+            </div>-->
         </div>
     </div>
     <div id="menu" name="menu"></div>
@@ -89,12 +147,25 @@
             <ul id=myTabs1>
                 <li class="active" onMouseDown=Tabs1(this,0);><a href="#menu">我的文章</a></li>
                 <li class="" onMouseDown=Tabs1(this,1);><a href="#menu">我的评论</a></li>
-                <li class="" onMouseDown=Tabs1(this,2);><a href="#menu">我的足迹</a></li>
+                <li class="" onMouseDown=Tabs1(this,2);><a href="#zuji">我的足迹</a></li>
                 <li class="" onMouseDown=Tabs1(this,3);><a href="#menu">我的个性模型</a></li>
-                <li class="" onMouseDown=Tabs1(this,4);><a href="#menu">我的项目</a></li>
+                <!--<li class="" onMouseDown=Tabs1(this,4);><a href="#menu">我的项目</a></li>-->
             </ul>
         </div>
+        <!-- <div class="user-content-warp">
+
+
+             <div class="no-content-prompt">
+                 您还没有文章
+             </div>
+         </div>-->
         <div class="user-content-warp" id=myTabs1_Content0>
+            <ul class="nav-box" id="ula">
+                <li class="active" id="li1"><a href="#menu"><span id="span1">已发布（0）</span></a></li>
+                <li class="" id="li2"><a href="#menu"><span id="span2">审核中（0）</span></a></li>
+                <li class="" id="li3"><a href="#menu"><span id="span3">未通过（1）</span></a></li>
+                <li class="" id="li4"><a href="#menu"><span id="span4">草稿箱（1）</span></a></li>
+            </ul>
             <div class="message-box" id="arBox">
                 <ul id="articleList">
                 </ul>
@@ -106,11 +177,11 @@
                     <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true"><i
                             class="icon icon-lt"></i></span></a></li>
                     <li class="active"><a>1</a></li>
-                    <li><a href="/member/1373658/article/2.html">2</a></li>
-                    <li><a href="/member/1373658/article/3.html">3</a></li>
-                    <li><a href="/member/1373658/article/4.html">4</a></li>
-                    <li><a href="/member/1373658/article/2.html"><i class="icon icon-gt"></i></a></li>
-                    <li><a href="/member/1373658/article/4.html"><i class="icon icon-last"></i></a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#"><i class="icon icon-gt"></i></a></li>
+                    <li><a href="#"><i class="icon icon-last"></i></a></li>
                 </ul>
             </nav>
         </div>
@@ -165,15 +236,61 @@
                 </nav>
             </div>
         </div>
+        <!--我的足迹-->
         <div class="user-content-warp" style="display:none" id=myTabs1_Content2>
-            <div class="collect-box" data-cid="129416"><span class="collect-title">我的默认收藏夹</span></div>
+            <div class="collect-box"><span class="collect-title">我的足迹</span></div>
+
+            <article>
+                <section data-delighter class="splash">
+                    <h1 data-delighter class="right"><code>2018-02-14</code></h1>
+                    <h2 data-delighter class="left">您在我们网站注册了第一个属于你的账号，我们与您相遇</h2>
+                    <p data-delighter="start:1" class="bottom">
+                        我们一起走过了 <a href="#"><a style="font-size:50px;color: #c7254e">48 </a>天</a>
+                    </p>
+                </section>
+                <section>
+                    <h3 data-delighter class="right">在这48天里，您一共浏览了<a style="font-size:32px;color: #c7254e"> 130 </a>篇文章
+                    </h3>
+                    <h3 data-delighter class="left">并对其中的<a style="font-size:50px;color: #c7254e"> 36 </a>篇文章进行了点评</h3>
+                    <h4 data-delighter>其中，您最喜爱的文章是： </h4>
+                    <ul data-delighter>
+                        <li>One Flew Over the Cuckoo's Nest (1975) <a style="font-size:20px;color: #c7254e">10min</a>
+                        </li>
+                        <li>Ben-Hur (1959) <a style="font-size:20px;color: #c7254e">9min</a></li>
+                        <li>Beauty and the Beast (1991) <a style="font-size:20px;color: #c7254e">8min</a></li>
+                        <li>Sound of Music, The (1965) <a style="font-size:20px;color: #c7254e">8min</a></li>
+                        <li>Back to the Future (1985) <a style="font-size:20px;color: #c7254e">8min</a></li>
+                        <li>Last Days of Disco, The (1998) <a style="font-size:20px;color: #c7254e">7min</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2 data-delighter class="right">您使用搜索引擎，一共搜索<a style="font-size:30px;color: #c7254e"> 58</a>次</h2>
+                    <h4 data-delighter>其中： </h4>
+                    <ul data-delighter>
+                        <li><code>侯亮平</code> 38 次</li>
+                        <li><code>重庆</code> 13 次</li>
+                        <li><code>四川</code> 7 次</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 data-delighter class="right">我们为您生成如下您最喜爱的标签模型：</h3>
+                    <div id="tagbox">
+                        <a class="yellow">动画</a>
+                        <a class="red">儿童</a>
+                        <a class="blue">音乐</a>
+                        <a class="common">浪漫</a>
+                        <a class="blue">戏剧</a>
+                    </div>
+                </section>
+            </article>
         </div>
+        <!--我的个性建模-->
         <div class="user-content-warp" style="display:none" id=myTabs1_Content3>
             <div class="topic-message-wrap">
                 <div class="no-content-prompt">TA还没有关注</div>
             </div>
         </div>
-        <div class="user-content-warp" style="display:none" id=myTabs1_Content4>
+        <!--<div class="user-content-warp" style="display:none" id=myTabs1_Content4>
             <div class="product-html-box">
                 <div class="message-box">
                     <ul>
@@ -191,7 +308,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>
 <%@include file="footer.jsp" %>
@@ -200,25 +317,63 @@
         //当前查询第几页
         var currentPage = 1;
         //每页数量
-        var rows = 5;
+        var rows = 5,
+            statue = 1;
 
-        window.onload = function () {
-            loadMyArticle();
+        $(document).ready(function () {
+            loadMyArticleOnline(statue);
+            loadArticleNum();
+
+        })
+
+        function loadArticleNum() {
+            var url = "${path}/ln", userId = ${sessionScope.user.userId};
+            var params = {"userId": userId}
+            $.get(url, params, function (data) {
+                var yf = data.yf,
+                    sh = data.sh,
+                    wg = data.wg,
+                    cg = data.cg
+                $('#span1').text("已发布 (" + yf + ")");
+                $('#span2').text("未通过 (" + wg + ")");
+                $('#span3').text("审核中 (" + sh + ")");
+                $('#span4').text("草稿箱 (" + cg + ")");
+            });
         }
 
+        $('#ula a').click(function () {
+            $(this).parent().parent().children().removeClass("active");
+            $(this).parent().addClass("active");
+//            alert($(this).parent().attr('id'))
+            if ($(this).parent().attr('id') == 'li1') {
+                statue = 1
+                loadMyArticleOnline(statue);
+            } else if ($(this).parent().attr('id') == 'li2') {
+                statue = 0
+                loadMyArticleOnline(statue);
+            } else if ($(this).parent().attr('id') == 'li3') {
+                statue = 2
+                loadMyArticleOnline(statue);
+            } else if ($(this).parent().attr('id') == 'li4') {
+                statue = 3
+                loadMyArticleOnline(statue);
+            }
+        })
 
-        function loadMyArticle() {
+
+        function loadMyArticleOnline(statue) {
             var loadTagUrl = "${path}/getMyArticle",
-                userId = ${sessionScope.user.userId},
-                params = {"userId": userId, "currentPage": currentPage, "rows": rows},
-                html = ""
+                userId = ${sessionScope.user.userId};
+            var params = {"userId": userId, "statue": statue, "currentPage": currentPage, "rows": rows},
+                html = "";
             $.post(loadTagUrl, params, function (data) {
                 if (data.length == 0) {
 //                    alert("Tag无数据");
                     html += '<p>Ta 还没有留下任何文章</p>';
                     $("#arBox").append(html);
                 } else {
-                    var result = data.amounts,len = result.length, i = 0;
+                    $("#articleList").empty();
+                    var result = data.amounts, len = result.length, i = 0;
                     for (; i < len; i++) {
                         var rs = result[i],
                             id = rs.articleId,
@@ -226,22 +381,31 @@
                             title = rs.articleTitle,
                             releaseTime = rs.releaseTime,
                             summary = rs.articleSummary,
-                            article_href = "${path}/toarticle/" + id;
+                            article_href = "${path}/editBlog/" + id;
 
                         /*    html += '<div class="mod-b mod-art">' +
                          '<a class="transition" href="' + article_href + '" target="_blank">' +
                          '<div class="mod-thumb"><img class="lazy" src="' + pic + '" alt="' + title + '" style="display: inline;"></div></a> ' +
                          '<div class="mob-ctt"><h3><a href="' + article_href + '" class="transition" target="_blank">' + title + '</a></h3>' +
                          '<div class="mob-author"><span class="time">6天前</span></div><div class="mob-sub">' + summary + '</div></div></div>';*/
-                        html += '<li type="article" >' +
-                            '<div class="message-title"><a href="' + article_href + '" target="_blank">'+title+'</a></div>' +
-                            '<div class="message-time">'+releaseTime+'</div>' +
-                            '<div class="pull-right message-delete">' +
-                            '<a href="' + article_href + '" target="_blank">' +
-                            '<i class="icon icon-edit"></i>' +
-                            '</a>' +
-                            '<i class="icon icon-delete js-pc-del-user"></i>' +
-                            '</div></li>'
+                        if (statue == 0 || statue == 3) {
+                            html += '<li type="article" >' +
+                                '<div class="message-title"><a href="' + article_href + '" target="_blank">' + title + '</a></div>' +
+                                '<div class="message-time">' + releaseTime + '</div>' +
+                                '<div class="pull-right message-delete">' +
+                                '<a href="' + article_href + '" target="_blank">' +
+                                '<i class="icon icon-edit"></i>' +
+                                '</a>' +
+                                '<i class="icon icon-delete js-pc-del-user"></i>' +
+                                '</div></li>'
+                        } else
+                            html += '<li type="article" >' +
+                                '<div class="message-title"><a href="' + article_href + '" target="_blank">' + title + '</a></div>' +
+                                '<div class="message-time">' + releaseTime + '</div>' +
+                                '<div class="pull-right message-delete">' +
+                                '<i class="icon icon-delete js-pc-del-user"></i>' +
+                                '</div></li>'
+
                     }
                     $("#articleList").append(html);
                 }

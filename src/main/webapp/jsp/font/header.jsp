@@ -91,17 +91,17 @@
                 <div class="search-history search-hot">
                     <strong>热搜词</strong>
                     <ul>
-                        <li class="transition"><a href="#">数码</a></li>
-                        <li class="transition"><a href="#">科技</a></li>
-                        <li class="transition"><a href="#">互联网</a></li>
-                        <li class="transition"><a href="#">汽车之家</a></li>
-                        <li class="transition"><a href="#">Uber</a></li>
-                        <li class="transition"><a href="#">支付宝</a></li>
-                        <li class="transition"><a href="#">大数据</a></li>
-                        <li class="transition"><a href="#">创业</a></li>
-                        <li class="transition"><a href="#">旅游</a></li>
-                        <li class="transition"><a href="#">美团</a></li>
-                        <li class="transition"><a href="#">社交</a></li>
+                        <li class="transition"><a href="#" style="display:block;">数码</a></li>
+                        <li class="transition"><a href="#" style="display:block;">科技</a></li>
+                        <li class="transition"><a href="#" style="display:block;">互联网</a></li>
+                        <li class="transition"><a href="#" style="display:block;">汽车之家</a></li>
+                        <li class="transition"><a href="#" style="display:block;">Uber</a></li>
+                        <li class="transition"><a href="#" style="display:block;">支付宝</a></li>
+                        <li class="transition"><a href="#" style="display:block;">大数据</a></li>
+                        <li class="transition"><a href="#" style="display:block;">创业</a></li>
+                        <li class="transition"><a href="#" style="display:block;">旅游</a></li>
+                        <li class="transition"><a href="#" style="display:block;">美团</a></li>
+                        <li class="transition"><a href="#" style="display:block;">社交</a></li>
                     </ul>
                 </div>
             </div>
@@ -116,7 +116,21 @@
             }
             return true;
         }
+        $(function () {
+            $.get("${path}/kind", function (data1) {
+                var html = '', result1 = data1, len2 = result1.length, i = 0;
+                var path = '${path}';
+                //循环数据
+                for (; i < len2; i++) {
+                    var rs = result1[i],
+                        kindName = rs.kindName;
 
+                    html += '<li><a href="#" target="_blank">'+kindName+'</a></li>';
+                }
+
+                $("#kindList").append(html)
+            })
+        })
 
     </script>
 
@@ -128,20 +142,7 @@
         <ul class="nav navbar-nav navbar-left" id="jsddm">
             <li class="nav-news js-show-menu">
                 <a href="#">资讯 <span class="caret"></span></a>
-                <ul>
-                    <li><a href="#" target="_blank">电商消费</a></li>
-                    <li><a href="#" target="_blank">娱乐淘金</a></li>
-                    <li><a href="#" target="_blank">雪花一代</a></li>
-                    <li><a href="#" target="_blank">人工智能</a></li>
-                    <li><a href="#" target="_blank">车与出行</a></li>
-                    <li><a href="#" target="_blank">智能终端</a></li>
-                    <li><a href="#" target="_blank">医疗健康</a></li>
-                    <li><a href="#" target="_blank">金融地产</a></li>
-                    <li><a href="#" target="_blank">企业服务</a></li>
-                    <li><a href="#" target="_blank">创业维艰</a></li>
-                    <li><a href="#" target="_blank">社交通讯</a></li>
-                    <li><a href="#" target="_blank">全球热点</a></li>
-                    <li><a href="#" target="_blank">生活腔调</a></li>
+                <ul id="kindList">
                 </ul>
             </li>
             <style>
@@ -304,9 +305,9 @@
                         <div id="survery" >
                             <div class="rb-box">
                                 <!-- Radio Button Module -->
-                                <p>1. On a scale of 1 to 5 how cubic are you?</p>
+                                <p>1.对于国内新闻您的喜好度?(1最低，5最高)</p>
                                 <div id="rb-1" class="rb">
-                                    <div class="rb-tab rb-tab-active" data-value="1">
+                                    <div class="rb-tab " data-value="1">
                                         <div class="rb-spot">
                                             <span class="rb-txt">1</span>
                                         </div>
@@ -333,14 +334,14 @@
                                     </div>
                                 </div>
                                 <!-- Radio Button Module -->
-                                <p>2. On a scale of 1 to 5 how would you rate the universe?</p>
+                                <p>2.对于国外新闻您的喜好度?(1最低，5最高)</p>
                                 <div id="rb-2" class="rb">
                                     <div class="rb-tab" data-value="1">
                                         <div class="rb-spot">
                                             <span class="rb-txt">1</span>
                                         </div>
                                     </div>
-                                    <div class="rb-tab rb-tab-active" data-value="2">
+                                    <div class="rb-tab " data-value="2">
                                         <div class="rb-spot">
                                             <span class="rb-txt">2</span>
                                         </div>
@@ -362,7 +363,7 @@
                                     </div>
                                 </div>
                                 <!-- Radio Button Module -->
-                                <p>3. On a scale of 1 to 5 how much do you like stalactites?</p>
+                                <p>3.对于电影新闻您的喜好度?(1最低，5最高)</p>
                                 <div id="rb-3" class="rb">
                                     <div class="rb-tab" data-value="1">
                                         <div class="rb-spot">
@@ -374,7 +375,7 @@
                                             <span class="rb-txt">2</span>
                                         </div>
                                     </div>
-                                    <div class="rb-tab rb-tab-active" data-value="3">
+                                    <div class="rb-tab " data-value="3">
                                         <div class="rb-spot">
                                             <span class="rb-txt">3</span>
                                         </div>
@@ -391,7 +392,7 @@
                                     </div>
                                 </div>
                                 <!-- Radio Button Module -->
-                                <p>4. On a scale of 1 to 5 what is your favorite color in the alphabet?</p>
+                                <p>4.对于影片介绍类型新闻您的喜好度?(1最低，5最高)</p>
                                 <div id="rb-4" class="rb">
                                     <div class="rb-tab" data-value="1">
                                         <div class="rb-spot">
@@ -408,7 +409,7 @@
                                             <span class="rb-txt">3</span>
                                         </div>
                                     </div>
-                                    <div class="rb-tab rb-tab-active" data-value="4">
+                                    <div class="rb-tab " data-value="4">
                                         <div class="rb-spot">
                                             <span class="rb-txt">4</span>
                                         </div>
@@ -420,11 +421,11 @@
                                     </div>
                                 </div>
                                 <!-- Radio Button Module -->
-                                <p>5. On a scale of one to shrimp, how random are you?</p>
+                                <p>5.对于影片推荐类型新闻您的喜好度?(1最低，5最高)</p>
                                 <div id="rb-5" class="rb">
-                                    <div class="rb-tab" data-value="4">
+                                    <div class="rb-tab" data-value="1">
                                         <div class="rb-spot">
-                                            <span class="rb-txt">4</span>
+                                            <span class="rb-txt">1</span>
                                         </div>
                                     </div>
                                     <div class="rb-tab" data-value="2">
@@ -432,19 +433,19 @@
                                             <span class="rb-txt">2</span>
                                         </div>
                                     </div>
+                                    <div class="rb-tab" data-value="3">
+                                        <div class="rb-spot">
+                                            <span class="rb-txt">3</span>
+                                        </div>
+                                    </div>
+                                    <div class="rb-tab" data-value="4">
+                                        <div class="rb-spot">
+                                            <span class="rb-txt">4</span>
+                                        </div>
+                                    </div>
                                     <div class="rb-tab" data-value="5">
                                         <div class="rb-spot">
                                             <span class="rb-txt">5</span>
-                                        </div>
-                                    </div>
-                                    <div class="rb-tab" data-value="1">
-                                        <div class="rb-spot">
-                                            <span class="rb-txt">1</span>
-                                        </div>
-                                    </div>
-                                    <div class="rb-tab rb-tab-active" data-value="3">
-                                        <div class="rb-spot">
-                                            <span class="rb-txt">3</span>
                                         </div>
                                     </div>
                                 </div>

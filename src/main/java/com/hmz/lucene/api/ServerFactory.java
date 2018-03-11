@@ -1,6 +1,6 @@
 package com.hmz.lucene.api;
 
-import com.hmz.lucene.ConstantParams;
+import com.hmz.utils.ConstantPara;
 import com.hmz.utils.StringUtil;
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public class ServerFactory {
 				String url = configParams.get("url");
 
 				if(StringUtil.isEmpty(url)){
-					url = StringUtil.getConfigParam(ConstantParams.SOLR_URL, "", ConstantParams.SEARCH_CONFIG);
+					url = StringUtil.getConfigParam(ConstantPara.SOLR_URL, "", ConstantPara.SEARCH_CONFIG);
 				}
 				fullTextService = (FullTextService)c.newInstance();
 				fullTextService.beginService(serverName,url);
