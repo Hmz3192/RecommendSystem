@@ -12,6 +12,9 @@ public interface ArticleService {
 
     List<Article> selectAllArticle();
 
+    List<Article> selectAllMyArticle(Long userId);
+
+
     boolean saveBlog(Article article);
 
     Article getOne(Long articleID);

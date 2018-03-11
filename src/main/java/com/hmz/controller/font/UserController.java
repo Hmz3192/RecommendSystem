@@ -1,9 +1,12 @@
 package com.hmz.controller.font;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hmz.model.Article;
 import com.hmz.model.ArticleRating;
 import com.hmz.model.User;
 import com.hmz.pojo.ArticleEditPojo;
+import com.hmz.pojo.PageResult;
 import com.hmz.recomm.offline.GroupLensDataModel;
 import com.hmz.recomm.offline.ItemsSimilarityRedisWriter;
 import com.hmz.recomm.offline.UserItemSimilarityRedisWriter;
@@ -86,6 +89,24 @@ public class UserController {
     }
 
 
+    @RequestMapping("/getMyArticle")
+    @ResponseBody
+    public PageResult getMyArticle(Integer userId,Integer currentPage,Integer rows) {
+        logger.info("当前页为===="+currentPage);
+        PageHelper.startPage(currentPage, rows);
+        List<Article> articles = articleService.selectAllMyArticle(Long.valueOf(userId));
+        PageInfo<Article> info = new PageInfo<Article>(articles);
+        long total;
+        if (info.getTotal() % rows == 0) {
+            total = info.getTotal() / rows;
+        }else
+            total = info.getTotal() / rows + 1;
+        PageResult pageResult = new PageResult(total, articles, currentPage);
+        return pageResult;
+
+    }
+
+
     //    @Token(remove = true)
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(User user, Model model, HttpSession session) {
@@ -143,15 +164,6 @@ public class UserController {
         JedisUtil.getJedis().flushDB();
         logger.info("清楚成功");
         return "清楚成功";
-    }
-
-
-    @ResponseBody
-    @RequestMapping(value = "/getMyArticle")
-    public List<Article> getMyArticle(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        List<Article> articles = articleService.selectMyArticles(user.getUserId());
-        return articles;
     }
 
 

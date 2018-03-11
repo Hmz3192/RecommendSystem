@@ -45,18 +45,18 @@
                 loadRecoData();
             </c:if>
 
-                /*
-          页面加载完毕执行一次查询
-          */
-                window.onload = function () {
-                    loadReWen();
-                    //加载数据
-                    <c:if test="${sessionScope.user == null}">
-                    //游客，得出最点击量高和赞高的
-                    loadData();
-                    </c:if>
+            /*
+             页面加载完毕执行一次查询
+             */
+            window.onload = function () {
+                loadReWen();
+                //加载数据
+                <c:if test="${sessionScope.user == null}">
+                //游客，得出最点击量高和赞高的
+                loadData();
+                </c:if>
 
-                };
+            };
 
 
             /*
@@ -73,7 +73,7 @@
                     data: {currentPage: currentPage, rows: rows},
                     //成功回调
                     success: function (data) {
-                            setData2Html(data);
+                        setData2Html(data);
                     },
                     //失败回调
                     error: function (e, e2, e3) {
@@ -119,13 +119,13 @@
                     //请求方式
                     type: 'POST',
                     //参数
-                    data: {currentPage: currentPage, rows: rows,userId: userId},
+                    data: {currentPage: currentPage, rows: rows, userId: userId},
                     //成功回调
                     success: function (data) {
-                        if(data.total==0) {
+                        if (data.total == 0) {
                             alert("无推荐")
-                        }else
-                        setData2Html(data);
+                        } else
+                            setData2Html(data);
                     },
                     //失败回调
                     error: function (e, e2, e3) {
@@ -211,17 +211,22 @@
                         up = rs.articleUp,
                         down = rs.articleDown,
                         hints = rs.articleHints,
-                        articleBig = rs.articleBig;
+                        kindParentName = rs.kindParentName;
+                    if (rs.kindChildName != null) {
+                        var kindChildName = rs.kindChildName
+                    }
+                    var articleBig = rs.articleBig;
 //                    html+='<li data-id="'+id+'">'+title+'</li>';
                     var article_href = path + "/toarticle/" + id;
-                    if (articleBig > 0) {
+                    if (articleBig > 0 && kindChildName != '') {
                         html += '<div class="mod-b mod-art mod-b-push ">' +
                             '<a class="transition" href="' + article_href + '" target="_blank" title="' + title + '">' +
                             '<div class="mod-thumb ">' +
                             '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
                             '</div></a>' +
                             '<div class="column-link-box column-link-big-box">' +
-                            '<a href="#" class="column-link" target="_blank">车与出行</a>' +
+                            '<a href="#" class="column-link" target="_blank">' + kindParentName + ' </a> ' +
+                            '<a href="#" class="column-link" target="_blank">' + kindChildName + ' </a> ' +
                             '</div><div class="mob-ctt">' +
                             '<h2><a href="' + article_href + '" class="transition msubstr-row5" target="_blank">' + title + '</a></h2>' +
                             '<div class="mob-author"><div class="author-face">' +
@@ -249,28 +254,65 @@
 
                             '<div class="mob-sub">' + summary + '</div>' +
                             '</div></div>'
-                    } else {
+                    } else if (articleBig > 0 && kindChildName == '') {
+                        html += '<div class="mod-b mod-art mod-b-push ">' +
+                            '<a class="transition" href="' + article_href + '" target="_blank" title="' + title + '">' +
+                            '<div class="mod-thumb ">' +
+                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
+                            '</div></a>' +
+                            '<div class="column-link-box column-link-big-box">' +
+                            '<a href="#" class="column-link" target="_blank">' + kindParentName + ' </a> ' +
+                            '</div><div class="mob-ctt">' +
+                            '<h2><a href="' + article_href + '" class="transition msubstr-row5" target="_blank">' + title + '</a></h2>' +
+                            '<div class="mob-author"><div class="author-face">' +
+                            '<a href="#" target="_blank"><img class="lazy" src="/resource/sy-img/59_1502432173.jpg"></a>' +
+                            '</div><a href="#" target="_blank">' +
+                            '<span class="author-name">autocarweekly</span>' +
+                            '</a>' +
+                            '</div>' +
+                            '<div class="mob-author">' +
+                            '<i class="icon icon-cmt" style="margin-left: 5px" title="点击量"></i><em title="点击量">' + hints + '</em>' +
+                            '<i class="icon icon-fvr" style="margin-left: 5px" title="收藏量"></i><em title="收藏量">' + collection + '</em>' +
+                            '<div class="article-type pull-right">' +
+                            '<div class="icon-like-prompt" id="zanAdd"><i class="icon icon-like active"></i><span class="c1" id="upText">+1</span>' +
+                            '</div>' +
+                            '<div class="icon-no-like-prompt" style="margin-left: 27%;" id="zanDown"><i class="icon icon-no-like active"></i><span class="c1" id="downText">+1</span>' +
+                            '</div>' +
+                            '<ul>' +
+                            '<li class="js-icon-like"  id="like"><i class="icon icon-like" id="up"></i>' +
+                            '<span class="like" id="upNum">' + up + '</span></li>' +
+                            '<li class="js-no-icon-like"  id="noLike"><i class="icon icon-no-like " id="down" ></i>' +
+                            '<span class="like" id="downNum">' + down + '</span></li>' +
+                            '</ul>' +
+                            '</div></div>' +
+
+
+                            '<div class="mob-sub">' + summary + '</div>' +
+                            '</div></div>'
+                    }else if (articleBig == 0 && kindChildName != null) {
                         html += '<div class="mod-info-flow">' +
                             '<div class="mod-b mod-art">' +
-                            /*state*/
+                                /*state*/
                             '<div class="mod-angle">' + id + '</div>' +
                             '<div class="mod-thumb "><a class="transition" title="' + title + '" href="' + article_href + '" target="_blank">' +
-                            /*pic1*/
+                                /*pic1*/
                             '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
                             '</a></div><div class="column-link-box">' +
-                            /*tag1*/
-                            '<a href="#" class="column-link" target="_blank">娱乐淘金</a></div>' +
+                                /*tag1*/
+                            '<a href="#" class="column-link" target="_blank">' + kindParentName + '</a>' +
+                            '<a href="#" class="column-link" target="_blank">' + kindChildName + ' </a> ' +
+                            '</div>' +
                             '<div class="mob-ctt">' +
-                            /*title*/
+                                /*title*/
                             '<h2><a href="' + article_href + '" class="transition msubstr-row2" target="_blank">' + title + '</a></h2>' +
                             '<div class="mob-author"><div class="author-face">' +
-                            /*user-avatar*/
+                                /*user-avatar*/
                             '<a href="#" target="_blank"><img src="/resource/sy-img/59_1502432173.jpg"></a></div>' +
-                            /*user-name*/
+                                /*user-name*/
                             '<a href="#" target="_blank"><span class="author-name ">量子位</span></a>' +
-                            /*comment-number*/
+                                /*comment-number*/
                             '<i class="icon icon-cmt" title="点击量"></i><em title="点击量">' + hints + '</em>' +
-                            /*collection-number*/
+                                /*collection-number*/
                             '<i class="icon icon-fvr" title="收藏量"></i><em title="收藏量">' + collection + '</em>' +
 
                             //dian zan
@@ -284,16 +326,55 @@
                             '<span class="like" id="downNum">' + down + '</span></li>' +
                             '</ul>' +
                             '</div>' +
-                            /*summary*/
+                                /*summary*/
+                            '</div><div class="mob-sub">' + summary + '</div>' +
+                            '</div></div></div>'
+                    } else if (articleBig == 0 && kindChildName == null) {
+                        html += '<div class="mod-info-flow">' +
+                            '<div class="mod-b mod-art">' +
+                                /*state*/
+                            '<div class="mod-angle">' + id + '</div>' +
+                            '<div class="mod-thumb "><a class="transition" title="' + title + '" href="' + article_href + '" target="_blank">' +
+                                /*pic1*/
+                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
+                            '</a></div><div class="column-link-box">' +
+                                /*tag1*/
+                            '<a href="#" class="column-link" target="_blank">' + kindParentName + '</a>' +
+                            '</div>' +
+                            '<div class="mob-ctt">' +
+                                /*title*/
+                            '<h2><a href="' + article_href + '" class="transition msubstr-row2" target="_blank">' + title + '</a></h2>' +
+                            '<div class="mob-author"><div class="author-face">' +
+                                /*user-avatar*/
+                            '<a href="#" target="_blank"><img src="/resource/sy-img/59_1502432173.jpg"></a></div>' +
+                                /*user-name*/
+                            '<a href="#" target="_blank"><span class="author-name ">量子位</span></a>' +
+                                /*comment-number*/
+                            '<i class="icon icon-cmt" title="点击量"></i><em title="点击量">' + hints + '</em>' +
+                                /*collection-number*/
+                            '<i class="icon icon-fvr" title="收藏量"></i><em title="收藏量">' + collection + '</em>' +
+
+                            //dian zan
+                            '<div class="article-type pull-right">' +
+                            '<div class="icon-like-prompt" id="zanAdd" ><i class="icon icon-like active"></i><span class="c1" id="upText" >+1</span></div>' +
+                            '<div class="icon-no-like-prompt" style="margin-left: 14%" id="zanDown"><i class="icon icon-no-like active"></i><span class="c1" id="downText" >+1</span></div>' +
+                            '<ul>' +
+                            '<li class="js-icon-like"  id="like"><i class="icon icon-like" id="up"></i>' +
+                            '<span class="like" id="upNum">' + up + '</span></li>' +
+                            '<li class="js-no-icon-like"  id="noLike"><i class="icon icon-no-like " id="down" ></i>' +
+                            '<span class="like" id="downNum">' + down + '</span></li>' +
+                            '</ul>' +
+                            '</div>' +
+                                /*summary*/
                             '</div><div class="mob-sub">' + summary + '</div>' +
                             '</div></div></div>'
                     }
-                    if(i == 5 ) {
+                    if (i == 5) {
                         //adver
                         html += '<div class="mod-b mod-art promote">' +
                             '<a href="#" title="">' +
                             '<div class="mod-thumb">' +
-                            '<img class="lazy" src="'+ path +'/resource/sy-img/233950517521.jpg">' +
+                            '<img class="lazy" src="' + path + '/resource/sy-img/233950517521.jpg">' +
                             '</div>' +
                             '</a>' +
                             '<div class="mob-ctt">' +
@@ -315,6 +396,7 @@
                     loadingBtn.html(nomore_Text);
                 }
             }
+
             /*
              判断是否要加载接口
              */

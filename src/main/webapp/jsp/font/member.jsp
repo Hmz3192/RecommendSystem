@@ -26,12 +26,12 @@
 <div class="container per_center_body" id="per_center">
     <div class="user-info-warp">
         <div class="user-head-box">
-            <div class="user-face"><img src="${path}/resource/images/58_avatar_big.jpg"></div>
+            <div class="user-face"><img src="${path}/resource/sy-img/touxiang.jpg"></div>
             <div class="user-name">${sessionScope.user.userName}<a href="#" target="_blank"><i class="i-vip icon-vip"
                                                                                                title="虎嗅黑卡会员"></i></a>
             </div>
             <div class="user-one">产品老司机</div>
-            <div class="user-one user-auth">虎嗅认证作者<i class="i-icon icon-auth3" title="虎嗅认证作者"></i></div>
+            <div class="user-one user-auth">认证作者<i class="i-icon icon-auth3" title="虎嗅认证作者"></i></div>
             <a href="javascript:" class="btn btn-messages js-login">编辑资料</a>
             <div class="admin-btn-warp"></div>
         </div>
@@ -89,13 +89,15 @@
             <ul id=myTabs1>
                 <li class="active" onMouseDown=Tabs1(this,0);><a href="#menu">我的文章</a></li>
                 <li class="" onMouseDown=Tabs1(this,1);><a href="#menu">我的评论</a></li>
-                <li class="" onMouseDown=Tabs1(this,2);><a href="#menu">我的收藏</a></li>
-                <li class="" onMouseDown=Tabs1(this,3);><a href="#menu">我的关注</a></li>
+                <li class="" onMouseDown=Tabs1(this,2);><a href="#menu">我的足迹</a></li>
+                <li class="" onMouseDown=Tabs1(this,3);><a href="#menu">我的个性模型</a></li>
                 <li class="" onMouseDown=Tabs1(this,4);><a href="#menu">我的项目</a></li>
             </ul>
         </div>
         <div class="user-content-warp" id=myTabs1_Content0>
             <div class="message-box" id="arBox">
+                <ul id="articleList">
+                </ul>
             </div>
             <nav class="page-nav">
                 <ul class="pagination">
@@ -125,60 +127,6 @@
                         <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
                         </div>
                     </li>
-                    <li type="comment">
-                        <div class="message-title"><a href="#" target="_blank">直播甚至短视频的最大隐患在于，主流用户的消费习惯尚未形成，一旦受限于用户规模增长停滞，则高流失率带来的后果可想而知</a>
-                        </div>
-                        <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
-                        </div>
-                    </li>
-                    <li type="comment">
-                        <div class="message-title"><a href="#" target="_blank">直播甚至短视频的最大隐患在于，主流用户的消费习惯尚未形成，一旦受限于用户规模增长停滞，则高流失率带来的后果可想而知</a>
-                        </div>
-                        <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
-                        </div>
-                    </li>
-                    <li type="comment">
-                        <div class="message-title"><a href="#" target="_blank">直播甚至短视频的最大隐患在于，主流用户的消费习惯尚未形成，一旦受限于用户规模增长停滞，则高流失率带来的后果可想而知</a>
-                        </div>
-                        <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
-                        </div>
-                    </li>
-                    <li type="comment">
-                        <div class="message-title"><a href="#" target="_blank">直播甚至短视频的最大隐患在于，主流用户的消费习惯尚未形成，一旦受限于用户规模增长停滞，则高流失率带来的后果可想而知</a>
-                        </div>
-                        <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
-                        </div>
-                    </li>
-                    <li type="comment">
-                        <div class="message-title"><a href="#" target="_blank">直播甚至短视频的最大隐患在于，主流用户的消费习惯尚未形成，一旦受限于用户规模增长停滞，则高流失率带来的后果可想而知</a>
-                        </div>
-                        <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
-                        </div>
-                    </li>
-                    <li type="comment">
-                        <div class="message-title"><a href="#" target="_blank">直播甚至短视频的最大隐患在于，主流用户的消费习惯尚未形成，一旦受限于用户规模增长停滞，则高流失率带来的后果可想而知</a>
-                        </div>
-                        <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
-                        </div>
-                    </li>
-                    <li type="comment">
-                        <div class="message-title"><a href="#" target="_blank">直播甚至短视频的最大隐患在于，主流用户的消费习惯尚未形成，一旦受限于用户规模增长停滞，则高流失率带来的后果可想而知</a>
-                        </div>
-                        <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
-                        </div>
-                    </li>
-                    <li type="comment">
-                        <div class="message-title"><a href="#" target="_blank">直播甚至短视频的最大隐患在于，主流用户的消费习惯尚未形成，一旦受限于用户规模增长停滞，则高流失率带来的后果可想而知</a>
-                        </div>
-                        <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
-                        </div>
-                    </li>
-                    <li type="comment">
-                        <div class="message-title"><a href="#" target="_blank">10直播甚至短视频的最大隐患在于，主流用户的消费习惯尚未形成，一旦受限于用户规模增长停滞，则高流失率带来的后果可想而知</a>
-                        </div>
-                        <div class="message-time">1天前<span class="message-article">来自文章：<a href="#" target="_blank">资本的局，直播的病，斗鱼映客们扎堆融资背后的心思与隐忧</a></span>
-                        </div>
-                    </li>
                 </ul>
                 <nav class="page-nav">
                     <ul class="pagination">
@@ -187,9 +135,6 @@
                         <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true"><i
                                 class="icon icon-lt"></i></span></a></li>
                         <li class="active"><a>1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
                         <li><a href="#"><i class="icon icon-gt"></i></a></li>
                         <li><a href="#"><i class="icon icon-last"></i></a></li>
                     </ul>
@@ -206,87 +151,6 @@
                         <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
                                 href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
                     </li>
-                    <li type="recomment">
-                        <blockquote>
-                            1社交国内产品真能成大气候，月活过三亿的，我估计最终会有四个，微信、QQ、微博、……。过一亿在垂直领域有大成就的，也会有四个左右［不算过三亿］，陌陌、快手基本上会是，还有二个位置
-                        </blockquote>
-                        <div class="message-title"><span class="me-dp">TA的点评：</span><a href="#" target="_blank">微博是social
-                            media，快手是video community，严格讲不算社交产品</a></div>
-                        <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
-                                href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
-                    </li>
-                    <li type="recomment">
-                        <blockquote>
-                            1社交国内产品真能成大气候，月活过三亿的，我估计最终会有四个，微信、QQ、微博、……。过一亿在垂直领域有大成就的，也会有四个左右［不算过三亿］，陌陌、快手基本上会是，还有二个位置
-                        </blockquote>
-                        <div class="message-title"><span class="me-dp">TA的点评：</span><a href="#" target="_blank">微博是social
-                            media，快手是video community，严格讲不算社交产品</a></div>
-                        <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
-                                href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
-                    </li>
-                    <li type="recomment">
-                        <blockquote>
-                            1社交国内产品真能成大气候，月活过三亿的，我估计最终会有四个，微信、QQ、微博、……。过一亿在垂直领域有大成就的，也会有四个左右［不算过三亿］，陌陌、快手基本上会是，还有二个位置
-                        </blockquote>
-                        <div class="message-title"><span class="me-dp">TA的点评：</span><a href="#" target="_blank">微博是social
-                            media，快手是video community，严格讲不算社交产品</a></div>
-                        <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
-                                href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
-                    </li>
-                    <li type="recomment">
-                        <blockquote>
-                            1社交国内产品真能成大气候，月活过三亿的，我估计最终会有四个，微信、QQ、微博、……。过一亿在垂直领域有大成就的，也会有四个左右［不算过三亿］，陌陌、快手基本上会是，还有二个位置
-                        </blockquote>
-                        <div class="message-title"><span class="me-dp">TA的点评：</span><a href="#" target="_blank">微博是social
-                            media，快手是video community，严格讲不算社交产品</a></div>
-                        <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
-                                href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
-                    </li>
-                    <li type="recomment">
-                        <blockquote>
-                            1社交国内产品真能成大气候，月活过三亿的，我估计最终会有四个，微信、QQ、微博、……。过一亿在垂直领域有大成就的，也会有四个左右［不算过三亿］，陌陌、快手基本上会是，还有二个位置
-                        </blockquote>
-                        <div class="message-title"><span class="me-dp">TA的点评：</span><a href="#" target="_blank">微博是social
-                            media，快手是video community，严格讲不算社交产品</a></div>
-                        <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
-                                href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
-                    </li>
-                    <li type="recomment">
-                        <blockquote>
-                            1社交国内产品真能成大气候，月活过三亿的，我估计最终会有四个，微信、QQ、微博、……。过一亿在垂直领域有大成就的，也会有四个左右［不算过三亿］，陌陌、快手基本上会是，还有二个位置
-                        </blockquote>
-                        <div class="message-title"><span class="me-dp">TA的点评：</span><a href="#" target="_blank">微博是social
-                            media，快手是video community，严格讲不算社交产品</a></div>
-                        <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
-                                href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
-                    </li>
-                    <li type="recomment">
-                        <blockquote>
-                            1社交国内产品真能成大气候，月活过三亿的，我估计最终会有四个，微信、QQ、微博、……。过一亿在垂直领域有大成就的，也会有四个左右［不算过三亿］，陌陌、快手基本上会是，还有二个位置
-                        </blockquote>
-                        <div class="message-title"><span class="me-dp">TA的点评：</span><a href="#" target="_blank">微博是social
-                            media，快手是video community，严格讲不算社交产品</a></div>
-                        <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
-                                href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
-                    </li>
-                    <li type="recomment">
-                        <blockquote>
-                            1社交国内产品真能成大气候，月活过三亿的，我估计最终会有四个，微信、QQ、微博、……。过一亿在垂直领域有大成就的，也会有四个左右［不算过三亿］，陌陌、快手基本上会是，还有二个位置
-                        </blockquote>
-                        <div class="message-title"><span class="me-dp">TA的点评：</span><a href="#" target="_blank">微博是social
-                            media，快手是video community，严格讲不算社交产品</a></div>
-                        <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
-                                href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
-                    </li>
-                    <li type="recomment">
-                        <blockquote>
-                            10社交国内产品真能成大气候，月活过三亿的，我估计最终会有四个，微信、QQ、微博、……。过一亿在垂直领域有大成就的，也会有四个左右［不算过三亿］，陌陌、快手基本上会是，还有二个位置
-                        </blockquote>
-                        <div class="message-title"><span class="me-dp">TA的点评：</span><a href="#" target="_blank">微博是social
-                            media，快手是video community，严格讲不算社交产品</a></div>
-                        <div class="message-time">2017-05-29<span class="message-article">来自文章：<a
-                                href="/article/197348.html" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a></span></div>
-                    </li>
                 </ul>
                 <nav class="page-nav">
                     <ul class="pagination">
@@ -295,9 +159,6 @@
                         <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true"><i
                                 class="icon icon-lt"></i></span></a></li>
                         <li class="active"><a>1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
                         <li><a href="#"><i class="icon icon-gt"></i></a></li>
                         <li><a href="#"><i class="icon icon-last"></i></a></li>
                     </ul>
@@ -336,37 +197,53 @@
 <%@include file="footer.jsp" %>
 <script type="text/javascript">
     $(function () {
+        //当前查询第几页
+        var currentPage = 1;
+        //每页数量
+        var rows = 5;
+
         window.onload = function () {
             loadMyArticle();
         }
 
 
         function loadMyArticle() {
-            var loadTagUrl = "${path}/getMyArticle";
-            var html = "";
-            $.get(loadTagUrl, function (data) {
+            var loadTagUrl = "${path}/getMyArticle",
+                userId = ${sessionScope.user.userId},
+                params = {"userId": userId, "currentPage": currentPage, "rows": rows},
+                html = ""
+            $.post(loadTagUrl, params, function (data) {
                 if (data.length == 0) {
 //                    alert("Tag无数据");
                     html += '<p>Ta 还没有留下任何文章</p>';
                     $("#arBox").append(html);
                 } else {
-                    var len = data.length, i = 0;
+                    var result = data.amounts,len = result.length, i = 0;
                     for (; i < len; i++) {
-                        var rs = data[i],
+                        var rs = result[i],
                             id = rs.articleId,
                             pic = "http://localhost:8111/" + rs.articleAvatar,
                             title = rs.articleTitle,
+                            releaseTime = rs.releaseTime,
                             summary = rs.articleSummary,
                             article_href = "${path}/toarticle/" + id;
 
-                        html += '<div class="mod-b mod-art">' +
-                            '<a class="transition" href="' + article_href + '" target="_blank">' +
-                            '<div class="mod-thumb"><img class="lazy" src="' + pic + '" alt="' + title + '" style="display: inline;"></div></a> ' +
-                            '<div class="mob-ctt"><h3><a href="' + article_href + '" class="transition" target="_blank">' + title + '</a></h3>' +
-                            '<div class="mob-author"><span class="time">6天前</span></div><div class="mob-sub">' + summary + '</div></div></div>';
-                        $("#arBox").append(html);
-
+                        /*    html += '<div class="mod-b mod-art">' +
+                         '<a class="transition" href="' + article_href + '" target="_blank">' +
+                         '<div class="mod-thumb"><img class="lazy" src="' + pic + '" alt="' + title + '" style="display: inline;"></div></a> ' +
+                         '<div class="mob-ctt"><h3><a href="' + article_href + '" class="transition" target="_blank">' + title + '</a></h3>' +
+                         '<div class="mob-author"><span class="time">6天前</span></div><div class="mob-sub">' + summary + '</div></div></div>';*/
+                        html += '<li type="article" >' +
+                            '<div class="message-title"><a href="' + article_href + '" target="_blank">'+title+'</a></div>' +
+                            '<div class="message-time">'+releaseTime+'</div>' +
+                            '<div class="pull-right message-delete">' +
+                            '<a href="' + article_href + '" target="_blank">' +
+                            '<i class="icon icon-edit"></i>' +
+                            '</a>' +
+                            '<i class="icon icon-delete js-pc-del-user"></i>' +
+                            '</div></li>'
                     }
+                    $("#articleList").append(html);
                 }
             });
         }

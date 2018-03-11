@@ -34,6 +34,16 @@ public class ArticleServicelmpl implements ArticleService {
         return articles;
     }
 
+    @Override
+    public List<Article> selectAllMyArticle(Long userId) {
+        ArticleExample example = new ArticleExample();
+        ArticleExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        example.setOrderByClause("release_time DESC");
+        List<Article> articles = articleMapper.selectByExample(example);
+        return articles;
+    }
+
     @CacheEvict(value = "ArticleCache", allEntries = true)
     @Override
     public boolean saveBlog(Article article) {

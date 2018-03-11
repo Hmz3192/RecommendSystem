@@ -99,7 +99,10 @@
                     </div>
                     <div class="author-next-article">
                         <div class="author-one c2">最近文章</div>
-                        <a href="#" target="_blank">冷眼看快手、陌陌们的"短视频社交"</a>
+                        <a href="http://localhost:8111/toarticle/2048" target="_blank" style="display: block">Great Mouse Detective, The (1986)</a>
+                        <a href="http://localhost:8111/toarticle/2049" target="_blank" style="display: block">Happiest Millionaire, The (1967)</a>
+                        <a href="http://localhost:8111/toarticle/2050" target="_blank" style="display: block">Herbie Goes Bananas (1980)</a>
+
                     </div>
                 </div>
                 <div class="box-moder hot-tag">
@@ -168,27 +171,9 @@
                 <!--文章内容页-->
                 <div class="article-left-btn-group is-sticky" id="article-left-btn-group197460">
                     <ul>
-                        <!--普通文章分享微博-->
-                        <li><a href=""><i class="icon icon-article icon-article-wb js-weibo js-share-article"
-                                          data-location="article" data-f="pc-weibo-article" aid="197460"></i></a></li>
-                        <!--普通文章分享微信-->
-                        <li class="weixin">
-                            <div class="weixin-Qr-code "></div>
-                            <a class="js-weixin" data-f="pc-friends-article"><i
-                                    class="icon icon-article icon-article-pyq"></i></a>
-                        </li>
-                        <!--普通文章分享支付宝 -->
-                        <li class="zhifubao">
-                            <div class="zhifubao-Qr-code"></div>
-                            <a class="js-zhifubao" data-f="pc_alipay_article"><i
-                                    class="icon icon-article icon-article-zfb"></i></a>
-                        </li>
-                        <!--普通文章分享qq空间 -->
-                        <li><a href=""><i class="icon icon-article icon-article-qzone js-qzone js-share-article"
-                                          data-location="article" data-f="pc-qzone-article" aid="197460"></i></a></li>
-                        <li><a class="js-article-pl-anchor"><i class="icon icon-article icon-article-pl">评论</i></a></li>
+                        <li><a class="js-article-pl-anchor" href="#tag-box"><i class="icon icon-article icon-article-pl">评论</i></a></li>
                         <!--普通文章收藏-->
-                        <li><a class="js-collection-article"><i class="icon icon-article icon-article-col">收藏</i></a>
+                        <li><a class="js-collection-article"><i class="icon icon-article icon-article-col active">收藏</i></a>
                         </li>
                     </ul>
                 </div>
@@ -206,7 +191,7 @@
                         </div>
                     </div>
                     <!--tag-->
-                    <div class="tag-box ">
+                    <div class="tag-box " id="tag-box">
                         <ul class="transition">
                             <c:forEach items="${articleDetail.articleAttachPojo.tags}" var="tag">
                                 <li class="transition">${tag}</li>
@@ -214,17 +199,28 @@
                         </ul>
                     </div>
                     <!--公共评论-->
-                    <div class="pl-wrap" id="pl-wrap-article197460" name="pl-wrap-article">
+                    <div class="pl-wrap" id="pl-wrap-article" name="pl-wrap-article">
                         <div class="pl-form-wrap">
                             <span class="span-mark-author active">发表评论</span>
+                            <div class="pl-form-author">
+                                <div class="author-info">
+                                    <div class="author-face pl-yh-article-publish">
+                                        <img src="${path}/resource/sy-img/touxiang.jpg">
+                                    </div>
+                                    <span class="author-name pl-yh-article-publish">${sessionScope.user.userName}</span>
+                                    <a class="author-vip-icon pl-yh-article-publish" href="#"></a>
+                                </div>
+                            </div>
                             <div class="pl-form-box pl-article-wrap">
                                 <div class="no-login-box "><a class="js-login">登录</a>后参与评论</div>
-                                <textarea class="form-control hide" id="saytext197460" name="saytext"
+                                <textarea class="form-control hide" id="saytext" name="saytext"
                                           placeholder="客官，8个字起评，不讲价哟"></textarea>
                                 <!--普通文章评论发表-->
                                 <button class="btn btn-article js-login transition ">发表</button>
                             </div>
                         </div>
+
+
                         <div id="pl-wrap197460" name="pl-wrap"></div>
                         <div class="pl-list-wrap">
                             <div class="pl-loading hide"><img src="${path}/resource/images/loading.gif"></div>
@@ -439,6 +435,15 @@
             $(".dp-article-box").not($(this).next()).slideUp('fast');
             $(this).next().slideToggle(400);
         });
+       if(${sessionScope.user != null}) {
+           $(".no-login-box").addClass("hide");
+           $("#saytext").removeClass("hide");
+       }
+        if(${sessionScope.user == null}) {
+            $(".no-login-box").removeClass("hide");
+            $("#saytext").addClass("hide");
+        }
+
     });
 </script>
 </body>

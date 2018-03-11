@@ -42,7 +42,7 @@ public class SearchController {
         searchService.setServerName(serverName);
     }
 
-    @RequestMapping("/search")
+    @RequestMapping("/query")
     public String doQuery(String queryString, Model model) {
         beginService();
         FullTextSearchParams fullTextSearchParams = new FullTextSearchParams();
@@ -120,7 +120,7 @@ public class SearchController {
             model.addAttribute("Knowledges", all);
         }*/
 
-        return "search/search";
+        return "font/search";
     }
 
 }
