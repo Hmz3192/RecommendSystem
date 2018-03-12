@@ -80,7 +80,7 @@ public class StringUtil {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(inputPath), "UTF-8"));
             String temp = "";
             while ((temp = br.readLine()) != null) {
-                result += (temp + ConstantParams.CHENG_LINE);
+                result += (temp + ConstantPara.CHENG_LINE);
             }
             br.close();
 //            fr.close();

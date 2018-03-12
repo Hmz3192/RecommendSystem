@@ -3,6 +3,7 @@ package com.hmz.lucene.spi;
 import com.hmz.lucene.api.FullTextIndexParams;
 import com.hmz.lucene.api.FullTextResult;
 import com.hmz.lucene.api.FullTextSearchParams;
+import com.hmz.utils.ConstantPara;
 import com.hmz.utils.StringUtil;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.*;
@@ -29,7 +30,7 @@ public class LuceneService extends FullTextServiceImpl {
 	public static Map<String,IndexWriter> writerMap = new HashMap<String,IndexWriter>();
 	public static Map<String,IndexSearcher> searchMap = new HashMap<String,IndexSearcher>();
 	private static Analyzer analyzer = new IKAnalyzer();
-	private static String indexPath = StringUtil.getConfigParam(ConstantParams.INDEXPATH, "", ConstantParams.SEARCH_CONFIG);
+	private static String indexPath = StringUtil.getConfigParam(ConstantPara.INDEXPATH, "", ConstantPara.SEARCH_CONFIG);
 
 
 	public String getServerName() {

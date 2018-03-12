@@ -12,9 +12,9 @@ import com.hmz.service.ArticleCommentService;
 import com.hmz.service.ArticleService;
 import com.hmz.service.UserService;
 import com.hmz.utils.ConstantPara;
-import kafka.javaapi.producer.Producer;
+/*import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
-import kafka.producer.ProducerConfig;
+import kafka.producer.ProducerConfig;*/
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +44,7 @@ public class ArticleController {
     private final String topic = ConstantPara.KAFKA_TOPICS;
 
 
-    @RequestMapping("/produce/{userId}/{articleId}")
+    /*@RequestMapping("/produce/{userId}/{articleId}")
     @ResponseBody
     public String produce(@PathVariable("userId") Integer userId, @PathVariable("articleId") Integer articleId) {
         NewClickEvent[] newClickEvents = new NewClickEvent[]{
@@ -76,7 +76,7 @@ public class ArticleController {
         }
 
         return "ok";
-    }
+    }*/
 
     @RequestMapping("/toarticle/{articleId}")
     public String article(@PathVariable("articleId") Integer articleId, Model model) {
@@ -136,3 +136,54 @@ public class ArticleController {
 
 
 }
+
+
+
+/*package com.zjnu
+
+import com.alibaba.fastjson.JSON
+import com.hmz.pojo.NewClickEvent
+import com.hmz.redis.JedisUtil
+import com.hmz.utils.ConstantPara
+import kafka.serializer.StringDecoder
+import org.apache.spark.SparkConf
+import org.apache.spark.streaming._
+import org.apache.spark.streaming.kafka._
+
+object RealtimeRecommender {
+  def main(args: Array[String]) {
+
+    val Array(brokers, topics) = Array(ConstantPara.KAFKA_ADDR, ConstantPara.KAFKA_TOPICS)
+    System.setProperty("hadoop.home.dir", "E:\\software\\hadoop-common-2.2.0")
+    // Create context with 2 second batch interval
+    val sparkConf = new SparkConf().setMaster("local[2]").setAppName("RealtimeRecommender")
+    val ssc = new StreamingContext(sparkConf, Seconds(2))
+
+    // Create direct kafka stream with brokers and topics
+    val topicsSet = topics.split(",").toSet
+    val kafkaParams = Map[String, String](
+      "metadata.broker.list" -> brokers,
+      "auto.offset.reset" -> "smallest")
+    val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](
+      ssc, kafkaParams, topicsSet)
+
+    messages.map(_._2).map{ event =>
+      JSON.parseObject(event, classOf[NewClickEvent])
+    }.mapPartitions { iter =>
+      val jedis = JedisUtil.getJedis
+      iter.map { event =>
+        println("NewClickEvent" + event)
+        val userId = event.asInstanceOf[NewClickEvent].getUserId
+        val itemId = event.asInstanceOf[NewClickEvent].getItemId
+        val key = "II:" + itemId
+        val value = jedis.get(key)
+        jedis.set("RUI:" + userId, value)
+        println("Recommend to user:" + userId + ", items:" + value)
+      }
+    }.print()
+    // Start the computation
+    ssc.start()
+    ssc.awaitTermination()
+  }
+}
+*/
