@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hmz.dao.ArticleKindMapper">
+<mapper namespace="com.zjnu.dao.ArticleKindMapper">
   <!-- 缓存类配置 -->
-  <cache type="com.hmz.redis.RedisCache" />
-  <resultMap id="BaseResultMap" type="com.hmz.model.ArticleKind">
+  <cache type="com.zjnu.redis.RedisCache" />
+  <resultMap id="BaseResultMap" type="com.zjnu.model.ArticleKind">
     <constructor>
       <idArg column="kind_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="kind_name" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -72,7 +72,7 @@
   <sql id="Base_Column_List">
     kind_id, kind_name, kind_number, parent_id
   </sql>
-  <select id="selectByExample" parameterType="com.hmz.model.ArticleKindExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zjnu.model.ArticleKindExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -96,19 +96,19 @@
     delete from article_kind
     where kind_id = #{kindId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hmz.model.ArticleKindExample">
+  <delete id="deleteByExample" parameterType="com.zjnu.model.ArticleKindExample">
     delete from article_kind
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hmz.model.ArticleKind">
+  <insert id="insert" parameterType="com.zjnu.model.ArticleKind">
     insert into article_kind (kind_id, kind_name, kind_number, 
       parent_id)
     values (#{kindId,jdbcType=BIGINT}, #{kindName,jdbcType=VARCHAR}, #{kindNumber,jdbcType=INTEGER}, 
       #{parentId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.hmz.model.ArticleKind">
+  <insert id="insertSelective" parameterType="com.zjnu.model.ArticleKind">
     insert into article_kind
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="kindId != null">
@@ -139,7 +139,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hmz.model.ArticleKindExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.zjnu.model.ArticleKindExample" resultType="java.lang.Long">
     select count(*) from article_kind
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -175,7 +175,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hmz.model.ArticleKind">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjnu.model.ArticleKind">
     update article_kind
     <set>
       <if test="kindName != null">
@@ -190,7 +190,7 @@
     </set>
     where kind_id = #{kindId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hmz.model.ArticleKind">
+  <update id="updateByPrimaryKey" parameterType="com.zjnu.model.ArticleKind">
     update article_kind
     set kind_name = #{kindName,jdbcType=VARCHAR},
       kind_number = #{kindNumber,jdbcType=INTEGER},

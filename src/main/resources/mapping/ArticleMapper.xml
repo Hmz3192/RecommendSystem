@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hmz.dao.ArticleMapper">
-  <!-- 缓存类配置 -->
-  <cache type="com.hmz.redis.RedisCache" />
-  <resultMap id="BaseResultMap" type="com.hmz.model.Article">
+<mapper namespace="com.zjnu.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.zjnu.model.Article">
     <constructor>
       <idArg column="article_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="article_content" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -25,6 +23,7 @@
       <arg column="article_avatar" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="article_big" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="article_first" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="source_url" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -89,9 +88,9 @@
     article_id, article_content, article_title, kind_parent_name, kind_child_name, user_id, 
     article_summary, article_writer, article_source, article_hints, release_time, article_power, 
     check_up, article_collection, article_up, article_down, article_state, article_avatar, 
-    article_big, article_first
+    article_big, article_first, source_url
   </sql>
-  <select id="selectByExample" parameterType="com.hmz.model.ArticleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zjnu.model.ArticleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -105,48 +104,50 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByArray" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from article
+    where article_id IN
+    <foreach close=")" collection="array" index="index" item="array" open="(" separator=",">
+      #{array}
+    </foreach>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from article
     where article_id = #{articleId,jdbcType=BIGINT}
   </select>
-  <select id="selectByArray" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from article
-    where article_id IN
-    <foreach collection="array" item="array" index="index" open="(" separator="," close=")">
-      #{array}
-    </foreach>
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from article
     where article_id = #{articleId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hmz.model.ArticleExample">
+  <delete id="deleteByExample" parameterType="com.zjnu.model.ArticleExample">
     delete from article
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hmz.model.Article">
+  <insert id="insert" parameterType="com.zjnu.model.Article">
     insert into article (article_id, article_content, article_title, 
       kind_parent_name, kind_child_name, user_id, 
       article_summary, article_writer, article_source, 
       article_hints, release_time, article_power, 
       check_up, article_collection, article_up, 
       article_down, article_state, article_avatar, 
-      article_big, article_first)
+      article_big, article_first, source_url
+      )
     values (#{articleId,jdbcType=BIGINT}, #{articleContent,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, 
       #{kindParentName,jdbcType=VARCHAR}, #{kindChildName,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
       #{articleSummary,jdbcType=VARCHAR}, #{articleWriter,jdbcType=VARCHAR}, #{articleSource,jdbcType=VARCHAR}, 
       #{articleHints,jdbcType=INTEGER}, #{releaseTime,jdbcType=VARCHAR}, #{articlePower,jdbcType=VARCHAR}, 
       #{checkUp,jdbcType=INTEGER}, #{articleCollection,jdbcType=INTEGER}, #{articleUp,jdbcType=INTEGER}, 
       #{articleDown,jdbcType=INTEGER}, #{articleState,jdbcType=VARCHAR}, #{articleAvatar,jdbcType=VARCHAR}, 
-      #{articleBig,jdbcType=INTEGER}, #{articleFirst,jdbcType=INTEGER})
+      #{articleBig,jdbcType=INTEGER}, #{articleFirst,jdbcType=INTEGER}, #{sourceUrl,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.hmz.model.Article">
+  <insert id="insertSelective" parameterType="com.zjnu.model.Article">
     insert into article
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="articleId != null">
@@ -208,6 +209,9 @@
       </if>
       <if test="articleFirst != null">
         article_first,
+      </if>
+      <if test="sourceUrl != null">
+        source_url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -271,9 +275,12 @@
       <if test="articleFirst != null">
         #{articleFirst,jdbcType=INTEGER},
       </if>
+      <if test="sourceUrl != null">
+        #{sourceUrl,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hmz.model.ArticleExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.zjnu.model.ArticleExample" resultType="java.lang.Long">
     select count(*) from article
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -342,6 +349,9 @@
       <if test="record.articleFirst != null">
         article_first = #{record.articleFirst,jdbcType=INTEGER},
       </if>
+      <if test="record.sourceUrl != null">
+        source_url = #{record.sourceUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -368,12 +378,13 @@
       article_state = #{record.articleState,jdbcType=VARCHAR},
       article_avatar = #{record.articleAvatar,jdbcType=VARCHAR},
       article_big = #{record.articleBig,jdbcType=INTEGER},
-      article_first = #{record.articleFirst,jdbcType=INTEGER}
+      article_first = #{record.articleFirst,jdbcType=INTEGER},
+      source_url = #{record.sourceUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hmz.model.Article">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjnu.model.Article">
     update article
     <set>
       <if test="articleContent != null">
@@ -433,10 +444,13 @@
       <if test="articleFirst != null">
         article_first = #{articleFirst,jdbcType=INTEGER},
       </if>
+      <if test="sourceUrl != null">
+        source_url = #{sourceUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where article_id = #{articleId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hmz.model.Article">
+  <update id="updateByPrimaryKey" parameterType="com.zjnu.model.Article">
     update article
     set article_content = #{articleContent,jdbcType=VARCHAR},
       article_title = #{articleTitle,jdbcType=VARCHAR},
@@ -456,7 +470,8 @@
       article_state = #{articleState,jdbcType=VARCHAR},
       article_avatar = #{articleAvatar,jdbcType=VARCHAR},
       article_big = #{articleBig,jdbcType=INTEGER},
-      article_first = #{articleFirst,jdbcType=INTEGER}
+      article_first = #{articleFirst,jdbcType=INTEGER},
+      source_url = #{sourceUrl,jdbcType=VARCHAR}
     where article_id = #{articleId,jdbcType=BIGINT}
   </update>
 </mapper>

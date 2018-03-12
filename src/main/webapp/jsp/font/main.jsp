@@ -93,9 +93,13 @@
                     //循环数据
                     for (; i < len2; i++) {
                         var rs = result1[i],
-                            id = rs.articleId,
-                            pic = "http://localhost:8111/" + rs.articleAvatar,
-                            title = rs.articleTitle,
+                            id = rs.articleId
+//                            pic = "http://localhost:8111/" + rs.articleAvatar,
+                        if (rs.articleAvatar.length == 0 || rs.articleAvatar == "") {
+                            var pic = "http://localhost:8111/attached/cover/20180312/20180312131741_222.jpg"
+                        } else
+                            var pic = rs.articleAvatar,
+                        title = rs.articleTitle,
                             articleHints = rs.articleHints,
                             article_href = path + "/toarticle/" + id;
 
@@ -203,11 +207,16 @@
                 for (; i < len; i++) {
 
                     var rs = result[i],
-                        id = rs.articleId,
-                        pic = "http://localhost:8111/" + rs.articleAvatar,
-                        title = rs.articleTitle,
+                        id = rs.articleId;
+//                        pic = "http://localhost:8111/" + rs.articleAvatar,
+                    if (rs.articleAvatar.length == 0 || rs.articleAvatar == "") {
+                        var pic = "http://localhost:8111/attached/cover/20180312/20180312131741_222.jpg"
+                    } else
+                        var pic = rs.articleAvatar
+                    var title = rs.articleTitle,
                         summary = rs.articleSummary,
                         collection = rs.articleCollection,
+
                         up = rs.articleUp,
                         down = rs.articleDown,
                         hints = rs.articleHints,
@@ -215,18 +224,18 @@
                     if (rs.kindChildName != null) {
                         var kindChildName = rs.kindChildName
                     }
+                    var articleSource = rs.articleSource
                     var articleBig = rs.articleBig;
 //                    html+='<li data-id="'+id+'">'+title+'</li>';
                     var article_href = path + "/toarticle/" + id;
-                    if (articleBig > 0 && kindChildName != '') {
+                    if (articleBig > 0) {
                         html += '<div class="mod-b mod-art mod-b-push ">' +
                             '<a class="transition" href="' + article_href + '" target="_blank" title="' + title + '">' +
                             '<div class="mod-thumb ">' +
-                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
+                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '" >' +
                             '</div></a>' +
                             '<div class="column-link-box column-link-big-box">' +
-                            '<a href="#" class="column-link" target="_blank">' + kindParentName + ' </a> ' +
-                            '<a href="#" class="column-link" target="_blank">' + kindChildName + ' </a> ' +
+                            '<a href="#" class="column-link" target="_blank">' + articleSource + ' </a> ' +
                             '</div><div class="mob-ctt">' +
                             '<h2><a href="' + article_href + '" class="transition msubstr-row5" target="_blank">' + title + '</a></h2>' +
                             '<div class="mob-author"><div class="author-face">' +
@@ -250,69 +259,31 @@
                             '<span class="like" id="downNum">' + down + '</span></li>' +
                             '</ul>' +
                             '</div></div>' +
-
-
                             '<div class="mob-sub">' + summary + '</div>' +
                             '</div></div>'
-                    } else if (articleBig > 0 && kindChildName == '') {
-                        html += '<div class="mod-b mod-art mod-b-push ">' +
-                            '<a class="transition" href="' + article_href + '" target="_blank" title="' + title + '">' +
-                            '<div class="mod-thumb ">' +
-                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
-                            '</div></a>' +
-                            '<div class="column-link-box column-link-big-box">' +
-                            '<a href="#" class="column-link" target="_blank">' + kindParentName + ' </a> ' +
-                            '</div><div class="mob-ctt">' +
-                            '<h2><a href="' + article_href + '" class="transition msubstr-row5" target="_blank">' + title + '</a></h2>' +
-                            '<div class="mob-author"><div class="author-face">' +
-                            '<a href="#" target="_blank"><img class="lazy" src="/resource/sy-img/59_1502432173.jpg"></a>' +
-                            '</div><a href="#" target="_blank">' +
-                            '<span class="author-name">autocarweekly</span>' +
-                            '</a>' +
-                            '</div>' +
-                            '<div class="mob-author">' +
-                            '<i class="icon icon-cmt" style="margin-left: 5px" title="点击量"></i><em title="点击量">' + hints + '</em>' +
-                            '<i class="icon icon-fvr" style="margin-left: 5px" title="收藏量"></i><em title="收藏量">' + collection + '</em>' +
-                            '<div class="article-type pull-right">' +
-                            '<div class="icon-like-prompt" id="zanAdd"><i class="icon icon-like active"></i><span class="c1" id="upText">+1</span>' +
-                            '</div>' +
-                            '<div class="icon-no-like-prompt" style="margin-left: 27%;" id="zanDown"><i class="icon icon-no-like active"></i><span class="c1" id="downText">+1</span>' +
-                            '</div>' +
-                            '<ul>' +
-                            '<li class="js-icon-like"  id="like"><i class="icon icon-like" id="up"></i>' +
-                            '<span class="like" id="upNum">' + up + '</span></li>' +
-                            '<li class="js-no-icon-like"  id="noLike"><i class="icon icon-no-like " id="down" ></i>' +
-                            '<span class="like" id="downNum">' + down + '</span></li>' +
-                            '</ul>' +
-                            '</div></div>' +
-
-
-                            '<div class="mob-sub">' + summary + '</div>' +
-                            '</div></div>'
-                    }else if (articleBig == 0 && kindChildName != null) {
+                    }else {
                         html += '<div class="mod-info-flow">' +
                             '<div class="mod-b mod-art">' +
-                                /*state*/
+                            /*state*/
                             '<div class="mod-angle">' + id + '</div>' +
                             '<div class="mod-thumb "><a class="transition" title="' + title + '" href="' + article_href + '" target="_blank">' +
-                                /*pic1*/
+                            /*pic1*/
                             '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
                             '</a></div><div class="column-link-box">' +
-                                /*tag1*/
-                            '<a href="#" class="column-link" target="_blank">' + kindParentName + '</a>' +
-                            '<a href="#" class="column-link" target="_blank">' + kindChildName + ' </a> ' +
+                            /*tag1*/
+                            '<a href="#" class="column-link" target="_blank">' + articleSource + '</a>' +
                             '</div>' +
                             '<div class="mob-ctt">' +
-                                /*title*/
+                            /*title*/
                             '<h2><a href="' + article_href + '" class="transition msubstr-row2" target="_blank">' + title + '</a></h2>' +
                             '<div class="mob-author"><div class="author-face">' +
-                                /*user-avatar*/
+                            /*user-avatar*/
                             '<a href="#" target="_blank"><img src="/resource/sy-img/59_1502432173.jpg"></a></div>' +
-                                /*user-name*/
+                            /*user-name*/
                             '<a href="#" target="_blank"><span class="author-name ">量子位</span></a>' +
-                                /*comment-number*/
+                            /*comment-number*/
                             '<i class="icon icon-cmt" title="点击量"></i><em title="点击量">' + hints + '</em>' +
-                                /*collection-number*/
+                            /*collection-number*/
                             '<i class="icon icon-fvr" title="收藏量"></i><em title="收藏量">' + collection + '</em>' +
 
                             //dian zan
@@ -326,46 +297,7 @@
                             '<span class="like" id="downNum">' + down + '</span></li>' +
                             '</ul>' +
                             '</div>' +
-                                /*summary*/
-                            '</div><div class="mob-sub">' + summary + '</div>' +
-                            '</div></div></div>'
-                    } else if (articleBig == 0 && kindChildName == null) {
-                        html += '<div class="mod-info-flow">' +
-                            '<div class="mod-b mod-art">' +
-                                /*state*/
-                            '<div class="mod-angle">' + id + '</div>' +
-                            '<div class="mod-thumb "><a class="transition" title="' + title + '" href="' + article_href + '" target="_blank">' +
-                                /*pic1*/
-                            '<img class="lazy" style="max-width: 100%;max-height: 100%;" src="' + pic + '" alt="' + title + '">' +
-                            '</a></div><div class="column-link-box">' +
-                                /*tag1*/
-                            '<a href="#" class="column-link" target="_blank">' + kindParentName + '</a>' +
-                            '</div>' +
-                            '<div class="mob-ctt">' +
-                                /*title*/
-                            '<h2><a href="' + article_href + '" class="transition msubstr-row2" target="_blank">' + title + '</a></h2>' +
-                            '<div class="mob-author"><div class="author-face">' +
-                                /*user-avatar*/
-                            '<a href="#" target="_blank"><img src="/resource/sy-img/59_1502432173.jpg"></a></div>' +
-                                /*user-name*/
-                            '<a href="#" target="_blank"><span class="author-name ">量子位</span></a>' +
-                                /*comment-number*/
-                            '<i class="icon icon-cmt" title="点击量"></i><em title="点击量">' + hints + '</em>' +
-                                /*collection-number*/
-                            '<i class="icon icon-fvr" title="收藏量"></i><em title="收藏量">' + collection + '</em>' +
-
-                            //dian zan
-                            '<div class="article-type pull-right">' +
-                            '<div class="icon-like-prompt" id="zanAdd" ><i class="icon icon-like active"></i><span class="c1" id="upText" >+1</span></div>' +
-                            '<div class="icon-no-like-prompt" style="margin-left: 14%" id="zanDown"><i class="icon icon-no-like active"></i><span class="c1" id="downText" >+1</span></div>' +
-                            '<ul>' +
-                            '<li class="js-icon-like"  id="like"><i class="icon icon-like" id="up"></i>' +
-                            '<span class="like" id="upNum">' + up + '</span></li>' +
-                            '<li class="js-no-icon-like"  id="noLike"><i class="icon icon-no-like " id="down" ></i>' +
-                            '<span class="like" id="downNum">' + down + '</span></li>' +
-                            '</ul>' +
-                            '</div>' +
-                                /*summary*/
+                            /*summary*/
                             '</div><div class="mob-sub">' + summary + '</div>' +
                             '</div></div></div>'
                     }

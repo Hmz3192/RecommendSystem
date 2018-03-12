@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hmz.dao.ArticleRatingMapper">
+<mapper namespace="com.zjnu.dao.ArticleRatingMapper">
   <!-- 缓存类配置 -->
-  <cache type="com.hmz.redis.RedisCache" />
-  <resultMap id="BaseResultMap" type="com.hmz.model.ArticleRating">
+  <cache type="com.zjnu.redis.RedisCache" />
+  <resultMap id="BaseResultMap" type="com.zjnu.model.ArticleRating">
     <constructor>
       <arg column="user_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="article_id" javaType="java.lang.Long" jdbcType="BIGINT" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List">
     user_id, article_id, rating
   </sql>
-  <select id="selectByExample" parameterType="com.hmz.model.ArticleRatingExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zjnu.model.ArticleRatingExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -85,19 +85,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.hmz.model.ArticleRatingExample">
+  <delete id="deleteByExample" parameterType="com.zjnu.model.ArticleRatingExample">
     delete from article_rating
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hmz.model.ArticleRating">
+  <insert id="insert" parameterType="com.zjnu.model.ArticleRating">
     insert into article_rating (user_id, article_id, rating
       )
     values (#{userId,jdbcType=BIGINT}, #{articleId,jdbcType=BIGINT}, #{rating,jdbcType=REAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hmz.model.ArticleRating">
+  <insert id="insertSelective" parameterType="com.zjnu.model.ArticleRating">
     insert into article_rating
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -122,7 +122,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hmz.model.ArticleRatingExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.zjnu.model.ArticleRatingExample" resultType="java.lang.Long">
     select count(*) from article_rating
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

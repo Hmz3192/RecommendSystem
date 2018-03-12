@@ -67,7 +67,7 @@
            3. 配置 Realm
            3.1 直接配置实现了 org.apache.shiro.realm.Realm 接口的 bean
        -->
-    <bean id="ShiroRealm" class="com.hmz.shiro.ShiroRealm">
+    <bean id="ShiroRealm" class="com.zjnu.shiro.ShiroRealm">
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
                 <property name="hashAlgorithmName" value="MD5"/>
@@ -132,5 +132,5 @@
           factory-bean="filterChainDefinitionMapBuilder" factory-method="buildFilterChainDefinitionMap"/>
 
     <bean id="filterChainDefinitionMapBuilder"
-          class="com.hmz.shiro.FilterChainDefinitionMapBuilder"/>
+          class="com.zjnu.shiro.FilterChainDefinitionMapBuilder"/>
 </beans>

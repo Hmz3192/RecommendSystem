@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hmz.dao.ArticleAttachMapper">
+<mapper namespace="com.zjnu.dao.ArticleAttachMapper">
   <!-- 缓存类配置 -->
-  <cache type="com.hmz.redis.RedisCache" />
-  <resultMap id="BaseResultMap" type="com.hmz.model.ArticleAttach">
+  <!--<cache type="com.hmz.redis.RedisCache" />-->
+  <resultMap id="BaseResultMap" type="com.zjnu.model.ArticleAttach">
     <constructor>
       <arg column="article_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="tags" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List">
     article_id, tags, tag_number, pics, pic_number
   </sql>
-  <select id="selectByExample" parameterType="com.hmz.model.ArticleAttachExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zjnu.model.ArticleAttachExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -87,19 +87,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.hmz.model.ArticleAttachExample">
+  <delete id="deleteByExample" parameterType="com.zjnu.model.ArticleAttachExample">
     delete from article_attach
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hmz.model.ArticleAttach">
+  <insert id="insert" parameterType="com.zjnu.model.ArticleAttach">
     insert into article_attach (article_id, tags, tag_number, 
       pics, pic_number)
     values (#{articleId,jdbcType=BIGINT}, #{tags,jdbcType=VARCHAR}, #{tagNumber,jdbcType=INTEGER}, 
       #{pics,jdbcType=VARCHAR}, #{picNumber,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.hmz.model.ArticleAttach">
+  <insert id="insertSelective" parameterType="com.zjnu.model.ArticleAttach">
     insert into article_attach
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="articleId != null">
@@ -136,7 +136,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hmz.model.ArticleAttachExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.zjnu.model.ArticleAttachExample" resultType="java.lang.Long">
     select count(*) from article_attach
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

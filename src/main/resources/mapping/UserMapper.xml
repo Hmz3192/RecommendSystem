@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hmz.dao.UserMapper">
+<mapper namespace="com.zjnu.dao.UserMapper">
   <!-- 缓存类配置 -->
-  <cache type="com.hmz.redis.RedisCache" />
-  <resultMap id="BaseResultMap" type="com.hmz.model.User">
+  <cache type="com.zjnu.redis.RedisCache" />
+  <resultMap id="BaseResultMap" type="com.zjnu.model.User">
     <constructor>
       <idArg column="user_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -81,7 +81,7 @@
     user_id, user_name, password, email, work, age, sex, location, avatar, phone, vip, 
     introduction
   </sql>
-  <select id="selectByExample" parameterType="com.hmz.model.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zjnu.model.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -105,13 +105,13 @@
     delete from user
     where user_id = #{userId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hmz.model.UserExample">
+  <delete id="deleteByExample" parameterType="com.zjnu.model.UserExample">
     delete from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hmz.model.User">
+  <insert id="insert" parameterType="com.zjnu.model.User">
     insert into user (user_id, user_name, password, 
       email, work, age, sex, 
       location, avatar, phone, 
@@ -121,7 +121,7 @@
       #{location,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{vip,jdbcType=INTEGER}, #{introduction,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hmz.model.User">
+  <insert id="insertSelective" parameterType="com.zjnu.model.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -200,7 +200,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hmz.model.UserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.zjnu.model.UserExample" resultType="java.lang.Long">
     select count(*) from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -268,7 +268,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hmz.model.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjnu.model.User">
     update user
     <set>
       <if test="userName != null">
@@ -307,7 +307,7 @@
     </set>
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hmz.model.User">
+  <update id="updateByPrimaryKey" parameterType="com.zjnu.model.User">
     update user
     set user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

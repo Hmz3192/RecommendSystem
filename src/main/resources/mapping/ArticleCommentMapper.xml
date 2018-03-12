@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hmz.dao.ArticleCommentMapper">
+<mapper namespace="com.zjnu.dao.ArticleCommentMapper">
   <!-- 缓存类配置 -->
-  <cache type="com.hmz.redis.RedisCache" />
-  <resultMap id="BaseResultMap" type="com.hmz.model.ArticleComment">
+  <cache type="com.zjnu.redis.RedisCache" />
+  <resultMap id="BaseResultMap" type="com.zjnu.model.ArticleComment">
     <constructor>
       <idArg column="comment_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="article_id" javaType="java.lang.Long" jdbcType="BIGINT" />
@@ -77,7 +77,7 @@
     comment_id, article_id, user_name, comment_body, comment_time, comment_up, comment_down, 
     replay_comment_id
   </sql>
-  <select id="selectByExample" parameterType="com.hmz.model.ArticleCommentExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zjnu.model.ArticleCommentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -101,13 +101,13 @@
     delete from article_comment
     where comment_id = #{commentId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hmz.model.ArticleCommentExample">
+  <delete id="deleteByExample" parameterType="com.zjnu.model.ArticleCommentExample">
     delete from article_comment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hmz.model.ArticleComment">
+  <insert id="insert" parameterType="com.zjnu.model.ArticleComment">
     insert into article_comment (comment_id, article_id, user_name, 
       comment_body, comment_time, comment_up, 
       comment_down, replay_comment_id)
@@ -115,7 +115,7 @@
       #{commentBody,jdbcType=VARCHAR}, #{commentTime,jdbcType=VARCHAR}, #{commentUp,jdbcType=INTEGER}, 
       #{commentDown,jdbcType=INTEGER}, #{replayCommentId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.hmz.model.ArticleComment">
+  <insert id="insertSelective" parameterType="com.zjnu.model.ArticleComment">
     insert into article_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="commentId != null">
@@ -170,7 +170,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hmz.model.ArticleCommentExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.zjnu.model.ArticleCommentExample" resultType="java.lang.Long">
     select count(*) from article_comment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -222,7 +222,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hmz.model.ArticleComment">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjnu.model.ArticleComment">
     update article_comment
     <set>
       <if test="articleId != null">
@@ -249,7 +249,7 @@
     </set>
     where comment_id = #{commentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hmz.model.ArticleComment">
+  <update id="updateByPrimaryKey" parameterType="com.zjnu.model.ArticleComment">
     update article_comment
     set article_id = #{articleId,jdbcType=BIGINT},
       user_name = #{userName,jdbcType=VARCHAR},

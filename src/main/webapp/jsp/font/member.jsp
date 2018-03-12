@@ -22,9 +22,12 @@
     <script type="text/javascript" src="${path}/resource/slide/script.js"></script>
 
     <script type="text/javascript" src="${path}/resource/js/jquery.js"></script>
+    <script src="${path}/resource/js/bootstrap.min.js"></script>
+
     <!--<script language="javascript" type="text/javascript" src="${path}/resource/js/main.js"></script>-->
     <!--<script language="javascript" type="text/javascript" src="${path}/resource/js/popwin.js"></script>-->
     <style type="text/css">
+
         #tagbox {
             position: relative;
             margin: 20px auto 0px;
@@ -90,7 +93,7 @@
             </div>
             <div class="user-one"></div>
             <div class="user-one user-auth">认证作者<i class="i-icon icon-auth3" title="虎嗅认证作者"></i></div>
-            <a href="javascript:" class="btn btn-messages js-login">编辑资料</a>
+            <a href="#myModal-1" data-toggle="modal" class="btn btn-messages js-login">编辑资料</a>
             <div class="admin-btn-warp"></div>
         </div>
         <div class="user-info-box">
@@ -187,8 +190,8 @@
         </div>
         <div class="user-content-warp" style="display:none" id=myTabs1_Content1>
             <ul class='nav-box' id=myTabs2>
-                <li class="active" onMouseDown=Tabs2(this,0);><a href="#">评论（115）</a></li>
-                <li class="" onMouseDown=Tabs2(this,1)><a href="#">点评（540）</a></li>
+                <li class="active" onMouseDown=Tabs2(this,0);><a href="#">评论（1）</a></li>
+                <li class="" onMouseDown=Tabs2(this,1)><a href="#">点评（1）</a></li>
             </ul>
             <div class="message-box" id=myTabs2_Content0>
                 <ul>
@@ -311,6 +314,73 @@
         </div>-->
     </div>
 </div>
+<!--修改个人信息-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-1" class="modal fade">
+    <div class="modal-dialog" style="width: 40%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">修改个人信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="name" class="col-lg-2 control-label"
+                               style="position: relative!important;">用户名：</label>
+                        <div class="col-lg-10">
+                            <input type="email" class="form-control" id="name" placeholder="1-1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sex" class="col-lg-2 control-label"
+                               style="position: relative!important;">性别：</label>
+                        <div class="col-lg-10" id="sex">
+                            <input id="male" type="radio"  name="gender" value="男">
+                            <label for="male">男</label>
+                            <input id="female" type="radio"  checked ="true" name="gender" value="女">
+                            <label for="female">女</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-lg-2 control-label"
+                               style="position: relative!important;">联系方式</label>
+                        <div class="col-lg-10">
+                            <input type="password" class="form-control" id="phone" placeholder="15558680172">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="location" class="col-lg-2 control-label"
+                               style="position: relative!important;">地址</label>
+                        <div class="col-lg-10">
+                            <input type="password" class="form-control" id="location" placeholder="湖北省武汉市江岸区">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="prepassword" class="col-lg-2 control-label"
+                               style="position: relative!important;">新密码</label>
+                        <div class="col-lg-10">
+                            <input type="password" class="form-control" id="prepassword" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="againPassword" class="col-lg-2 control-label"
+                               style="position: relative!important;">重复密码</label>
+                        <div class="col-lg-10">
+                            <input type="password" class="form-control" id="againPassword" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" class="btn btn-info">确定</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 <%@include file="footer.jsp" %>
 <script type="text/javascript">
     $(function () {
@@ -377,7 +447,8 @@
                     for (; i < len; i++) {
                         var rs = result[i],
                             id = rs.articleId,
-                            pic = "http://localhost:8111/" + rs.articleAvatar,
+                            //                        pic = "http://localhost:8111/" + rs.articleAvatar,
+                            pic = rs.articleAvatar,
                             title = rs.articleTitle,
                             releaseTime = rs.releaseTime,
                             summary = rs.articleSummary,

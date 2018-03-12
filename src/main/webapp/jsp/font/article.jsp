@@ -22,11 +22,36 @@
 
     <script type="text/javascript">
         $(function () {
+            var start;
+            var end;
+            var times = 0;
+            start = new Date();//用户进入时间
+            var userId = ""
+            if(${sessionScope.user != null}) {
+                userId = ""+${sessionScope.user.userId};
+            }
+            $(window).bind('beforeunload', function (e) {
+                end = new Date(); //用户退出时间
+                times = end.getTime() - start.getTime();
+                times = Math.ceil(times / 1000); //取的是秒并且化整
+                $.ajax({
+                    type: 'POST',
+                    async: false, //同步提交
+                    url: '${path}/loadTime',
+                    data: {
+                        times: times,
+                        userId: userId
+                    }
+                });
+            });
+
+
             var article_content_id = $("#contentArticle");
             window.onload = function () {
                 //加载数据
                 loadContent();
             };
+
             function loadContent() {
                 if (${state > 0}) {
                     $("#zanNumber").val(${articleDetail.article.articleUp});
@@ -38,8 +63,8 @@
                         articleCollection = '${articleDetail.article.articleCollection}',
                         kindParentName = '${articleDetail.article.kindParentName}',
                         kindChildName = '${articleDetail.article.kindChildName}',
-                        articleAvatar = "http://localhost:8111/" + '${articleDetail.article.articleAvatar}',
-
+                        // articleAvatar = "http://localhost:8111/" + '${articleDetail.article.articleAvatar}',
+                        articleAvatar = '${articleDetail.article.articleAvatar}',
                         articleAttachPojo = '${articleDetail.articleAttachPojo}',
                         articleComments = '${articleDetail.articleComments}';
 
@@ -99,9 +124,12 @@
                     </div>
                     <div class="author-next-article">
                         <div class="author-one c2">最近文章</div>
-                        <a href="http://localhost:8111/toarticle/2048" target="_blank" style="display: block">Great Mouse Detective, The (1986)</a>
-                        <a href="http://localhost:8111/toarticle/2049" target="_blank" style="display: block">Happiest Millionaire, The (1967)</a>
-                        <a href="http://localhost:8111/toarticle/2050" target="_blank" style="display: block">Herbie Goes Bananas (1980)</a>
+                        <a href="http://localhost:8111/toarticle/2048" target="_blank" style="display: block">Great
+                            Mouse Detective, The (1986)</a>
+                        <a href="http://localhost:8111/toarticle/2049" target="_blank" style="display: block">Happiest
+                            Millionaire, The (1967)</a>
+                        <a href="http://localhost:8111/toarticle/2050" target="_blank" style="display: block">Herbie
+                            Goes Bananas (1980)</a>
 
                     </div>
                 </div>
@@ -171,7 +199,8 @@
                 <!--文章内容页-->
                 <div class="article-left-btn-group is-sticky" id="article-left-btn-group197460">
                     <ul>
-                        <li><a class="js-article-pl-anchor" href="#tag-box"><i class="icon icon-article icon-article-pl">评论</i></a></li>
+                        <li><a class="js-article-pl-anchor" href="#tag-box"><i
+                                class="icon icon-article icon-article-pl">评论</i></a></li>
                         <!--普通文章收藏-->
                         <li><a class="js-collection-article"><i class="icon icon-article icon-article-col active">收藏</i></a>
                         </li>
@@ -187,7 +216,8 @@
                                 <i class="icon icon-article-zan-add"></i>
                                 <span id="result">+1</span>
                             </div>
-                            <i class="icon icon-article-zan"></i><span class="num" id="num">${articleDetail.article.articleUp}</span>
+                            <i class="icon icon-article-zan"></i><span class="num"
+                                                                       id="num">${articleDetail.article.articleUp}</span>
                         </div>
                     </div>
                     <!--tag-->
@@ -435,11 +465,11 @@
             $(".dp-article-box").not($(this).next()).slideUp('fast');
             $(this).next().slideToggle(400);
         });
-       if(${sessionScope.user != null}) {
-           $(".no-login-box").addClass("hide");
-           $("#saytext").removeClass("hide");
-       }
-        if(${sessionScope.user == null}) {
+        if (${sessionScope.user != null}) {
+            $(".no-login-box").addClass("hide");
+            $("#saytext").removeClass("hide");
+        }
+        if (${sessionScope.user == null}) {
             $(".no-login-box").removeClass("hide");
             $("#saytext").addClass("hide");
         }
