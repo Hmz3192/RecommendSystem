@@ -1,18 +1,20 @@
 package com.zjnu.controller.font;
 
+import com.alibaba.fastjson.JSON;
 import com.zjnu.model.Article;
 import com.zjnu.model.ArticleComment;
 import com.zjnu.model.User;
 import com.zjnu.pojo.ArticleAttachPojo;
 import com.zjnu.pojo.ArticleDetail;
+import com.zjnu.pojo.NewClickEvent;
 import com.zjnu.service.ArticleAttachService;
 import com.zjnu.service.ArticleCommentService;
 import com.zjnu.service.ArticleService;
 import com.zjnu.service.UserService;
 import com.zjnu.utils.ConstantPara;
-/*import kafka.javaapi.producer.Producer;
+import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
-import kafka.producer.ProducerConfig;*/
+import kafka.producer.ProducerConfig;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * @Author Hu mingzhi
@@ -41,7 +44,7 @@ public class ArticleController {
     private final String topic = ConstantPara.KAFKA_TOPICS;
 
 
-    /*@RequestMapping("/produce/{userId}/{articleId}")
+    @RequestMapping("/produce/{userId}/{articleId}")
     @ResponseBody
     public String produce(@PathVariable("userId") Integer userId, @PathVariable("articleId") Integer articleId) {
         NewClickEvent[] newClickEvents = new NewClickEvent[]{
@@ -73,7 +76,7 @@ public class ArticleController {
         }
 
         return "ok";
-    }*/
+    }
 
     @ResponseBody
     @RequestMapping("/loadTime")
