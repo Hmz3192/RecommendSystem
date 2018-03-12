@@ -39,7 +39,7 @@
         <fastjson.version>1.2.14</fastjson.version>
         <spark.version>1.6.2</spark.version>
         <kafka.version>0.8.1.1</kafka.version>
-        <scala.version>2.10.1</scala.version>
+        <scala.version>2.10.4</scala.version>
 
     </properties>
 
