@@ -24,7 +24,8 @@ public class ItemRec {
     public static Long[] itemRec(Set<Long> itemIds, List<ArticleRating> articleRating) throws Exception{
         Long[] recitems = new Long[30];
 
-        File resultFile = new File("E:\\WorkSpace\\IdeaWorkSpace\\RecommendSystem\\src\\main\\resources\\itemRec.dat");
+//        File resultFile = new File("E:\\WorkSpace\\IdeaWorkSpace\\RecommendSystem\\src\\main\\resources\\itemRec.dat");
+        File resultFile = new File(System.getProperty("java.io.tmpdir"), "itemRec.dat");
 
         long[] itemsLong = new long[itemIds.size()];
         Iterator<Long> it = itemIds.iterator();

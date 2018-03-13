@@ -75,8 +75,10 @@ public class FileUtil {
     }
 
 
+    //无偏好推荐的文件
     public static File write2DatBoolean(List<ArticleRating> articleRating) throws IOException {
-        File originalFile = new File("E:\\WorkSpace\\IdeaWorkSpace\\RecommendSystem\\src\\main\\resources\\rating2.base");
+        File originalFile = new File(new File(System.getProperty("java.io.tmpdir")), "boolean.base");
+//        File originalFile = new File("E:\\WorkSpace\\IdeaWorkSpace\\RecommendSystem\\src\\main\\resources\\rating2.base");
         if (originalFile.exists()) {
             originalFile.delete();
         }

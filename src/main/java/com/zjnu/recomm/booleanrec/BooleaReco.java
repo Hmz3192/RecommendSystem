@@ -20,11 +20,14 @@ import java.util.Map;
 
 public class BooleaReco {
 
+    //基于用户的无偏好推荐
     public static RecommendedItems recBoolean(long userID, int size) throws Exception {
-        String originalFile = "E:\\WorkSpace\\IdeaWorkSpace\\RecommendSystem\\src\\main\\resources\\rating2.base";
+//        String originalFile = "E:\\WorkSpace\\IdeaWorkSpace\\RecommendSystem\\src\\main\\resources\\boolean.base";
+        File originalFile = new File(System.getProperty("java.io.tmpdir"), "boolean.base");
+
         DataModel model = new GenericBooleanPrefDataModel(
                 GenericBooleanPrefDataModel
-                        .toDataMap(new FileDataModel(new File(originalFile))));
+                        .toDataMap(new FileDataModel(originalFile)));
         UserSimilarity similarity = new CityBlockSimilarity(model);
         UserNeighborhood neighborhood = new NearestNUserNeighborhood(100, similarity, model);
 //        Recommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);

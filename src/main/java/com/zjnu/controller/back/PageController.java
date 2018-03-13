@@ -367,7 +367,8 @@ public class PageController {
     @ResponseBody
     @RequestMapping("/insertRating")
     public String insertRating() throws Exception{
-        String path = "E:\\WorkSpace\\IdeaWorkSpace\\RecommendSystem\\src\\main\\resources\\rating2.base";
+//        E:\WorkSpace\IdeaWorkSpace\RecommendSystem\src\main\resources\rating2.base
+        String path = "#";
         File file = new File(path);
         if (file.exists() || !file.isDirectory()) {
             BufferedReader br = new BufferedReader(new FileReader(file));

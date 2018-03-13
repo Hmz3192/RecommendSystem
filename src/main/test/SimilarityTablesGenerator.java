@@ -1,6 +1,8 @@
 
-package com.zjnu.recomm.offline;
 
+import com.zjnu.recomm.offline.GroupLensDataModel;
+import com.zjnu.recomm.offline.ItemsSimilarityRedisWriter;
+import com.zjnu.recomm.offline.UserItemSimilarityRedisWriter;
 import org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.LogLikelihoodSimilarity;
 import org.apache.mahout.cf.taste.impl.similarity.precompute.MultithreadedBatchItemSimilarities;
