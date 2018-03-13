@@ -47,15 +47,14 @@
     </bean>
 
     <!-- 拦截器配置 -->
-<!--
     <mvc:interceptors>
-        &lt;!&ndash; 配置Token拦截器，防止用户重复提交数据 &ndash;&gt;
+        <!-- 配置Token拦截器，防止用户重复提交数据 -->
         <mvc:interceptor>
-            <mvc:mapping path="/login" />&lt;!&ndash;这个地方时你要拦截得路径 我是拦截所有得URL &ndash;&gt;
-            <bean class="com.hmz.interceptor.AvoidDuplicateSubmissionInterceptor" />&lt;!&ndash;class文件路径为拦截器路径！！ &ndash;&gt;
+            <mvc:mapping path="/f" /><!--这个地方时你要拦截得路径 我是拦截所有得URL -->
+            <mvc:mapping path="/login" />
+            <bean class="com.zjnu.interceptor.AvoidDuplicateSubmissionInterceptor" /><!--class文件路径为拦截器路径！！ -->
         </mvc:interceptor>
     </mvc:interceptors>
--->
 
 
     <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->

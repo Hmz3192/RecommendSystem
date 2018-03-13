@@ -2,6 +2,7 @@ package com.zjnu.controller.font;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zjnu.interceptor.Token;
 import com.zjnu.model.Article;
 import com.zjnu.model.ArticleRating;
 import com.zjnu.model.User;
@@ -18,6 +19,7 @@ import com.zjnu.service.RatingService;
 import com.zjnu.service.UserService;
 import com.zjnu.utils.FileUtil;
 import com.zjnu.utils.IDUtils;
+import com.zjnu.utils.StringUtil;
 import org.apache.log4j.Logger;
 import org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.LogLikelihoodSimilarity;
@@ -30,6 +32,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -57,9 +60,8 @@ public class UserController {
     private ArticleService articleService;
 
     @RequestMapping("/f")
-//    @Token(save=true)
+    @Token(save=true)
     public String toPage() {
-        userService.selectAll();
         return "font/main";
     }
     @RequestMapping("/toactive")
@@ -117,7 +119,7 @@ public class UserController {
     }
 
 
-    //    @Token(remove = true)
+    @Token(remove = true)
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(User user, Model model, HttpSession session) {
 
@@ -137,7 +139,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/exit")
-    public String logout(HttpSession session,Model model) throws IOException {
+    @Token(save=true)
+    public String logout(HttpSession session,Model model) throws Exception {
         final List<ArticleRating> articleRating = ratingService.getArticleRating();
         File file = FileUtil.write2Dat(articleRating);
         DataModel datamodel = new GroupLensDataModel(file);
@@ -150,7 +153,7 @@ public class UserController {
 
             BatchItemSimilarities batch = new MultithreadedBatchItemSimilarities(recommender, 30);
 
-            int numSimilarities = batch.computeItemSimilarities(Runtime.getRuntime().availableProcessors(), 1,
+            int numSimilarities = batch.computeItemSimilarities(4, 1,
                     new ItemsSimilarityRedisWriter());
 
             System.out.println("Computed " + numSimilarities + " similarities for " + datamodel.getNumItems() + " items "

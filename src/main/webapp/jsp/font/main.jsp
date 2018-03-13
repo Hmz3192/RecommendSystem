@@ -22,7 +22,32 @@
 
     <link rel="stylesheet" type="text/css" href="${path}/resource/css/nanoscroller.css">
     <script type="text/javascript" src="${path}/resource/js/jquery.js"></script>
-
+    <style type="text/css">
+        .myButton {
+            background-color:transparent;
+            -moz-border-radius:4px;
+            -webkit-border-radius:4px;
+            border-radius:4px;
+            border:1px solid #555;
+            display:inline-block;
+            cursor:pointer;
+            color: #ff6060;
+            background-color:#fff;
+            font-family:Arial;
+            font-weight:bold;
+            text-decoration:none;
+            align-items:center;
+        }
+        .myButton:hover {
+            background-color:#FF5722;;
+            color: #fff;
+            border:1px solid #fff;
+        }
+        .myButton:active {
+            position:relative;
+            top:1px;
+        }
+    </style>
     <script type="text/javascript">
         $(function () {
             //请求数据接口
@@ -40,10 +65,6 @@
             //没有更多数据
             var nomore_Text = '没有更多数据';
             var userId = "";
-            <c:if test="${sessionScope.user != null}">
-            userId = ${sessionScope.user.userId}
-                loadRecoData();
-            </c:if>
 
             /*
              页面加载完毕执行一次查询
@@ -55,6 +76,11 @@
                 //游客，得出最点击量高和赞高的
                 loadData();
                 </c:if>
+                <c:if test="${sessionScope.user != null}">
+                userId = ${sessionScope.user.userId}
+                    loadRecoData();
+                </c:if>
+
 
             };
 
@@ -203,11 +229,13 @@
                 currentPage++;
                 var html = '', result = data.amounts, len = result.length, i = 0;
                 var path = '${path}';
-                //循环数据
                 for (; i < len; i++) {
+
+                    //循环数据
 
                     var rs = result[i],
                         id = rs.articleId;
+
 //                        pic = "http://localhost:8111/" + rs.articleAvatar,
                     if (rs.articleAvatar.length == 0 || rs.articleAvatar == "") {
                         var pic = "http://localhost:8111/attached/cover/20180312/20180312131741_222.jpg"
@@ -259,7 +287,7 @@
                             '<span class="like" id="downNum">' + down + '</span></li>' +
                             '</ul>' +
                             '</div></div>' +
-                            '<div class="mob-sub">' + summary + '</div>' +
+                            '<div class="mob-sub" style="word-wrap:break-word;word-break:break-all;">' + summary + '</div>' +
                             '</div></div>'
                     }else {
                         html += '<div class="mod-info-flow">' +
@@ -298,7 +326,7 @@
                             '</ul>' +
                             '</div>' +
                             /*summary*/
-                            '</div><div class="mob-sub">' + summary + '</div>' +
+                            '</div><div class="mob-sub" style="word-wrap:break-word;word-break:break-all;">' + summary + '</div>' +
                             '</div></div></div>'
                     }
                     if (i == 5) {
@@ -328,6 +356,31 @@
                     loadingBtn.html(nomore_Text);
                 }
             }
+
+            $(document).on("click", "#change", function () {
+                var curPage = 1,rows=10;
+                //发送ajax
+                $.ajax({
+                    //url
+                    url: "${path}/changeReco",
+                    //请求方式
+                    type: 'POST',
+                    //参数
+                    data: {currentPage: curPage, rows: rows},
+                    //成功回调
+                    success: function (data) {
+                        if (data.total == 0) {
+                            alert("无推荐")
+                        } else
+                            setData2Html(data);
+                    },
+                    //失败回调
+                    error: function (e, e2, e3) {
+                        //
+                        Console('请求失败，原因：' + e3);
+                    }
+                });
+            });
 
             /*
              判断是否要加载接口
@@ -385,7 +438,7 @@
 <div class="placeholder-height"></div>
 <div class="container" id="index">
     <div class="wrap-left pull-left">
-
+        <div style="width: 100%;height: 5%"><button style="float: right" class="myButton" id="change">换一批</button></div>
         <!--动态加载 -->
         <div class="mod-info-flow" style="width: 100%;">
             <ul id="list"></ul>

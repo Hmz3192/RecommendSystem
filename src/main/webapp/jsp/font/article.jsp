@@ -26,10 +26,7 @@
             var end;
             var times = 0;
             start = new Date();//用户进入时间
-            var userId = ""
-            if(${sessionScope.user != null}) {
-                userId = ""+${sessionScope.user.userId};
-            }
+            var articleId = ${requestScope.articleDetail.article.articleId}
             $(window).bind('beforeunload', function (e) {
                 end = new Date(); //用户退出时间
                 times = end.getTime() - start.getTime();
@@ -40,7 +37,9 @@
                     url: '${path}/loadTime',
                     data: {
                         times: times,
-                        userId: userId
+                        articleId: articleId
+
+
                     }
                 });
             });
@@ -82,7 +81,6 @@
                         '<div class="neirong-shouquan-public"><span><b>未来面前，你我还都是孩子，还不去下载 <a href="#" target="_blank">App </a>猛嗅创新！</b></span></div></div>'
                     article_content_id.append(html);
                 } else {
-                    alert("出错啦")
                     window.location.href = "../../"
                 }
 

@@ -1,20 +1,19 @@
 package com.zjnu.controller.font;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zjnu.model.Article;
 import com.zjnu.model.ArticleComment;
+import com.zjnu.model.ArticleRating;
 import com.zjnu.model.User;
-import com.zjnu.pojo.ArticleAttachPojo;
-import com.zjnu.pojo.ArticleDetail;
-import com.zjnu.pojo.NewClickEvent;
-import com.zjnu.service.ArticleAttachService;
-import com.zjnu.service.ArticleCommentService;
-import com.zjnu.service.ArticleService;
-import com.zjnu.service.UserService;
-import com.zjnu.utils.ConstantPara;
-import kafka.javaapi.producer.Producer;
-import kafka.producer.KeyedMessage;
-import kafka.producer.ProducerConfig;
+import com.zjnu.pojo.*;
+import com.zjnu.recomm.booleanrec.BooleaReco;
+import com.zjnu.recomm.common.ItemSimilarity;
+import com.zjnu.recomm.youkeRec.ItemRec;
+import com.zjnu.redis.JedisUtil;
+import com.zjnu.service.*;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Properties;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Author Hu mingzhi
@@ -41,55 +41,127 @@ public class ArticleController {
     private ArticleCommentService articleCommentService;
     @Resource
     private ArticleAttachService articleAttachService;
-    private final String topic = ConstantPara.KAFKA_TOPICS;
+    @Resource
+    private ArticleRatingService articleRatingService;
+    @Resource
+    private RatingService ratingService;
 
-
-    @RequestMapping("/produce/{userId}/{articleId}")
+    //换一批
     @ResponseBody
-    public String produce(@PathVariable("userId") Integer userId, @PathVariable("articleId") Integer articleId) {
-        NewClickEvent[] newClickEvents = new NewClickEvent[]{
-                new NewClickEvent(userId, articleId),
-        };
-        Properties props = new Properties();
-        props.put("metadata.broker.list", ConstantPara.KAFKA_ADDR);
-        props.put("serializer.class", "kafka.serializer.StringEncoder");
-        props.put("producer.type", "async");
-        ProducerConfig conf = new ProducerConfig(props);
-        Producer<Integer, String> producer = null;
-        try {
-            System.out.println("Producing messages");
-            producer = new Producer<>(conf);
-            for (NewClickEvent event : newClickEvents) {
-                String eventAsStr = JSON.toJSONString(event);
-                producer.send(new KeyedMessage<Integer, String>(
-                        this.topic, eventAsStr));
-                System.out.println("Sending messages:" + eventAsStr);
-
+    @RequestMapping("/changeReco")
+    public PageResult changeReco(HttpSession session, int currentPage, int rows) throws Exception {
+        PageResult pageResult;
+        RecommendedItems recommendedItems = new RecommendedItems();
+        User user = (User) session.getAttribute("user");
+        if (null == user || null == user.getUserName()) {
+            log.info("无Session");
+            //游客
+            String pre_str = "youke:";
+            Set<String> set = JedisUtil.getJedis().keys(pre_str +"*");
+            Iterator<String> it = set.iterator();
+            System.out.println("-");
+            List<NewClickEvent> newClickEvents = new ArrayList<>();
+            Set<Long> mostItemIds = new HashSet<>();
+            while(it.hasNext()){
+                String keyStr = it.next();
+                String value = JedisUtil.getJedis().get(keyStr);
+                mostItemIds.add(Long.valueOf(value));
             }
-            System.out.println("Done sending messages");
-        } catch (Exception ex) {
-            log.fatal("Error while producing messages", ex);
-            log.trace(null, ex);
-            System.err.println("Error while producing messages：" + ex);
-        } finally {
-            if (producer != null) producer.close();
+            //基于物品的推荐
+            List<ArticleRating> articleRating = ratingService.getArticleRating();
+            if (mostItemIds.size() > 5) {
+                Set<Long> longs = mostItemIds;
+                ItemRec.itemRec(longs, articleRating);
+            }
+            else
+                ItemRec.itemRec(mostItemIds, articleRating);
+
+
+        } else {
+            //已经推荐好的物品id
+            String key = String.format("RUI:%s", user.getUserId() + "");
+            String value = JedisUtil.getJedis().get(key);
+            if (value == null || value.length() <= 0) {
+                return new PageResult();
+            }
+
+            List<ItemSimilarity> userItems = JSON.parseArray(value, ItemSimilarity.class);
+            Long[] items = new Long[userItems.size()];
+            int i = 0;
+            for (ItemSimilarity item : userItems) {
+                items[i] = item.getId();
+                i++;
+            }
+            List<Article> articles = new ArrayList<>();
+            RecommendedItems recommendedItems1 = new RecommendedItems();
+            Long[] ff;
+            if (items.length < 30) {
+                //无偏好推荐
+                int a = 30 - items.length;
+                recommendedItems1 = BooleaReco.recBoolean(user.getUserId(), a);
+                Long[] item2 = recommendedItems1.getItems();
+                ff = (Long[]) ArrayUtils.addAll(items, item2);
+                PageHelper.startPage(currentPage, rows);
+                articles = articleService.selectByArray(ff);
+            }else{
+                PageHelper.startPage(currentPage, rows);
+                articles = articleService.selectByArray(items);
+            }
+            PageInfo<Article> info = new PageInfo<Article>(articles);
+            long total;
+            if (info.getTotal() % rows == 0) {
+                total = info.getTotal() / rows;
+            } else
+                total = info.getTotal() / rows + 1;
+            pageResult = new PageResult(total, articles, currentPage);
+            return pageResult;
         }
+        return new PageResult();
 
-        return "ok";
     }
-
+    //评分
     @ResponseBody
     @RequestMapping("/loadTime")
-    public void loadTime(Integer userId,String times) {
-        if (userId.equals("") || userId == null) {
+    public void loadTime(HttpSession session, String times, Integer articleId) {
+        User  user = (User) session.getAttribute("user");
+        if (null == user || null == user.getUserName()) {
             log.info("无Session");
+        } else {
+            ArticleRating articleRating = new ArticleRating();
+            articleRating.setArticleId(Long.valueOf(articleId));
+            articleRating.setUserId(user.getUserId());
+            log.info(user.getUserId() + "|||" + times + "|||" + articleId);
+            Integer time = Integer.valueOf(times);
+            if (time > 0 && time < 3) {
+                articleRating.setRating(Float.valueOf(1));
+            } else if (time >= 3 && time <= 6) {
+                articleRating.setRating(Float.valueOf(2));
+            } else if (time >= 7 && time <= 15) {
+                articleRating.setRating(Float.valueOf(3));
+            } else if (time >= 16 && time <= 20) {
+                articleRating.setRating(Float.valueOf(4));
+            } else {
+                articleRating.setRating(Float.valueOf(5));
+            }
+            articleRatingService.insertOneorUpdate(articleRating);
         }
-        else
-            log.info(userId + "|||" + times);
     }
+    //查看文章
     @RequestMapping("/toarticle/{articleId}")
-    public String article(@PathVariable("articleId") Integer articleId, Model model) {
-
+    public String article(@PathVariable("articleId") Integer articleId, HttpSession session, Model model) throws Exception{
+        User user = (User) session.getAttribute("user");
+        if (null == user || null == user.getUserName()) {
+            Date day = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("MMddHHmmss");
+            System.out.println(df.format(day));
+            JedisUtil.getJedis().set("user:" + user.getUserId() + df.format(day), "" + articleId);
+        } else {
+            //游客查看
+            Date day = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("MMddHHmmss");
+            System.out.println(df.format(day));
+            JedisUtil.getJedis().set("youke:" + df.format(day), "" + articleId);
+        }
         ArticleDetail articleDetail = new ArticleDetail();
         try {
             //文章详细
@@ -146,54 +218,3 @@ public class ArticleController {
 
 
 }
-
-
-
-/*package com.zjnu
-
-import com.alibaba.fastjson.JSON
-import com.hmz.pojo.NewClickEvent
-import com.hmz.redis.JedisUtil
-import com.hmz.utils.ConstantPara
-import kafka.serializer.StringDecoder
-import org.apache.spark.SparkConf
-import org.apache.spark.streaming._
-import org.apache.spark.streaming.kafka._
-
-object RealtimeRecommender {
-  def main(args: Array[String]) {
-
-    val Array(brokers, topics) = Array(ConstantPara.KAFKA_ADDR, ConstantPara.KAFKA_TOPICS)
-    System.setProperty("hadoop.home.dir", "E:\\software\\hadoop-common-2.2.0")
-    // Create context with 2 second batch interval
-    val sparkConf = new SparkConf().setMaster("local[2]").setAppName("RealtimeRecommender")
-    val ssc = new StreamingContext(sparkConf, Seconds(2))
-
-    // Create direct kafka stream with brokers and topics
-    val topicsSet = topics.split(",").toSet
-    val kafkaParams = Map[String, String](
-      "metadata.broker.list" -> brokers,
-      "auto.offset.reset" -> "smallest")
-    val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](
-      ssc, kafkaParams, topicsSet)
-
-    messages.map(_._2).map{ event =>
-      JSON.parseObject(event, classOf[NewClickEvent])
-    }.mapPartitions { iter =>
-      val jedis = JedisUtil.getJedis
-      iter.map { event =>
-        println("NewClickEvent" + event)
-        val userId = event.asInstanceOf[NewClickEvent].getUserId
-        val itemId = event.asInstanceOf[NewClickEvent].getItemId
-        val key = "II:" + itemId
-        val value = jedis.get(key)
-        jedis.set("RUI:" + userId, value)
-        println("Recommend to user:" + userId + ", items:" + value)
-      }
-    }.print()
-    // Start the computation
-    ssc.start()
-    ssc.awaitTermination()
-  }
-}
-*/

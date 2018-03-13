@@ -34,6 +34,7 @@ public final class SimilarityTablesGenerator {
 
     ItemBasedRecommender recommender = new GenericItemBasedRecommender(dataModel,
         new LogLikelihoodSimilarity(dataModel));
+
     BatchItemSimilarities batch = new MultithreadedBatchItemSimilarities(recommender, 100);
 
     int numSimilarities = batch.computeItemSimilarities(Runtime.getRuntime().availableProcessors(), 1,

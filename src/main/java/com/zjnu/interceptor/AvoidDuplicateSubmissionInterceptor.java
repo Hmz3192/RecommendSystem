@@ -33,7 +33,7 @@ public class AvoidDuplicateSubmissionInterceptor extends HandlerInterceptorAdapt
                 if (needRemoveSession) {
                     if (isRepeatSubmit(request)) {
                         //重复提交
-                        request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
+//                        request.getRequestDispatcher("/login").forward(request, response);
                         return false;
                     }
                     request.getSession(true).removeAttribute("Token");

@@ -125,7 +125,7 @@
                     var rs = result1[i],
                         kindName = rs.kindName;
 
-                    html += '<li><a href="#" target="_blank">'+kindName+'</a></li>';
+                    html += '<li><a href="' + "${path}/f" + '" target="_blank">'+kindName+'</a></li>';
                 }
 
                 $("#kindList").append(html)
@@ -141,7 +141,7 @@
         </div>
         <ul class="nav navbar-nav navbar-left" id="jsddm">
             <li class="nav-news js-show-menu">
-                <a href="#">资讯 <span class="caret"></span></a>
+                <a href="${path}/f">资讯 <span class="caret"></span></a>
                 <ul id="kindList">
                 </ul>
             </li>
@@ -225,7 +225,7 @@
                         <div class="login-form username-box " style="margin-top:52px;">
                             <!--  <a class="js-open-sms-login sms-text">短信快捷登录</a>-->
                             <form action="${path}/login" method="post">
-                                <!--<input type="hidden" name="Token" value="${Token}" />-->
+                                <input type="hidden" name="Token" value="${Token}" />
                                 <label class="login-label transition">
                                     <input id="login_username" name="userName" class="login-input"
                                            placeholder="手机号／邮箱／虎嗅账号">

@@ -1,6 +1,12 @@
+import com.zjnu.model.User;
 import com.zjnu.utils.ThreadPoolUtils;
+import org.apache.shiro.web.servlet.ShiroHttpSession;
 import org.junit.Test;
 
+import javax.jms.Session;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +19,29 @@ public class test1 {
     private static final String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // 定义style的正则表达式
     private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
     private static final String regEx_space = "\\s*|\t|\r|\n";//定义空格回车换行符
+    @Test
+    public void test4() {
+        Date day=new Date();
+
+        SimpleDateFormat df = new SimpleDateFormat("MMddHHmmss");
+
+        System.out.println(df.format(day));
+    }
+    @Test
+    public void test6() {
+        User user = new User();
+        if (user == null || user.getUserName() == "") {
+            System.out.println("user == null");
+        }
+
+
+    }
+    @Test
+    public void test5() {
+        String a = "11 332  5   891901769";
+        a=a.replaceAll("\\s+"," ");
+        System.out.println(a);
+    }
     /**
      * @param htmlStr
      * @return
