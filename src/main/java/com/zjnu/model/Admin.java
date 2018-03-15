@@ -7,6 +7,8 @@ public class Admin implements Serializable{
 
     private String adminName;
 
+    private String password;
+
     private String registerTime;
 
     private String phone;
@@ -15,9 +17,10 @@ public class Admin implements Serializable{
 
     private String roleName;
 
-    public Admin(Integer adminId, String adminName, String registerTime, String phone, Integer roleId, String roleName) {
+    public Admin(Integer adminId, String adminName, String password, String registerTime, String phone, Integer roleId, String roleName) {
         this.adminId = adminId;
         this.adminName = adminName;
+        this.password = password;
         this.registerTime = registerTime;
         this.phone = phone;
         this.roleId = roleId;
@@ -42,6 +45,14 @@ public class Admin implements Serializable{
 
     public void setAdminName(String adminName) {
         this.adminName = adminName == null ? null : adminName.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getRegisterTime() {

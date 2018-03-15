@@ -6,6 +6,7 @@
     <constructor>
       <idArg column="admin_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="admin_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="register_time" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="role_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    admin_id, admin_name, register_time, phone, role_id, role_name
+    admin_id, admin_name, password, register_time, phone, role_id, role_name
   </sql>
   <select id="selectByExample" parameterType="com.zjnu.model.AdminExample" resultMap="BaseResultMap">
     select
@@ -104,12 +105,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zjnu.model.Admin">
-    insert into admin (admin_id, admin_name, register_time, 
-      phone, role_id, role_name
-      )
-    values (#{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{registerTime,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}
-      )
+    insert into admin (admin_id, admin_name, password, 
+      register_time, phone, role_id, 
+      role_name)
+    values (#{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{registerTime,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, 
+      #{roleName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zjnu.model.Admin">
     insert into admin
@@ -119,6 +120,9 @@
       </if>
       <if test="adminName != null">
         admin_name,
+      </if>
+      <if test="password != null">
+        password,
       </if>
       <if test="registerTime != null">
         register_time,
@@ -139,6 +143,9 @@
       </if>
       <if test="adminName != null">
         #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="registerTime != null">
         #{registerTime,jdbcType=VARCHAR},
@@ -169,6 +176,9 @@
       <if test="record.adminName != null">
         admin_name = #{record.adminName,jdbcType=VARCHAR},
       </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
       <if test="record.registerTime != null">
         register_time = #{record.registerTime,jdbcType=VARCHAR},
       </if>
@@ -190,6 +200,7 @@
     update admin
     set admin_id = #{record.adminId,jdbcType=INTEGER},
       admin_name = #{record.adminName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
       register_time = #{record.registerTime,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       role_id = #{record.roleId,jdbcType=INTEGER},
@@ -203,6 +214,9 @@
     <set>
       <if test="adminName != null">
         admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="registerTime != null">
         register_time = #{registerTime,jdbcType=VARCHAR},
@@ -222,6 +236,7 @@
   <update id="updateByPrimaryKey" parameterType="com.zjnu.model.Admin">
     update admin
     set admin_name = #{adminName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       register_time = #{registerTime,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       role_id = #{roleId,jdbcType=INTEGER},
