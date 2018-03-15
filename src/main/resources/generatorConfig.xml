@@ -37,7 +37,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <table tableName="article"/>
+        <table tableName="%"/>
         <!--<table tableName="%" ></table>-->
         <!--<table tableName="watchRel" domainObjectName="WatchRel" ></table>-->
         <!--<table tableName="goods" domainObjectName="Goods" ></table>-->

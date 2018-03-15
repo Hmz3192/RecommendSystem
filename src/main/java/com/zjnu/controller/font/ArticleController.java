@@ -218,3 +218,20 @@ public class ArticleController {
 
 
 }
+
+/*
+*     List<Article> selectByArray(Long[] array);
+*
+  <!--<cache type="com.hmz.redis.RedisCache" />-->
+
+  <select id="selectByArray" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from article
+    where article_id IN
+    <foreach close=")" collection="array" index="index" item="array" open="(" separator=",">
+      #{array}
+    </foreach>
+  </select>
+
+* */

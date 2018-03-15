@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zjnu.dao.ArticleKindMapper">
+<mapper namespace="com.zjnu.dao.RoleMapper">
   <cache type="com.zjnu.redis.RedisCache" />
 
-  <resultMap id="BaseResultMap" type="com.zjnu.model.ArticleKind">
+  <resultMap id="BaseResultMap" type="com.zjnu.model.Role">
     <constructor>
-      <idArg column="kind_id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="kind_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="kind_number" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="parent_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="role_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="role_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="role_intro" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,15 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    kind_id, kind_name, kind_number, parent_id
+    role_id, role_name, role_intro
   </sql>
-  <select id="selectByExample" parameterType="com.zjnu.model.ArticleKindExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zjnu.model.RoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from article_kind
+    from role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,79 +85,70 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from article_kind
-    where kind_id = #{kindId,jdbcType=BIGINT}
+    from role
+    where role_id = #{roleId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from article_kind
-    where kind_id = #{kindId,jdbcType=BIGINT}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from role
+    where role_id = #{roleId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zjnu.model.ArticleKindExample">
-    delete from article_kind
+  <delete id="deleteByExample" parameterType="com.zjnu.model.RoleExample">
+    delete from role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zjnu.model.ArticleKind">
-    insert into article_kind (kind_id, kind_name, kind_number, 
-      parent_id)
-    values (#{kindId,jdbcType=BIGINT}, #{kindName,jdbcType=VARCHAR}, #{kindNumber,jdbcType=INTEGER}, 
-      #{parentId,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.zjnu.model.Role">
+    insert into role (role_id, role_name, role_intro
+      )
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleIntro,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.zjnu.model.ArticleKind">
-    insert into article_kind
+  <insert id="insertSelective" parameterType="com.zjnu.model.Role">
+    insert into role
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="kindId != null">
-        kind_id,
+      <if test="roleId != null">
+        role_id,
       </if>
-      <if test="kindName != null">
-        kind_name,
+      <if test="roleName != null">
+        role_name,
       </if>
-      <if test="kindNumber != null">
-        kind_number,
-      </if>
-      <if test="parentId != null">
-        parent_id,
+      <if test="roleIntro != null">
+        role_intro,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="kindId != null">
-        #{kindId,jdbcType=BIGINT},
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="kindName != null">
-        #{kindName,jdbcType=VARCHAR},
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="kindNumber != null">
-        #{kindNumber,jdbcType=INTEGER},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=INTEGER},
+      <if test="roleIntro != null">
+        #{roleIntro,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zjnu.model.ArticleKindExample" resultType="java.lang.Long">
-    select count(*) from article_kind
+  <select id="countByExample" parameterType="com.zjnu.model.RoleExample" resultType="java.lang.Long">
+    select count(*) from role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update article_kind
+    update role
     <set>
-      <if test="record.kindId != null">
-        kind_id = #{record.kindId,jdbcType=BIGINT},
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=INTEGER},
       </if>
-      <if test="record.kindName != null">
-        kind_name = #{record.kindName,jdbcType=VARCHAR},
+      <if test="record.roleName != null">
+        role_name = #{record.roleName,jdbcType=VARCHAR},
       </if>
-      <if test="record.kindNumber != null">
-        kind_number = #{record.kindNumber,jdbcType=INTEGER},
-      </if>
-      <if test="record.parentId != null">
-        parent_id = #{record.parentId,jdbcType=INTEGER},
+      <if test="record.roleIntro != null">
+        role_intro = #{record.roleIntro,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -166,35 +156,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update article_kind
-    set kind_id = #{record.kindId,jdbcType=BIGINT},
-      kind_name = #{record.kindName,jdbcType=VARCHAR},
-      kind_number = #{record.kindNumber,jdbcType=INTEGER},
-      parent_id = #{record.parentId,jdbcType=INTEGER}
+    update role
+    set role_id = #{record.roleId,jdbcType=INTEGER},
+      role_name = #{record.roleName,jdbcType=VARCHAR},
+      role_intro = #{record.roleIntro,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zjnu.model.ArticleKind">
-    update article_kind
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjnu.model.Role">
+    update role
     <set>
-      <if test="kindName != null">
-        kind_name = #{kindName,jdbcType=VARCHAR},
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="kindNumber != null">
-        kind_number = #{kindNumber,jdbcType=INTEGER},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=INTEGER},
+      <if test="roleIntro != null">
+        role_intro = #{roleIntro,jdbcType=VARCHAR},
       </if>
     </set>
-    where kind_id = #{kindId,jdbcType=BIGINT}
+    where role_id = #{roleId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zjnu.model.ArticleKind">
-    update article_kind
-    set kind_name = #{kindName,jdbcType=VARCHAR},
-      kind_number = #{kindNumber,jdbcType=INTEGER},
-      parent_id = #{parentId,jdbcType=INTEGER}
-    where kind_id = #{kindId,jdbcType=BIGINT}
+  <update id="updateByPrimaryKey" parameterType="com.zjnu.model.Role">
+    update role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_intro = #{roleIntro,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=INTEGER}
   </update>
 </mapper>

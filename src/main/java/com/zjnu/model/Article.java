@@ -2,7 +2,7 @@ package com.zjnu.model;
 
 import java.io.Serializable;
 
-public class Article implements Serializable{
+public class Article implements Serializable {
     private Long articleId;
 
     private String articleContent;
